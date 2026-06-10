@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+/* Mobile */
+@media screen and (max-width: 480px) {
+  #cafeRegister{
+        flex-direction: column;
+    }
+
+}
+
+/* Tablet */
+@media screen and (max-width: 768px) {
+    #cafeRegister{
+        flex-direction: column;
+    }
+  
+}
