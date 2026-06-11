@@ -1,6 +1,6 @@
 require("dotenv").config({ path: require('path').resolve(__dirname, '../.env') });
 const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const { CloudinaryStorage } = require('multer-storage-cloudinary-v2');
 const multer = require('multer');
 
 cloudinary.config({

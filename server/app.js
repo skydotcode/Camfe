@@ -29,6 +29,7 @@ const {foodItemsSchema} = require("./schema.js");
 const { valid } = require('joi');
 const orders = require('./models/orders.js');
 // const orders = require('./models/orders.js');
+const dbUrl = process.env.MONGOLINK ;
 
 // Temporarily use no field restriction to catch all fields
 const debugUpload = multer({ storage: multer.memoryStorage() });
@@ -37,7 +38,7 @@ const debugUpload = multer({ storage: multer.memoryStorage() });
 app.use(cors());
 app.use(express.json());
 
-const MONGO_URL= 'mongodb://127.0.0.1:27017/campus-eats';
+const MONGO_URL= dbUrl;
 
 main().then(()=>{
   console.log("connected to DB");
