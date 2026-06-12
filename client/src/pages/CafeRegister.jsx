@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Add from "/Users/sachin/React Firebase- Chat App/src/images/img.png"
 import logo from "../images/LogoIcon.jpeg"
 import burgerImg from "../images/burger.jpg"
 const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
