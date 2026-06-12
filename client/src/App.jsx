@@ -11,7 +11,7 @@ import { useEffect } from 'react'
 import EditFood from './pages/cafeOwner/EditFood'
 import { NotFound } from './pages/NotFound'
 import { ToastContainer } from 'react-toastify';
-import { CafeRegister } from './pages/cafeRegister'
+import { CafeRegister } from './pages/CafeRegister'
 import Cart from './pages/Cart'
 import ScrollToTop from './components/ScrollToTop'
 import Checkout from './pages/Checkout'
