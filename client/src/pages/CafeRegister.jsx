@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import  Add  from '../images/img.png';
 import logo from "../images/LogoIcon.jpeg"
 import burgerImg from "../images/burger.jpg"
 const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
@@ -144,16 +145,25 @@ export const CafeRegister = () => {
                 onChange={handleChange} type='number'
                 className='px-4  py-2 mb-2 focus:outline-none focus:ring-2 focus:ring-[#fe6a36]'></input>
                 {error.phone && <p className='text-red-500 text-xs'>{error.phone}</p>}
+                
+                <p>Upload Image of your Cafe</p>
+                <label htmlFor="image" name='image' className='m-2 cursor-pointer flex items-center'>   
+                    <img src={Add} className='h-8 mr-2' name='file'></img> 
+                    <input type="file" onChange={handleImageChange}
+                     name='image' id="image-input" accept="image/*" className='cursor-pointer' required/>
+                </label>
+                {preview && <img src={preview} alt="preview" width="100" />}
+                {error.image && <p style={{ color: 'red' }}>{error.image}</p>}
 
-                <label htmlFor="image" name='image' className='m-2 cursor-pointer flex flex-col md:flex-row items-start md:items-center gap-2'>
-                    <p>Enter Image of your Cafe</p>
-                    <img src={Add} className='h-8 mr-2' name='image'></img> 
+                {/* <label htmlFor="image" name='image' className='m-2 cursor-pointer flex flex-col md:flex-row items-start md:items-center gap-2'>
+                    <p>Upload Image of your Cafe</p>
+                    <img src={Add} name="image" className='h-8 mr-2' name='image'></img> 
                     <input type="file" onChange={handleImageChange}
                     name='image' id="image-input" accept="image/*"
                     className='cursor-pointer mb-2'/>
                     {preview && <img src={preview} alt="preview" width="100" />}
                     {error.image && <p style={{ color: 'red' }}>{error.image}</p>}
-                </label>
+                </label> */}
 
 
                 <button type='submit' className='bg-[#fe6a36] text-white py-3 px-4 cursor-pointer'>Add</button>
