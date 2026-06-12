@@ -1,5 +1,5 @@
-import React, { useState,useEffect } from 'react'
-import Add from "/Users/sachin/React Firebase- Chat App/src/images/img.png"
+import React, { useState,useEffect } from 'react';
+import  Add  from '../images/img.png';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
