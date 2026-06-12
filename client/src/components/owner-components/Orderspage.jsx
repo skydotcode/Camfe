@@ -1,7 +1,8 @@
 import React from 'react'
 // import { MenuManagement } from '../../components/owner-components/MenuManagement'
 import { OrderStatus } from '../../components/owner-components/OrderStatus'
-import axios from 'axios'
+import axios from 'axios';
+import api from '../config/axios.js'
 
 export const Orderspage = ({orders }) => {
     

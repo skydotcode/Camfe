@@ -7,6 +7,8 @@ import axios from 'axios';
 import { useCart } from '#src/context/CartContext.jsx';
 import { OrderSummary } from '#src/components/OrderSummary.jsx';
 import { Back } from '#src/components/Back.jsx';
+import api from '../config/axios.js'
+
 
 
 export const Cafehome = () => {

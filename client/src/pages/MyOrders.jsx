@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { NotFound } from './NotFound';
 import { useAuth } from '#src/context/AuthContext.jsx';
+import api from '../config/axios.js'
 
 const steps = [
     { icon: <i class="fa-regular fa-clock"></i>, label: "Accepted by Cafe", status: "completed" },

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Cafecard } from './Cafecard'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import api from '../config/axios.js'
 
 export const Cafes = () => {
   const navigate = useNavigate();

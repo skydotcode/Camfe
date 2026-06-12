@@ -1,6 +1,7 @@
 import { useCart } from '#src/context/CartContext.jsx';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import api from '../config/axios.js'
 
 export const OrderSummary = ({onclick}) => {
     const { cart, removeFromCart, increaseQuantity, decreaseQuantity, totalPrice, clearCart } = useCart();

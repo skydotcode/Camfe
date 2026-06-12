@@ -7,6 +7,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import { Back } from '#src/components/Back.jsx';
+import api from '../config/axios.js'
 
 export const Login = () => {
     const navigate = useNavigate();

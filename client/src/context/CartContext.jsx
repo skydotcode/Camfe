@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect } from 'react';
+import api from '../config/axios.js'
 
 const CartContext = createContext();
 

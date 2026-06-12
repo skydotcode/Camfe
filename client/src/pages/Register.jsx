@@ -7,6 +7,7 @@ import axios from 'axios';
 import { useAuth } from '@/context/AuthContext';
 import { Back } from '#src/components/Back.jsx';
 import { Button } from '@mui/material';
+import api from '../config/axios.js'
 
 const roles = [
   { id: 1, name: 'Student' },

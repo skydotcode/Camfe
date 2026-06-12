@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import api from '../config/axios.js'
 
 export const Categories = () => {
   return (

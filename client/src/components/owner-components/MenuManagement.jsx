@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Foodcard } from '../Foodcard'
+import { Foodcard } from '../Foodcard';
+import api from '../config/axios.js'
 
 
 

@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import { useAuth } from '#src/context/AuthContext.jsx';
 import { CartFooter } from '#src/components/CartFooter.jsx';
+import api from '../config/axios.js'
 
 const locations = [
   { id: 1, name: 'Block 4' },

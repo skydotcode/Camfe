@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { toast } from 'react-toastify';
 // import foodItems from '../../../server/models/foodItems';
+import api from '../config/axios.js'
 
 export const Foodcard = ({ image, name, price, rating, deliveryTime, className ,text1,text2 , onClick,id
     , item

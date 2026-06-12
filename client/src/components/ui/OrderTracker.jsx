@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Clock, Utensils, Bike, MapPin } from "lucide-react";
+import api from '../config/axios.js'
 
 const STEPS = [
   { key: "placed",      label: "Accepted by Cafe", icon: Clock },

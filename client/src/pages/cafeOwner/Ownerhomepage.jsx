@@ -9,6 +9,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { Select } from '#src/components/ui/Select.jsx'
 import { NotFound } from '../NotFound'
+import api from '../config/axios.js'
+
 
 export const Ownerhomepage = () => {
      const { user ,cafe, isLoggedIn, logout ,loading} = useAuth();

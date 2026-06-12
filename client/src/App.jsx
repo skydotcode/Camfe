@@ -15,6 +15,7 @@ import Cart from './pages/Cart'
 import ScrollToTop from './components/ScrollToTop'
 import Checkout from './pages/Checkout'
 import { MyOrders } from './pages/MyOrders'
+import api from './config/axios.js'
 
 // import './App.css'
 

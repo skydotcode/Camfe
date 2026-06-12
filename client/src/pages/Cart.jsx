@@ -3,6 +3,7 @@ import { OrderSummary } from '#src/components/OrderSummary.jsx';
 import { useAuth } from '#src/context/AuthContext.jsx';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
+import api from '../config/axios.js'
 
 
 const Cart = () => {

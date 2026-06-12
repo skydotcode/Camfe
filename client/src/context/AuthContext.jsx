@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { createContext, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
+import api from '../config/axios.js'
 
 // context lets you share auth state across all components
 // without passing props down manually

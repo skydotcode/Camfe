@@ -7,7 +7,7 @@ import axios from 'axios';
 import {Navbar} from "../components/Navbar"
 import { useAuth } from '#src/context/AuthContext.jsx';
 import { Footer } from '#src/components/Footer.jsx';
-
+import api from '../config/axios.js'
 
 export const CafeRegister = () => {
     const {login , user , isLoggedIn , cafe} = useAuth();

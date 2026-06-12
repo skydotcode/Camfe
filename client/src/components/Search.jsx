@@ -2,6 +2,7 @@ import { useAuth } from '@/context/AuthContext';
 import React, { useEffect, useRef } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 import Typed from 'typed.js';
+import api from '../config/axios.js'
 
 export const Search = () => {
   const { user, isLoggedIn, logout ,loading} = useAuth();

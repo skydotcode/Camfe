@@ -1,7 +1,8 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
 import { Foodcard } from './Foodcard'
-// import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom';
+import api from '../config/axios.js'
 
 export const Fooditems = () => {
   

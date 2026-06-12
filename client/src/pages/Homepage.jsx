@@ -4,6 +4,7 @@ import { Search } from '../components/Search';
 import { Categories } from '../components/Categories';
 import { Cafes } from '../components/Cafes';
 import { Footer } from '../components/Footer';
+import api from '../config/axios.js'
 
 
 
