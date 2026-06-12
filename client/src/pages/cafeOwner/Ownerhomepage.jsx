@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Navbar } from '../../components/Navbar'
+import { Navbar } from '../../components/Navbar.jsx'
 import { MenuManagement } from '../../components/owner-components/MenuManagement'
 import { Orderspage } from '../../components/owner-components/Orderspage'
 import { OrderStatus } from '../../components/owner-components/OrderStatus'
