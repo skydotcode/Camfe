@@ -1,15 +1,9 @@
 import React, { useState } from 'react'
 import  Add  from '../images/img.png';
-import logo from "../images/LogoIcon.jpeg"
-import burgerImg from "../images/burger.jpg"
 const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from 'axios';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
 import {Navbar} from "../components/Navbar"
 import { useAuth } from '#src/context/AuthContext.jsx';
 import { Footer } from '#src/components/Footer.jsx';

@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Cafecard } from './Cafecard'
-import cafe1 from "../images/cafe1.jpg"
-import cafe2 from "../images/cafe2.jpg"
-import cafe3 from "../images/cafe3.jpg"
 import { useNavigate } from 'react-router-dom'
 
 export const Cafes = () => {

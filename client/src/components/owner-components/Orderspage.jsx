@@ -1,9 +1,10 @@
 import React from 'react'
-import { MenuManagement } from '../../components/owner-components/MenuManagement'
+// import { MenuManagement } from '../../components/owner-components/MenuManagement'
 import { OrderStatus } from '../../components/owner-components/OrderStatus'
 import axios from 'axios'
 
 export const Orderspage = ({orders }) => {
+    
     // console.log(orders);
     // const [order, setOrder] = useState([]);
   return (

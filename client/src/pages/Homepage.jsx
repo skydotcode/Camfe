@@ -1,10 +1,9 @@
 import React from 'react'
-import { Navbar } from '../components/Navbar'
-import { Search } from '../components/Search'
-import { Categories } from '../components/Categories'
-import { Cafes } from '../components/Cafes'
-import { Fooditems } from '../components/Fooditems'
-import { Footer } from '../components/Footer'
+import { Navbar } from '../components/Navbar';
+import { Search } from '../components/Search';
+import { Categories } from '../components/Categories';
+import { Cafes } from '../components/Cafes';
+import { Footer } from '../components/Footer';
 
 
 

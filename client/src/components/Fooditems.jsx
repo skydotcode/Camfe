@@ -1,12 +1,7 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import burgerImg from "../images/burger.jpg"
-import dosa from "../images/dosa.jpg"
-import pizza from "../images/pizza.jpg"
-import fries from "../images/fries.jpeg"
-import pasta from "../images/pasta.jpg"
 import { Foodcard } from './Foodcard'
-import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from 'react-router-dom'
 
 export const Fooditems = () => {
   

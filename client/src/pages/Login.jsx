@@ -117,15 +117,15 @@ export const Login = () => {
                 <p className='text-gray-500 text-sm whitespace-nowrap'>Or continue with email</p>
                 <hr className='flex-1 border-gray-300' />
             </div> */}
-                  <Button
-        size="lg"
-        variant="outlined"
-        color="blue-gray"
-        className="flex items-center gap-3"
-      >
-        <img src="https://docs.material-tailwind.com/icons/google.svg" alt="metamask" className="h-6 w-6" />
-        Continue with Google
-      </Button>
+            <Button
+                size="lg"
+                variant="outlined"
+                color="blue-gray"
+                className="flex items-center gap-3"
+            >
+                <img src="https://docs.material-tailwind.com/icons/google.svg" alt="metamask" className="h-6 w-6" />
+                Continue with Google
+            </Button>
             <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
                 <label htmlFor="email">University Email</label>
                 <input placeholder='your.email@nsut.ac.in' name="email" type='text'

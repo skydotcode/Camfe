@@ -1,11 +1,7 @@
 import React,{ useEffect, useState }  from 'react'
-import cover1 from "../images/cover1.jpg";
 import { Foodcard } from '../components/Foodcard';
-import { Fooditems } from '../components/Fooditems';
 import { Search } from '../components/Search';
 import { Footer } from '../components/Footer';
-import { Orderspage } from '../components/owner-components/Orderspage';
-import { MenuManagement } from '../components/owner-components/MenuManagement';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useCart } from '#src/context/CartContext.jsx';
