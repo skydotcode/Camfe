@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Add from "/Users/sachin/React Firebase- Chat App/src/images/img.png"
+import Add from "../../images/img.png";
 const adminId = import.meta.env.VITE_ADMIN_ID;
 const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
 const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;

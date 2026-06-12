@@ -1,6 +1,6 @@
 import { Login } from './pages/Login'
 import { Register } from './pages/Register'
-import { Navbar } from './components/Navbar'
+// import { Navbar } from './components/Navbar'
 import { Homepage } from './pages/Homepage'
 import { Cafehome } from './pages/ShowCafe'
 import { Ownerhomepage } from './pages/cafeOwner/Ownerhomepage'
