@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Navbar } from '../../components/navbar'
+import { Navbar } from '../../components/Navbar'
 import { MenuManagement } from '../../components/owner-components/MenuManagement'
 import { Orderspage } from '../../components/owner-components/Orderspage'
 import { OrderStatus } from '../../components/owner-components/OrderStatus'
@@ -85,8 +85,6 @@ useEffect(() => {
     <div >{isLoggedIn && user?.role == "Cafe Owner" ? (
         <div className='min-h-screen'>
         <Navbar/>
-
-        
         <div className='bg-[#faf8f3] px-4 lg:pr-24 lg:pl-24  min-h-screen' id='Ownerhomepage'>
             <div className=' pt-4 pb-2'>
                 <h1 className='flex font-bold text-xl  pb-4 '>Dashboard -  <Select roles={cafe} onChangeFxn={handleCafeChange}/> </h1>
