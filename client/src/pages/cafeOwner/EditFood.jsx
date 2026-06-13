@@ -11,7 +11,7 @@ const EditFood = () => {
   // useParams reads the id from the URL
   // For example: /edit-food/64f1a2b3c4d5e6f7a8b9c0d1
   // params.id = "64f1a2b3c4d5e6f7a8b9c0d1"
-  const { id } = useParams();
+  const { id , isLoggedIn } = useParams();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -23,6 +23,12 @@ const EditFood = () => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null); // shows existing image
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+      if (!isLoggedIn) {
+          navigate("/login");
+      }
+  }, [isLoggedIn , navigate]);
 
   // fetch existing data to pre-fill the form
   useEffect(() => {

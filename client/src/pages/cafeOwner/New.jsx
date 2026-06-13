@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Add from "../../images/img.png";
 const adminId = import.meta.env.VITE_ADMIN_ID;
 const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
@@ -14,7 +14,7 @@ import api from '../../config/axios.js'
 
 export const New = () => {
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { id , isLoggedIn } = useParams();
 
     const [image , setImage] = useState(null);
     const [preview , setPreview] = useState(null);
@@ -25,6 +25,12 @@ export const New = () => {
         price : "" ,
         image : "" ,
     });
+
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate("/login");
+        }
+    }, [isLoggedIn , navigate]);
 
     const handleChange =(e)=>{
         setFormData({ ...formData , [e.target.name]:e.target.value})
@@ -82,18 +88,17 @@ export const New = () => {
             success: '✅ Food item added!',
             error: {
                 render({ data }) {
-                    // shows actual error from backend
                     return data?.response?.data?.errors?.[0] 
                         || data?.response?.data?.error 
                         || 'Something went wrong?';
                 }
             }
         });
-        navigate(`/cafe/${res?.data?.data?._id}`); 
-        
+        navigate(`/cafe/${res?.data?.data?._id}`);  
     }
   return (
     <div className='flex flex-col  overflow-y-scroll flex-col min-h-screen'>
+
     <Navbar/>
     <div className='flex content-center items-center w-full  flex-grow  flex flex-col gap-4 
                 justify-center 
@@ -123,20 +128,11 @@ export const New = () => {
                 {preview && <img src={preview} alt="preview" width="100" />}
                 {error.image && <p style={{ color: 'red' }}>{error.image}</p>}
             </label>
-
-
-            {/* <label for="password">Password</label>
-            <input placeholder='Enter a Strong Password'  name="password" type='password' 
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className='px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#fe6a36]'></input>
-            {error.password && <p className='text-red-500 text-xs'>{error.password}</p>} */}
-
             <button className='bg-[#fe6a36] text-white py-3 px-4 cursor-pointer'>Submit</button>
             <button onClick={() => navigate(-1 , { replace: true })}>go back</button>
         </form>
     </div>
     <Footer/>
-    </div>
+    </div> 
   )
 }

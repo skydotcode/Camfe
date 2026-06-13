@@ -13,8 +13,8 @@ import api from '../../config/axios.js'
 
 
 export const Ownerhomepage = () => {
-     const { user ,cafe, isLoggedIn, logout ,loading} = useAuth();
-     const navigate = useNavigate();
+    const { user ,cafe, isLoggedIn, logout ,loading} = useAuth();
+    const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState('');
     const { id } = useParams();
     const [cafes, setCafes] = useState( null);
@@ -23,48 +23,55 @@ export const Ownerhomepage = () => {
     const [cafeId, setCafeId] = useState(() => localStorage.getItem('selectedCafeId'));
     
 
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate("/login");
+        }
+    }, [isLoggedIn , navigate]);
+
     const handleCafeChange = (newId) => {
-  localStorage.setItem('selectedCafeId', newId); // optional, Select already does this
-  setCafeId(newId); // ← this triggers the useEffect to re-fetch
-};
-    console.log(cafeId);
-useEffect(() => {
-    console.log(cafeId);
-  const fetchCafe = async () => {
-
-    
-    const token = localStorage.getItem('token');
-    const res = await api.get(`/api/cafe/${cafeId}`, {
-      headers: { Authorization: `Bearer ${token}` }
-    });
-    console.log(res.data.data);
-    setCafes(res.data.data);  // ✅ updates cafes with new cafe
-  };
-  if (cafeId) fetchCafe();
-}, [cafeId]);  // ✅ only depends on id
+        localStorage.setItem('selectedCafeId', newId); // optional, Select already does this
+        setCafeId(newId); // ← this triggers the useEffect to re-fetch
+    };
 
 
-// 2. fetch orders when activeTab or cafes changes
-useEffect(() => {
-  if (activeTab !== 'orders' || !cafes?._id) return;
+    useEffect(() => {
+        console.log(cafeId);
+    const fetchCafe = async () => {
 
-  const fetchOrders = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const res = await api.get(`/api/cafe/${cafes._id}/orders`, {
+        
+        const token = localStorage.getItem('token');
+        const res = await api.get(`/api/cafe/${cafeId}`, {
         headers: { Authorization: `Bearer ${token}` }
-      });
-      setOrders(res.data.data);
-    } catch (err) {
-      console.log(err.response?.data || err.message);
-    }
-  };
+        });
+        console.log(res.data.data);
+        setCafes(res.data.data);  // ✅ updates cafes with new cafe
+    };
+    if (cafeId) fetchCafe();
+    }, [cafeId]);  // ✅ only depends on id
 
-  fetchOrders();
-  const interval = setInterval(fetchOrders, 10000);
-  return () => clearInterval(interval);
 
-}, [activeTab, cafes?._id]);  // ✅ runs when cafes updates
+    // 2. fetch orders when activeTab or cafes changes
+    useEffect(() => {
+    if (activeTab !== 'orders' || !cafes?._id) return;
+
+    const fetchOrders = async () => {
+        try {
+        const token = localStorage.getItem('token');
+        const res = await api.get(`/api/cafe/${cafes._id}/orders`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        setOrders(res.data.data);
+        } catch (err) {
+        console.log(err.response?.data || err.message);
+        }
+    };
+
+    fetchOrders();
+    const interval = setInterval(fetchOrders, 10000);
+    return () => clearInterval(interval);
+
+    }, [activeTab, cafes?._id]);  // ✅ runs when cafes updates
 
 
 
@@ -77,14 +84,10 @@ useEffect(() => {
         };
         return count ;
     }
-
-    console.log("orders:",orders);
     if (loading) return <p>Loading...</p>;
-
-    console.log(cafes);
   return (
     
-    <div >{isLoggedIn && user?.role == "Cafe Owner" ? (
+    <div >{ user?.role == "Cafe Owner" ? (
         <div className='min-h-screen'>
         <Navbar/>
         <div className='bg-[#faf8f3] px-4 lg:pr-24 lg:pl-24  min-h-screen' id='Ownerhomepage'>

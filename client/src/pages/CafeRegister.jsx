@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import  Add  from '../images/img.png';
 const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,14 @@ export const CafeRegister = () => {
             phone : "" , 
             cafe : "" ,
         });
-    console.log("cafe",cafe);
+
+    
+    useEffect(() => {
+        if (!isLoggedIn) {
+            navigate("/login");
+        }
+    }, [isLoggedIn , navigate]);
+    
     const handleChange =(e)=>{ 
         setFormData({ ...formData , [e.target.name] : e.target.value})
         setError({ ...error, [e.target.name]: '' });
@@ -113,7 +120,6 @@ export const CafeRegister = () => {
     }
 
     return (
-    <div> {isLoggedIn ? (
     <div className='flex flex-col  overflow-y-scroll' id='cafeRegister' >
         <Navbar/>
     
@@ -167,8 +173,6 @@ export const CafeRegister = () => {
             onClick={()=>navigate(-1)}>Cancel</button>}
         </div>
         <Footer/>
-    </div>) :( 
-        navigate("/login")
-    )} </div>
+    </div>
     )
 }
