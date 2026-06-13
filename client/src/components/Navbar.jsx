@@ -34,7 +34,7 @@ export const Navbar = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  console.log("user?.role",user?.role);
+  console.log("user?.role",user._id);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -118,7 +118,13 @@ export const Navbar = () => {
             <MenuItem onClick={()=> {handleClose(); navigate("orders/my")}}>
               <Avatar /> My Orders
             </MenuItem>
+            { user?.role === "Cafe Owner" &&
+            <MenuItem onClick={()=> {handleClose(); navigate(`/cafe/${user?._id}`)}}>
+              <ListItemIcon><i class="fa-solid fa-shop"></i></ListItemIcon>
+              My Cafes
+            </MenuItem>}
             <Divider />
+            
             { user?.role === "Cafe Owner" &&
             <MenuItem onClick={()=> {handleClose(); navigate("/cafe/register")}}>
               <ListItemIcon><PersonAdd fontSize="small" className='text-green-500'/></ListItemIcon>
