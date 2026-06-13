@@ -31,8 +31,6 @@ const orders = require('./models/orders.js');
 // const orders = require('./models/orders.js');
 const dbUrl = process.env.MONGOLINK ;
 
-const cors = require('cors');
-
 // Temporarily use no field restriction to catch all fields
 const debugUpload = multer({ storage: multer.memoryStorage() });
 
