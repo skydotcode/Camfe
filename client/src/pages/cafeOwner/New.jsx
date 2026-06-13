@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom';
 import api from '../../config/axios.js'
 
 
-export const New = ({}) => {
+export const New = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
@@ -60,8 +60,6 @@ export const New = ({}) => {
 
     }
 
-    // console.log(id);
-
     const handleSubmit=async (e)=>{
         e.preventDefault();
         let newErrors = validate();
@@ -69,25 +67,17 @@ export const New = ({}) => {
             setError(newErrors);
             return;
         }
-
-        // try{
             
-            const data = new FormData();
-            // data.append('name', formData.name);
-            // data.append('price', formData.price);
-            data.append('foodItems[name]', formData.name);
-            data.append('foodItems[price]', formData.price);
-            // data.append('description', formData.description);
-            // data.append('category', formData.category);
-            data.append("image" , image);
-            // data.append("upload_preset" , upload_preset);
+        const data = new FormData();
+        data.append('foodItems[name]', formData.name);
+        data.append('foodItems[price]', formData.price);
+        data.append("image" , image);
 
-            const token = localStorage.getItem('token');
-            console.log("image state:", data); 
-            let res =  await toast.promise( api.post(`/api/${id}/menu`, data,{
-                headers: {
-                    Authorization: `Bearer ${token}`}
-            }) , {
+        const token = localStorage.getItem('token');
+        let res =  await toast.promise( api.post(`/api/${id}/menu`, data,{
+            headers: {
+                Authorization: `Bearer ${token}`}
+        }) , {
             pending: '🍔 Uploading food item...',
             success: '✅ Food item added!',
             error: {
@@ -99,16 +89,7 @@ export const New = ({}) => {
                 }
             }
         });
-            // if(!res) toast.loading("Adding");
-            // toast.success('Food item added!');
-            // console.log("Id:",res?.id)
-            navigate(`/cafe/${res?.data?.data?._id}`); 
-
-        // }catch(e){
-        //     console.log("errror",e);
-        //     const message = e?.response?.data?.error?.[0] ||e?.response?.data?.error || 'Something went wrong';
-        //     toast.error(message);
-        // }
+        navigate(`/cafe/${res?.data?.data?._id}`); 
         
     }
   return (
