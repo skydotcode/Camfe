@@ -20,39 +20,27 @@ import api from './config/axios.js'
 // import './App.css'
 
 function App() {
-  useEffect(() => {
-    fetch("http://localhost:8080/")
-      .then(res => res.text())
-      .then(data => console.log(data));
-  }, []);
 
   return (
     <BrowserRouter>
     <ScrollToTop /> 
     <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick={false}
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="light"
-            // transition={Bounce}
-            />
+      position="top-center"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      // transition={Bounce}
+      />
       <Routes>
-        
-        <Route path="/">
-          <Route index element={
-            <Homepage/>}/>
-          <Route path="Login" element={<Login/>}/>
-          <Route path="Register" element={<Register/>}/>
-
-          <Route/>
-          <Route/>
-        </Route>
+        <Route path="/" element={<Homepage/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/register" element={<Register/>}/>
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Checkout />} />
         <Route path="/orders/my" element={<MyOrders />} />

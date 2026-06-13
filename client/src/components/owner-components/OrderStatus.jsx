@@ -2,7 +2,7 @@ import { useAuth } from '#src/context/AuthContext.jsx';
 import axios from 'axios'
 import React from 'react'
 import { toast } from 'react-toastify';
-import api from '../config/axios.js'
+import api from '../../config/axios.js'
 
 export const OrderStatus = ({orders , position}) => {
   const {loading} = useAuth();

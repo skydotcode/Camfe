@@ -1,7 +1,16 @@
 import axios from 'axios'
 
-const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5173'
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:8080'
 })
 
-export default axiosInstance
+// Automatically attach token to every request
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token') // whatever key you use
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+  return config
+})
+
+export default api

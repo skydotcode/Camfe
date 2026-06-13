@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../config/axios.js'
+import api from '../../config/axios.js'
 
 export const Select = ({roles , onChangeFxn}) => {
     const [role , setRole] = useState("");

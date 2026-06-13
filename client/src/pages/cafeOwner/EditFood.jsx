@@ -3,7 +3,7 @@ import  Add  from '../../images/img.png';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import api from '../config/axios.js'
+import api from '../../config/axios.js'
 
 const EditFood = () => {
   const navigate = useNavigate();

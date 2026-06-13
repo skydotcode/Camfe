@@ -9,7 +9,7 @@ import { toast } from 'react-toastify';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { useParams } from 'react-router-dom';
-import api from '../config/axios.js'
+import api from '../../config/axios.js'
 
 
 export const New = ({}) => {

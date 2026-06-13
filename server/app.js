@@ -31,6 +31,8 @@ const orders = require('./models/orders.js');
 // const orders = require('./models/orders.js');
 const dbUrl = process.env.MONGOLINK ;
 
+const cors = require('cors');
+
 // Temporarily use no field restriction to catch all fields
 const debugUpload = multer({ storage: multer.memoryStorage() });
 
@@ -50,9 +52,7 @@ async function main(params) {
   await mongoose.connect(MONGO_URL);
 }
 
-app.get("/", (req, res) => {
-  res.send("API is running ");
-});
+
 
 const validateListing = (req ,res ,next) =>{
   let {error} = foodItemsSchema.validate(req.body);
@@ -84,9 +84,25 @@ const validateImage = (req, res, next) => {
   next(); 
 };
 
+
+
+app.use(cors({
+  origin: [
+    'http://localhost:5173' ,
+    'https://camfe-g4u5.onrender.com'] ,
+  credentials: true  ,
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK' })
+})
+
 app.use('/api/auth', require('./routes/auth.js')); 
 // app.use('/api/auth', require('./routes/user.js')); // public — no auth needed
-
+app.get("/", (req, res) => {
+  res.send("API is running ");
+});
 
 app.get("/api/cafe/:id/menu" ,
   authMiddleware,
@@ -277,7 +293,9 @@ app.put("/api/menu/:id" ,
 app.delete("/api/menu/:id" ,
   authMiddleware,
   wrapAsync(menuController.delete)
-   )
+   );
+
+
 
 
 app.use("/*splat" ,(req ,res,next)=>{
