@@ -15,6 +15,7 @@
   "type": "commonjs",
   "dependencies": {
     "cors": "^2.8.6",
+    "react-loading-indicators": "^1.0.1",
     "typed.js": "^3.0.0"
   }
 }
