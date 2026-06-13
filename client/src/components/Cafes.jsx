@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Cafecard } from './Cafecard'
 import { useNavigate } from 'react-router-dom';
 import api from '../config/axios.js'
-import axios from 'axios';
+
 
 export const Cafes = () => {
   const navigate = useNavigate();
@@ -12,7 +12,7 @@ export const Cafes = () => {
 
   useEffect(() => {
     console.log("useEffect running");
-    axios.get(`/api/cafes`)
+    api.get(`/api/cafes`)
       .then(data => {
         console.log("Cafes:", data);
         setCafes(data);
