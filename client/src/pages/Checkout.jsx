@@ -75,7 +75,7 @@ const Checkout = () => {
 
         try{
             const token = localStorage.getItem('token');
-            const res = await axios.post('/api/orders', {
+            const res = await api.post('/api/orders', {
                 phone: formData.phone,
                 customer:customer,
                 deliveryLocation: [formData.address , location],

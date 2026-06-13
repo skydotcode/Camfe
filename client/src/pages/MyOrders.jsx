@@ -24,7 +24,7 @@ export const MyOrders = () => {
     useEffect(() => {
         
     const token = localStorage.getItem('token');
-     axios.get('/api/orders/my' , {
+     api.get('/api/orders/my' , {
         headers: {
             Authorization: `Bearer ${token}`
         }

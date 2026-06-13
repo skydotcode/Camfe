@@ -86,7 +86,7 @@ const validateImage = (req, res, next) => {
 
 app.use(cors({
   origin: [
-    'http://localhost:5173' ,
+    'http://localhost:5174' ,
     'https://camfe-g4u5.onrender.com'] ,
   credentials: true  ,
   allowedHeaders: ['Content-Type', 'Authorization']

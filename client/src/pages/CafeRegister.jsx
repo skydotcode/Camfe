@@ -84,7 +84,7 @@ export const CafeRegister = () => {
             // data.append("upload_preset" , upload_preset);
             console.log(data.get('phone'));
             const token = localStorage.getItem('token');
-            let res = await toast.promise(axios.post('/api/cafe/register', data,{
+            let res = await toast.promise(api.post('/api/cafe/register', data,{
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

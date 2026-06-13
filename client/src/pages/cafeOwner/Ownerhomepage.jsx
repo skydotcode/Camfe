@@ -34,7 +34,7 @@ useEffect(() => {
 
     
     const token = localStorage.getItem('token');
-    const res = await axios.get(`/api/cafe/${cafeId}`, {
+    const res = await api.get(`/api/cafe/${cafeId}`, {
       headers: { Authorization: `Bearer ${token}` }
     });
     console.log(res.data.data);
@@ -51,7 +51,7 @@ useEffect(() => {
   const fetchOrders = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get(`/api/cafe/${cafes._id}/orders`, {
+      const res = await api.get(`/api/cafe/${cafes._id}/orders`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       setOrders(res.data.data);

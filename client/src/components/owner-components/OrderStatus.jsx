@@ -12,7 +12,7 @@ export const OrderStatus = ({orders , position}) => {
       console.log(orderId);
       const token = localStorage.getItem('token');
       console.log("token" , token)
-      let res = await axios.put(`/api/cafe/${orders[0]?.cafeId}/orders`, 
+      let res = await api.put(`/api/cafe/${orders[0]?.cafeId}/orders`, 
         {status , orderId} , 
         {headers: {
           Authorization: `Bearer ${token}` 

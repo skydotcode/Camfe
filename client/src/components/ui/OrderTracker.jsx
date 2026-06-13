@@ -24,7 +24,7 @@ export const OrderTracker = ({orderId}) => {
   const fetchStatus = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.get(`/api/orders/${orderId}/status`, {
+      const res = await api.get(`/api/orders/${orderId}/status`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setStatus(res.data.data.status);   // adjust to your response shape

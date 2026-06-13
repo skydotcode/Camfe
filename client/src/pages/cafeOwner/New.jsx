@@ -84,7 +84,7 @@ export const New = ({}) => {
 
             const token = localStorage.getItem('token');
             console.log("image state:", data); 
-            let res =  await toast.promise( axios.post(`/api/${id}/menu`, data,{
+            let res =  await toast.promise( api.post(`/api/${id}/menu`, data,{
                 headers: {
                     Authorization: `Bearer ${token}`}
             }) , {

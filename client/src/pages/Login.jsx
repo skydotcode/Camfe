@@ -20,10 +20,15 @@ export const Login = () => {
             password : "" ,
         });
 
+    console.log(api);
+    console.log(import.meta.env.VITE_API_URL)
+
     const handleChange= (e)=>{
         setFormData({ ...formData , [e.target.name]:e.target.value})
         setError({ ...error, [e.target.name]: '' });
     }
+
+
 
     const validate = () =>{
         
@@ -55,7 +60,7 @@ export const Login = () => {
             // data.append("password" , formData.password);
             // console.log(formData);
             // const res =await axios.post('/api/auth/register', data);
-            const res = await toast.promise(axios.post('/api/auth/login', {
+            const res = await toast.promise(api.post('/api/auth/login', {
                 email: formData.email,
                 password: formData.password,
             }), {
@@ -80,7 +85,7 @@ export const Login = () => {
                 // cafe?.length >0 ? navigate(`/cafe/${user?._id}`) : navigate("/cafe/register");
                 
             // } ; 
-                const cafeRes = await axios.get(`/api/cafe/owner`, { // fetch cafe right after login
+                const cafeRes = await api.get(`/api/cafe/owner`, { // fetch cafe right after login
                     headers: { Authorization: `Bearer ${res.data.token}` }
                     });
                 console.log(cafeRes.data);

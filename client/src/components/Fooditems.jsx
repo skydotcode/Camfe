@@ -13,7 +13,7 @@ export const Fooditems = () => {
 
   useEffect(() => {
     console.log("useEffect running");
-    fetch('/api/fooditems',{
+    fetch(`/api/fooditems`,{
       headers: {
           Authorization: `Bearer ${token}`
       }})

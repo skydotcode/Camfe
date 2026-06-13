@@ -26,7 +26,7 @@ export const Cafehome = () => {
     const getItem = async () => {
       try {
         // const token = localStorage.getItem('token');
-        const cafeRes = await axios.get(`/api/cafes/${id}` 
+        const cafeRes = await api.get(`/api/cafes/${id}` 
             // ,{
             //     headers: {
             //         Authorization: `Bearer ${token}`

@@ -29,7 +29,7 @@ const EditFood = () => {
     const getItem = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get(`/api/menu/${id}` ,{
+        const res = await api.get(`/api/menu/${id}` ,{
                 headers: {
                     Authorization: `Bearer ${token}`
                 }});
@@ -90,7 +90,7 @@ const EditFood = () => {
   const handleDelete = async()=>{
     // try {
       const token = localStorage.getItem('token');
-      let res = await toast.promise( axios.delete(`/api/menu/${id}` ,
+      let res = await toast.promise( api.delete(`/api/menu/${id}` ,
         {
                 headers: {
                     Authorization: `Bearer ${token}`}
@@ -137,7 +137,7 @@ const EditFood = () => {
       if (image) data.append('image', image);
       const token = localStorage.getItem('token');
 
-      await toast.promise(axios.put(`/api/menu/${id}`, data, {
+      await toast.promise(api.put(`/api/menu/${id}`, data, {
         headers: {
             Authorization: `Bearer ${token}`
         }}) ,

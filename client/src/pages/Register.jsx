@@ -60,7 +60,7 @@ export const Register = () => {
             setError(newErrors);
             return;
         }
-        const res = await toast.promise(axios.post('/api/auth/register', {
+        const res = await toast.promise(api.post('/api/auth/register', {
             name: formData.name,
             role: role,
             email: formData.email,
