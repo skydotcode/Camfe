@@ -31,7 +31,6 @@ export const MyOrders = () => {
     })
     .then(
         res => {setOrders(res.data.data)})
-     // ✅ auto-parsed, auto error-thrown
     .catch(err => console.error(err));
     }, []);
 

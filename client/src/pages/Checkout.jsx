@@ -26,12 +26,10 @@ const Checkout = () => {
     const [error , setError ] = useState({});
 
     const [formData, setFormData] = useState({
-                phone : "" , 
-                address : "" ,
-                // password : "" ,
-            });
-
-    console.log("user",user?.name)
+        phone : "" , 
+        address : "" ,
+        // password : "" ,
+    });
 
     const handleChange= (e)=>{
         setFormData({ ...formData , [e.target.name]:e.target.value})
@@ -59,20 +57,16 @@ const Checkout = () => {
     const handleSubmit= async(e)=>{
         e.preventDefault();
         let newErrors = validate();
-        console.log("formData",formData , cart);
-        console.log(Object.keys(newErrors));
         if(Object.keys(newErrors).length > 0){
             setError(newErrors);
             return;
         }
-        console.log("done" , cart);
 
         let customer ={
             name:user?.name ,
             phone:formData.phone,
         };
         
-
         try{
             const token = localStorage.getItem('token');
             const res = await api.post('/api/orders', {
@@ -90,7 +84,6 @@ const Checkout = () => {
             navigate("/orders/my");            
 
         }catch(e){
-            console.log("errror",e);
             const message = e.response?.data?.error || 'Something went wrong';
             toast.error(message);
         }

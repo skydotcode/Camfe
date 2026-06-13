@@ -8,13 +8,15 @@ import { useCart } from '#src/context/CartContext.jsx';
 import { OrderSummary } from '#src/components/OrderSummary.jsx';
 import { Back } from '#src/components/Back.jsx';
 import api from '../config/axios.js'
+import { toast } from 'react-toastify';
+import { Loading } from '#src/components/ui/Loading.jsx';
 
 
 
 export const Cafehome = () => {
     const { cart, removeFromCart, increaseQuantity, decreaseQuantity, totalPrice, clearCart } = useCart();
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { id , loading} = useParams();
 
     const [cafe, setCafe] = useState(null);
     const [menu, setMenu] = useState(null);
@@ -23,27 +25,22 @@ export const Cafehome = () => {
     const [activeTab, setActiveTab] = useState('menu');
 
     useEffect(() => {
-    const getItem = async () => {
-      try {
-        // const token = localStorage.getItem('token');
-        const cafeRes = await api.get(`/api/cafes/${id}` 
-            // ,{
-            //     headers: {
-            //         Authorization: `Bearer ${token}`
-            //     }}
-            );
-        console.log(cafeRes.data.cafe);
-        setCafe(cafeRes.data.cafe);
-        setMenu(cafeRes.data.menu);
-        console.log("menu",menu);
-        
-      } catch (err) {
-        console.log("err msg",err.message);
-      }
-    };
+        const getItem = async () => {
+        try {
+            const cafeRes = await api.get(`/api/cafes/${id}`);
+            setCafe(cafeRes.data.cafe);
+            setMenu(cafeRes.data.menu);
+            
+        } catch (err) {
+            toast.error(err.message);
+        }
+        };
 
-    getItem();
-  }, [id]);
+        getItem();
+    }, [id]);
+
+    if(loading) return <Loading/> ;
+
   return (
     <div className='bg-[#faf8f3] min-h-screen'>
         <div className='flex h-1/3 x h-[33.33dvh] '>

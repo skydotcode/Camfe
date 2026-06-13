@@ -3,7 +3,6 @@ import logo from "../images/LogoIcon.jpeg"
 import burgerImg from "../images/burger.jpg"
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import axios from 'axios';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import { Back } from '#src/components/Back.jsx';
@@ -18,17 +17,12 @@ export const Login = () => {
     const [formData, setFormData] = useState({
             email : "" ,
             password : "" ,
-        });
-
-    console.log(api);
-    console.log(import.meta.env.VITE_API_URL)
+    });
 
     const handleChange= (e)=>{
         setFormData({ ...formData , [e.target.name]:e.target.value})
         setError({ ...error, [e.target.name]: '' });
     }
-
-
 
     const validate = () =>{
         
@@ -77,14 +71,11 @@ export const Login = () => {
                 }
             });
             login(res?.data?.token ,res?.data?.user);
-            console.log(res?.data);
             
             res?.data?.role === "Student" && navigate("/");
-            res?.data?.role === "Teacher" && navigate("/"); 
-            if(res?.data?.role === "Cafe Owner") {
-                // cafe?.length >0 ? navigate(`/cafe/${user?._id}`) : navigate("/cafe/register");
-                
-            // } ; 
+            res?.data?.role === "Teacher" && navigate("/");
+             
+            if(res?.data?.role === "Cafe Owner") {                
                 const cafeRes = await api.get(`/api/cafe/owner`, { // fetch cafe right after login
                     headers: { Authorization: `Bearer ${res.data.token}` }
                     });

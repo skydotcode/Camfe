@@ -8,6 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Back } from '#src/components/Back.jsx';
 import { Button } from '@mui/material';
 import api from '../config/axios.js'
+import { Loading } from '#src/components/ui/Loading.jsx';
 
 const roles = [
   { id: 1, name: 'Student' },
@@ -17,7 +18,7 @@ const roles = [
 ];
 
 export const Register = () => {
-    const { login , } = useAuth();
+    const { login ,loading } = useAuth();
     const navigate = useNavigate();
     const [role , setRole] = useState('');
     const [error , setError ] = useState({});
@@ -70,8 +71,6 @@ export const Register = () => {
         success: '✅ Registration successfully!',
         error: {
             render({ data }) {
-                console.log(data?.response?.data?.err);
-
                 // shows actual error from backend
                 return data?.response?.data?.error?.[0] 
                     || data?.response?.data?.err
@@ -80,13 +79,13 @@ export const Register = () => {
         }
         });
         login(res.data.token ,res.data.user);
-        // toast.success(res.data.message);
-        console.log(res.data.role);
         res.data.role === "Student" && navigate("/");
         res.data.role === "Teacher" && navigate("/"); 
         res.data.role === "Cafe Owner" && navigate("/cafe/register");   
 
     }
+
+    if(loading) return <Loading/>
 
     return (
     <div className='flex flex-col md:flex-row overflow-y-scroll'>

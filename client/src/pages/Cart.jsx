@@ -8,9 +8,10 @@ import api from '../config/axios.js'
 
 const Cart = () => {
   const { cart, removeFromCart, increaseQuantity, decreaseQuantity, totalPrice, clearCart } = useCart();
-  const {isLoggedIn} = useAuth() ;
+  const {isLoggedIn , loading} = useAuth() ;
   const navigate = useNavigate();
-  // console.log("cart?.length");
+
+  if(loading) return <p>Loading..</p>
 
   if (cart?.length === 0) {
     return (
