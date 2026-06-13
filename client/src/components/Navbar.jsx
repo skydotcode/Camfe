@@ -34,8 +34,6 @@ export const Navbar = () => {
     setAnchorEl(event.currentTarget);
   };
 
-  console.log("user?.role",user._id);
-
   const handleClose = () => {
     setAnchorEl(null);
   };
