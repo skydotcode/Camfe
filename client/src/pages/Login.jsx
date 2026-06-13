@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import { Back } from '#src/components/Back.jsx';
 import api from '../config/axios.js'
+import { Loading } from '../components/ui/Loading';
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -74,7 +75,7 @@ export const Login = () => {
             
             res?.data?.role === "Student" && navigate("/");
             res?.data?.role === "Teacher" && navigate("/");
-             
+
             if(res?.data?.role === "Cafe Owner") {                
                 const cafeRes = await api.get(`/api/cafe/owner`, { // fetch cafe right after login
                     headers: { Authorization: `Bearer ${res.data.token}` }

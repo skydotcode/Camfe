@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Cafecard } from './Cafecard'
 import { useNavigate } from 'react-router-dom';
 import api from '../config/axios.js'
+import { Loading } from './ui/Loading';
 
 
 export const Cafes = () => {
@@ -14,7 +15,6 @@ export const Cafes = () => {
     console.log("useEffect running");
     api.get(`/api/cafes`)
       .then(data => {
-        console.log("Cafes:", data);
         setCafes(data);
         setLoading(false);
       })
@@ -24,7 +24,9 @@ export const Cafes = () => {
       });
   }, []);
 
-  console.log(cafes);
+  // if(loading) return <p>Loading...</p>
+  if(loading) return <Loading/>
+  
    
   return (
     <div className='flex flex-col gap-4  pt-4 mb-8 '> 

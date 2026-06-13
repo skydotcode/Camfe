@@ -9,7 +9,7 @@ import { OrderSummary } from '#src/components/OrderSummary.jsx';
 import { Back } from '#src/components/Back.jsx';
 import api from '../config/axios.js'
 import { toast } from 'react-toastify';
-import { Loading } from '#src/components/ui/Loading.jsx';
+import { Loading } from '../components/ui/Loading';
 
 
 

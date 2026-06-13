@@ -2,33 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Foodcard } from '../Foodcard';
 import api from '../../config/axios.js'
+import { useAuth } from '#src/context/AuthContext.jsx';
+import { Loading } from '../ui/Loading';
 
 
 
 export const MenuManagement = ({cafe }) => {     
-    const navigate = useNavigate();
-    const [foodItems, setFoodItems] = useState([]);
-      const [loading, setLoading] = useState(true);
-      const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  const {loading} = useAuth();
+  const [foodItems, setFoodItems] = useState([]);
+  const [error, setError] = useState(null);
 
-    //  useEffect(() => {
-    //     const token = localStorage.getItem('token');
-    //     axios.get('/api/cafe/:id/menu' , {
-    //         headers: {
-    //             Authorization: `Bearer ${token}`
-    //     }})
-    //        .then(res => {
-    //          return res.json()})
-    //        .then(data => {
-    //          setFoodItems(data);
-    //          setLoading(false);
-    //        })
-    //        .catch(err => {
-    //          setError(err.message);
-    //          setLoading(false);
-    //        });
-    //    }, []);
-    console.log(cafe);
+  if(loading) return <Loading/>
+
   return (
     <div className=''>
         <div className='flex flex-col  gap-4  pt-2 pb-8 '>

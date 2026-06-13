@@ -8,7 +8,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Back } from '#src/components/Back.jsx';
 import { Button } from '@mui/material';
 import api from '../config/axios.js'
-import { Loading } from '#src/components/ui/Loading.jsx';
+import { Loading } from '../components/ui/Loading';
 
 const roles = [
   { id: 1, name: 'Student' },

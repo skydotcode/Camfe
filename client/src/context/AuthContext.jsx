@@ -30,12 +30,11 @@ export const AuthProvider = ({ children }) => {
         const res = await api.get(`/api/auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
-        console.log(res);
         setUser(res.data.user);
         setCafe(res.data.cafe);
         // store user in context
       } catch (err) {
-        console.log(err);
+        toast.error(err);
         // token is invalid or expired
         localStorage.removeItem('token');
         setToken(null);

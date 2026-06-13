@@ -26,7 +26,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p>Camfe</p>;
 
   const open = Boolean(anchorEl);
 
