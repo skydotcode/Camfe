@@ -12,10 +12,7 @@ export const Cafes = () => {
 
   useEffect(() => {
     console.log("useEffect running");
-    axios.get('/api/cafes')
-      .then(res => {
-        console.log("Response received:", res.json); 
-        return res.json(cafes)})
+    axios.get(`/api/cafes`)
       .then(data => {
         console.log("Cafes:", data);
         setCafes(data);
@@ -26,13 +23,15 @@ export const Cafes = () => {
         setLoading(false);
       });
   }, []);
+
+  console.log(cafes);
    
   return (
     <div className='flex flex-col gap-4  pt-4 mb-8 '> 
         <p className='text-2xl'>Popular Cafes</p>
         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4
           overflow-x-scroll'>
-            {cafes.map(item => (
+            {cafes?.data?.map(item => (
             <div key={item._id} onClick={()=> navigate(`/cafes/${item._id}`) }>
               <Cafecard
               
