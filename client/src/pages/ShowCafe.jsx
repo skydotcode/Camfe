@@ -26,7 +26,7 @@ export const Cafehome = () => {
     useEffect(() => {
         const getItem = async () => {
         try {
-            const cafeRes = await api.get(`/api/cafe/${id}`);
+            const cafeRes = await api.get(`/cafe/${id}`);
             console.log(cafeRes);
             setCafe(cafeRes?.data.data);
             setMenu(cafeRes?.data.data.menu);
