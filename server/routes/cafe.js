@@ -78,7 +78,7 @@ router.get("/owner" ,
 }));
 
 router.get("/:id" ,
-  authMiddleware,wrapAsync( async(req,res)=>{
+  wrapAsync( async(req,res)=>{
   let {id} = req.params ; 
   console.log("id",id);
   let cafe = await cafes.findById(id).populate('menu');
