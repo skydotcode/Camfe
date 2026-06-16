@@ -1,5 +1,5 @@
 const cafes = require("../models/cafes.js");
-const foodItems = require("../models/foodItems.js");
+const foodItems = require("../models/menu.js");
 
 module.exports.index = async(req ,res)=>{
   try {

@@ -7,6 +7,7 @@ const wrapAsync = require('../utilis/wrapAsync');
 const authMiddleware = require('../middleware/authMiddleware.js');
 const ExpressError = require('../utilis/ExpressError');
 const cafes = require('../models/cafes.js');
+const passport = require('passport');
 
 
 //Register User
@@ -61,11 +62,6 @@ router.post('/login', wrapAsync(async (req, res) => {
   console.log("user:",user);
   let role= user.role;
 
-  // if(role = "Cafe Owner"){
-    
-  // }
-
-  // generate token on successful login
   const token = jwt.sign(
     { id: user._id },
     process.env.JWT_SECRET,
@@ -81,6 +77,22 @@ router.post('/login', wrapAsync(async (req, res) => {
     }});
 }));
 
+router.get('/google', passport.authenticate('google', 
+  { scope: ['profile', 'email'] } ,));
+
+router.get('/google/callback',
+  passport.authenticate('google', 
+    { failureRedirect: `${process.env.FRONTEND_URL}/login` ,
+      session: false
+    }),
+  (req, res) => {
+    const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET);
+    console.log("auth fetch");
+    res.redirect(`${process.env.FRONTEND_URL}/auth/success?token=${token}`);
+  }
+);
+
+
 // returns current logged in user's info
 router.get('/me', authMiddleware, wrapAsync(async (req, res) => {
   // req.userId is set by authMiddleware after verifying token
@@ -93,8 +105,6 @@ router.get('/me', authMiddleware, wrapAsync(async (req, res) => {
     console.log(cafe);
   }
   
-  // .select('-password') means return everything EXCEPT password
-
   if (!user) throw new ExpressError(404, 'User not found');
 
   res.json({ user , cafe});

@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const initData = require("./data");
-const foodItems = require("../models/foodItems");
+const foodItems = require("../models/menu");
 
 const MONGO_URL= 'mongodb://127.0.0.1:27017/campus-eats';
 
@@ -17,6 +17,7 @@ async function main(params) {
 const initDB = async ()=>{
     await foodItems.deleteMany({});
     console.log(initData.data);
+    
     // await foodItems.insertMany(initData.data);
     console.log("data is initialised");
 }

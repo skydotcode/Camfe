@@ -6,6 +6,10 @@ const userSchema = new Schema ({
         type:String ,
         require:true
     } ,
+    googleId: { 
+        type: String, 
+        sparse: true   // ← allows multiple null values without duplicate error
+    },
     email: {
         type:String ,
         require:true,

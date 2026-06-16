@@ -1,7 +1,7 @@
 const Joi = require('joi');
-const foodItems = require('./models/foodItems');
+const foodItems = require('./models/menu');
 
-module.exports.foodItemsSchema = Joi.object({
+module.exports.menuSchema = Joi.object({
   foodItems : Joi.object({
     name: Joi.string()
     .min(2)                   

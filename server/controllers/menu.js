@@ -1,6 +1,6 @@
 const cafes = require("../models/cafes.js");
-const foodItems = require("../models/foodItems.js");
-const {cloudinary} = require("../config/cloudinary.js")
+const foodItems = require("../models/menu.js");
+const {cloudinary} = require("../config/cloudinary.js");
 
 module.exports.index = async(req ,res)=>{
   try {
