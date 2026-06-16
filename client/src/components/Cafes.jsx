@@ -13,7 +13,7 @@ export const Cafes = () => {
 
   useEffect(() => {
     console.log("useEffect running");
-    api.get(`/api/cafes`)
+    api.get(`/api/cafe`)
       .then(data => {
         setCafes(data);
         setLoading(false);
@@ -24,7 +24,6 @@ export const Cafes = () => {
       });
   }, []);
 
-  // if(loading) return <p>Loading...</p>
   if(loading) return <Loading/>
   
    

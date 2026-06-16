@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import {Navbar} from "../components/Navbar"
 import { useAuth } from '#src/context/AuthContext.jsx';
-import { Footer } from '#src/components/Footer.jsx';
+import { Footer } from '../components/Footer';
 import api from '../config/axios.js'
 
 export const CafeRegister = () => {
@@ -36,7 +36,6 @@ export const CafeRegister = () => {
 
     const handleImageChange =(e)=>{
         const file = e.target.files[0];
-        console.log(file);
 
         const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
         if (!allowedTypes.includes(file.type)) {
@@ -75,21 +74,11 @@ export const CafeRegister = () => {
             return;
         }
         try{
-            // if(!login) navigate("/login");
             const data = new FormData();
             data.append('phone', formData.phone);
             data.append('cafe', formData.cafe);
             data.append("image" , image);
             data.append("upload_preset" , upload_preset);
-            // data.append('email', formData.email);
-            // data.append('password', formData.password);
-            // // data.append('description', formData.description);
-            // // data.append('category', formData.category);
-            // console.log(image);
-            // data.append("image" , image);
-            // console.log("done");
-            // data.append("upload_preset" , upload_preset);
-            console.log(data.get('phone'));
             const token = localStorage.getItem('token');
             let res = await toast.promise(api.post('/api/cafe/register', data,{
                 headers: {
@@ -100,8 +89,6 @@ export const CafeRegister = () => {
                 success: '✅ Cafe Created Successfully!',
                 error: {
                     render({ data }) {
-                        console.log(data?.response?.data?.err );
-                        // shows actual error from backend
                         return data?.response?.data?.error?.[0] 
                             || data?.response?.data?.err
                             || 'Something went wrong';
@@ -109,11 +96,9 @@ export const CafeRegister = () => {
                 }
             });
             navigate(`/cafe/${res?.data?.newCafe?._id}`);
-            // console.log(res);  
 
         }catch(e){
-            console.log("errror",e);
-            const message = e.response?.data?.error ;
+            const message = e?.response?.data?.error ;
             toast.error(message);
         }
 

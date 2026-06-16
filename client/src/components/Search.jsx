@@ -1,11 +1,13 @@
 import { useAuth } from '@/context/AuthContext';
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { TypeAnimation } from 'react-type-animation'
 import Typed from 'typed.js';
 import api from '../config/axios.js'
+import { Loading } from './ui/Loading.jsx';
 
 export const Search = () => {
   const { user, isLoggedIn, logout ,loading} = useAuth();
+  // const {userInfo , setUserInfo} = useState();
   const el = useRef(null);
 
   useEffect(() => {
@@ -19,6 +21,9 @@ export const Search = () => {
 
     return () => typed.destroy();
   }, []);
+
+  console.log(user);
+
   return (
     <div className='flex flex-col gap-2 pt-4 pb-4 sticky top-0 z-10 bg-[#faf8f3]'>
         <p className='text-3xl font-bold'>Good Afternoon {user?.name}</p>

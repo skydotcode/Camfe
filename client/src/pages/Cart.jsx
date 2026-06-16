@@ -4,6 +4,7 @@ import { useAuth } from '#src/context/AuthContext.jsx';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import api from '../config/axios.js'
+import { Loading } from '../components/ui/Loading.jsx';
 
 
 const Cart = () => {
@@ -11,8 +12,7 @@ const Cart = () => {
   const {isLoggedIn , loading} = useAuth() ;
   const navigate = useNavigate();
 
-  if(loading) return <p>Loading..</p>
-
+  if(loading) return <Loading/>
   if (cart?.length === 0) {
     return (
       <div className='flex flex-col h-screen bg-[#faf8f3]'>

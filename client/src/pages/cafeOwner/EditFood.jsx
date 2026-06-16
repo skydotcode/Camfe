@@ -1,17 +1,15 @@
 import React, { useState,useEffect } from 'react';
-import  Add  from '../../images/img.png';
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import api from '../../config/axios.js'
+import api from '../../config/axios.js' ;
+import { useAuth } from '../../context/AuthContext';
+import { Loading } from '../../components/ui/Loading';
 
 const EditFood = () => {
   const navigate = useNavigate();
+  const { id  } = useParams();
+  const { isLoggedIn, loading } = useAuth();
 
-  // useParams reads the id from the URL
-  // For example: /edit-food/64f1a2b3c4d5e6f7a8b9c0d1
-  // params.id = "64f1a2b3c4d5e6f7a8b9c0d1"
-  const { id , isLoggedIn } = useParams();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -25,7 +23,7 @@ const EditFood = () => {
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-      if (!isLoggedIn) {
+      if (!loading && !isLoggedIn) {
           navigate("/login");
       }
   }, [isLoggedIn , navigate]);
@@ -52,7 +50,7 @@ const EditFood = () => {
         // show existing image as preview
         setPreview(item.image);
       } catch (err) {
-        console.log(err.message);
+        toast.error(err.message);
       }
     };
 
@@ -94,33 +92,24 @@ const EditFood = () => {
   };
 
   const handleDelete = async()=>{
-    // try {
       const token = localStorage.getItem('token');
-      let res = await toast.promise( api.delete(`/api/menu/${id}` ,
-        {
-                headers: {
-                    Authorization: `Bearer ${token}`}
-            }
+      await toast.promise( api.delete(`/api/menu/${id}` ,
+        {headers: {Authorization: `Bearer ${token}`}}
       ) ,
       {
-              pending: '🍔 Deleting food item...',
-              success: '✅ Food item Deleted Successfully!',
-              error: {
-                  render({ data }) {
-                      // shows actual error from backend
-                      return data?.response?.data?.errors?.[0] 
-                          || data?.response?.data?.error 
-                          || 'Something went wrong';
-                  }
-              }
-          });
-      // toast.success('Food item deleted!');
-      // onDelete(item._id);  // tells parent to remove it from state
+        pending: '🍔 Deleting food item...',
+        success: '✅ Food item Deleted Successfully!',
+        error: {
+            render({ data }) {
+                // shows actual error from backend
+                return data?.response?.data?.errors?.[0] 
+                    || data?.response?.data?.error 
+                    || 'Something went wrong';
+            }
+        }
+        });
       navigate(-1);
-    // } catch (err) {
-    //   const message = err.response?.data?.error || 'Something went wrong';
-    //   toast.error(message);
-    // }
+
   }
 
   const handleSubmit = async (e) => {
@@ -148,11 +137,10 @@ const EditFood = () => {
             Authorization: `Bearer ${token}`
         }}) ,
         {
-          pending: '🍔 Uploading food item...',
-          success: '✅ Food item added!',
+          pending: '🍔 Smells Nice...',
+          success: '✅ Menu Updated Successfully!',
           error: {
               render({ data }) {
-                  // shows actual error from backend
                   return data?.response?.data?.errors?.[0] 
                       || data?.response?.data?.error 
                       || 'Something went wrong?';
@@ -160,21 +148,18 @@ const EditFood = () => {
           }
         }
       );
-
-      // alert('Food item updated!');
       navigate(-1, { replace: true });
 
     } catch (err) {
-        console.log(err);
-        console.log(err.message);
+        toast.error(err.message)
     }
   };
+
+  if(loading) return <Loading/> ;
 
   return (
     <div className='flex flex-col justify-center items-center w-full h-screen gap-4 bg-[#faf8f3]'>
       <h1 className='text-4xl font-bold'>Edit Food Item</h1>
-      <button><i onClick={handleDelete} className="fa-solid fa-trash text-4xl font-bold 
-      text-black cursor-pointer"></i></button>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
 
         <div>
@@ -216,7 +201,13 @@ const EditFood = () => {
           {errors.image && <p style={{ color: 'red' }}>{errors.image}</p>}
         </div>
 
-        <button className='bg-[#fe6a36] text-white py-3 px-4 cursor-pointer' type="submit">Update Item</button>
+        <div className='flex justify-center items-center '>
+          <button className='bg-[#fe6a36] text-white py-3 w-full cursor-pointer' 
+          type="submit">Update Item</button>
+          <button><i 
+          onClick={handleDelete} className="fa-solid fa-trash text-3xl font-bold 
+          text-black cursor-pointer m-2"></i></button>
+        </div>
         <button type="button" onClick={() => navigate(-1)}>Cancel</button>
 
       </form>

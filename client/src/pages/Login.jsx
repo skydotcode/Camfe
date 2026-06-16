@@ -47,45 +47,35 @@ export const Login = () => {
             setError(newErrors);
             return;
         }
-
-        // try{
-            // const data = new FormData();
-            // data.append('name', formData.name);
-            // data.append('email', formData.email);
-            // data.append("password" , formData.password);
-            // console.log(formData);
-            // const res =await axios.post('/api/auth/register', data);
-            const res = await toast.promise(api.post('/api/auth/login', {
-                email: formData.email,
-                password: formData.password,
-            }), {
-                pending: ' Logginng you in...',
-                success: '✅ Logged In successfully!',
-                error: {
-                    render({ data }) {
-                        console.log(data?.response?.data?.err );
-                        // shows actual error from backend
-                        return data?.response?.data?.error?.[0] 
-                            || data?.response?.data?.err
-                            || 'Something went wrong';
-                    }
+        const res = await toast.promise(
+            api.post('/auth/login', {
+            email: formData.email,
+            password: formData.password,
+        }), {
+            pending: ' Logginng you in...',
+            success: '✅ Logged In successfully!',
+            error: {
+                render({ data }) {
+                    return data?.response?.data?.error?.[0] 
+                        || data?.response?.data?.err
+                        || 'Something went wrong';
                 }
-            });
-            login(res?.data?.token ,res?.data?.user);
-            
-            res?.data?.role === "Student" && navigate("/");
-            res?.data?.role === "Teacher" && navigate("/");
-
-            if(res?.data?.role === "Cafe Owner") {                
-                const cafeRes = await api.get(`/api/cafe/owner`, { // fetch cafe right after login
-                    headers: { Authorization: `Bearer ${res.data.token}` }
-                    });
-                console.log(cafeRes.data);
-
-                cafeRes?.data.data.length > 0
-                ? navigate(`/cafe/${res?.data?.user?._id}`)
-                : navigate("/cafe/register");
             }
+        });
+        login(res?.data?.token ,res?.data?.user);
+            
+        res?.data?.role === "Student" && navigate("/");
+        res?.data?.role === "Teacher" && navigate("/");
+
+        if(res?.data?.role === "Cafe Owner") {                
+            const cafeRes = await api.get(`/api/cafe/owner`, { // fetch cafe right after login
+                headers: { Authorization: `Bearer ${res.data.token}` }
+                });
+
+            cafeRes?.data.data.length > 0
+            ? navigate(`/cafe/${res?.data?.user?._id}`)
+            : navigate("/cafe/register");
+        }
     }
 
   return (
@@ -109,19 +99,15 @@ export const Login = () => {
                 p-4 md:px-10 md:pt-4'>
             <p className='text-4xl '>Welcome Back!</p>
             <p className='opacity-75'>Sign in to order from your favorite campus cafes</p>
-            {/* <button className='bg-[#faf8f3] rounded cursor-pointer border-gray-300 border-opacity-50 text-black px-4 py-2 border'>Continue with Google</button> */}
-            {/* <div className='flex items-center gap-3 w-full'>
-                <hr className='flex-1 border-gray-300' />
-                <p className='text-gray-500 text-sm whitespace-nowrap'>Or continue with email</p>
-                <hr className='flex-1 border-gray-300' />
-            </div> */}
             <Button
                 size="lg"
                 variant="outlined"
                 color="blue-gray"
                 className="flex items-center gap-3"
+                onClick={() => window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`}
             >
-                <img src="https://docs.material-tailwind.com/icons/google.svg" alt="metamask" className="h-6 w-6" />
+                <img src="https://docs.material-tailwind.com/icons/google.svg" 
+                alt="metamask" className="h-6 w-6" />
                 Continue with Google
             </Button>
             <form className='flex flex-col gap-4' onSubmit={handleSubmit}>

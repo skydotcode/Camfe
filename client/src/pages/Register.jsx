@@ -3,12 +3,11 @@ import logo from "../images/LogoIcon.jpeg"
 import burgerImg from "../images/burger.jpg"
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { useAuth } from '@/context/AuthContext';
 import { Back } from '#src/components/Back.jsx';
-import { Button } from '@mui/material';
 import api from '../config/axios.js'
 import { Loading } from '../components/ui/Loading';
+import { GoogleLoginButton } from '../components/GoogleLoginButton';
 
 const roles = [
   { id: 1, name: 'Student' },
@@ -61,7 +60,7 @@ export const Register = () => {
             setError(newErrors);
             return;
         }
-        const res = await toast.promise(api.post('/api/auth/register', {
+        const res = await toast.promise(api.post('/auth/register', {
             name: formData.name,
             role: role,
             email: formData.email,
@@ -108,15 +107,7 @@ export const Register = () => {
                 p-4 md:px-10 md:pt-4'>
             <p className='text-4xl '>Welcome!</p>
             <p className='opacity-75'>Register Now to order from your favorite campus cafes</p>
-            <Button
-                size="lg"
-                variant="outlined"
-                color="blue-gray"
-                className="flex items-center gap-3"
-            >
-                <img src="https://docs.material-tailwind.com/icons/google.svg" alt="metamask" className="h-6 w-6" />
-                Continue with Google
-            </Button>
+            <GoogleLoginButton/>
             <div className='flex items-center gap-3 w-full'>
                 <hr className='flex-1 border-gray-300' />
                 <p className='text-gray-500 text-sm whitespace-nowrap'>

@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import Add from "../../images/img.png";
-const adminId = import.meta.env.VITE_ADMIN_ID;
-const cloud_name = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
-const upload_preset = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { useParams } from 'react-router-dom';
 import api from '../../config/axios.js'
+import { useAuth } from '../../context/AuthContext';
+import { Loading } from '../../components/ui/Loading';
 
 
 export const New = () => {
     const navigate = useNavigate();
-    const { id , isLoggedIn } = useParams();
+    const { id  } = useParams();
+    const { isLoggedIn, loading } = useAuth();
 
     const [image , setImage] = useState(null);
     const [preview , setPreview] = useState(null);
@@ -27,7 +26,7 @@ export const New = () => {
     });
 
     useEffect(() => {
-        if (!isLoggedIn) {
+        if (!loading && !isLoggedIn) {
             navigate("/login");
         }
     }, [isLoggedIn , navigate]);
@@ -80,10 +79,11 @@ export const New = () => {
         data.append("image" , image);
 
         const token = localStorage.getItem('token');
-        let res =  await toast.promise( api.post(`/api/${id}/menu`, data,{
-            headers: {
-                Authorization: `Bearer ${token}`}
-        }) , {
+        let res =  await toast.promise( 
+                api.post(`/api/cafe/${id}/menu`, data,{
+                headers: {
+                    Authorization: `Bearer ${token}`}
+            }) , {    
             pending: '🍔 Uploading food item...',
             success: '✅ Food item added!',
             error: {
@@ -95,7 +95,9 @@ export const New = () => {
             }
         });
         navigate(`/cafe/${res?.data?.data?._id}`);  
-    }
+    };
+
+    if(loading) return <Loading/>
   return (
     <div className='flex flex-col  overflow-y-scroll flex-col min-h-screen'>
 

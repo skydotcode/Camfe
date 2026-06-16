@@ -1,23 +1,18 @@
-import axios from 'axios';
-// import { error } from 'console';
 import { useEffect } from 'react';
 import { createContext, useContext, useState } from 'react';
 import { toast } from 'react-toastify';
 import api from '../config/axios.js'
+import { Loading } from '#src/components/ui/Loading.jsx';
 
-// context lets you share auth state across all components
-// without passing props down manually
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  // check if token exists in localStorage on app load
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [user, setUser] = useState(null);
   const [cafe, setCafe] = useState(null);
   const [loading, setLoading] = useState(true);
 
-    // fetch current user info when app loads
-  // runs whenever token changes
   useEffect(() => {
     const fetchUser = async () => {
       if (!token) {
@@ -26,8 +21,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        // hit a /me endpoint that returns current user info
-        const res = await api.get(`/api/auth/me`, {
+        const res = await api.get(`/auth/me`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setUser(res.data.user);
@@ -47,20 +41,19 @@ export const AuthProvider = ({ children }) => {
     fetchUser();
   }, [token]);
 
+  if (loading) return <Loading/>;
+
   const login = (token,userData) => {
     localStorage.setItem('token', token);  // save token to browser storage
     setToken(token);
     setUser(userData);  
   };
 
-  // const getUser = () =>{
-  //   return user;
-  // }
-
   const logout = () => {
     localStorage.removeItem('token');  // remove token
     setToken(null);
     setUser(null);
+    localStorage.setItem('selectedCafeId', null);
     toast.success("Logged Out Successfully");
   };
 

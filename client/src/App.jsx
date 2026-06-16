@@ -15,6 +15,7 @@ import Cart from './pages/Cart'
 import ScrollToTop from './components/ScrollToTop'
 import Checkout from './pages/Checkout'
 import { MyOrders } from './pages/MyOrders'
+import AuthSuccess from './pages/AuthSuccess';
 import api from './config/axios.js'
 
 // import './App.css'
@@ -41,6 +42,7 @@ function App() {
         <Route path="/" element={<Homepage/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/auth/success" element={<AuthSuccess/>} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<Checkout />} />
         <Route path="/orders/my" element={<MyOrders />} />

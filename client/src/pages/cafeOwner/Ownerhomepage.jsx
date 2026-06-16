@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { Navbar } from '../../components/Navbar.jsx'
 import { MenuManagement } from '../../components/owner-components/MenuManagement'
 import { Orderspage } from '../../components/owner-components/Orderspage'
-// import { OrderStatus } from '../../components/owner-components/OrderStatus'
 import { Footer } from '../../components/Footer'
 import { useAuth } from '@/context/AuthContext'
 import { useNavigate, useParams } from 'react-router-dom'
-import axios from 'axios'
-import { Select } from '#src/components/ui/Select.jsx'
+import { Select } from '../../components/ui/Select.jsx'
 import { NotFound } from '../NotFound'
 import api from '../../config/axios.js'
+import { Loading } from '../../components/ui/Loading';
+import { toast } from 'react-toastify'
 
 
 export const Ownerhomepage = () => {
@@ -36,19 +36,15 @@ export const Ownerhomepage = () => {
 
 
     useEffect(() => {
-        console.log(cafeId);
-    const fetchCafe = async () => {
-
-        
-        const token = localStorage.getItem('token');
-        const res = await api.get(`/api/cafe/${cafeId}`, {
-        headers: { Authorization: `Bearer ${token}` }
-        });
-        console.log(res.data.data);
-        setCafes(res.data.data);  // ✅ updates cafes with new cafe
-    };
-    if (cafeId) fetchCafe();
-    }, [cafeId]);  // ✅ only depends on id
+        const fetchCafe = async () => {            
+            const token = localStorage.getItem('token');
+            const res = await api.get(`/api/cafe/${cafeId}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setCafes(res.data.data);  
+        };
+        if (cafeId) fetchCafe();
+    }, [cafeId]);  
 
 
     // 2. fetch orders when activeTab or cafes changes
@@ -57,19 +53,19 @@ export const Ownerhomepage = () => {
 
     const fetchOrders = async () => {
         try {
-        const token = localStorage.getItem('token');
-        const res = await api.get(`/api/cafe/${cafes._id}/orders`, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        setOrders(res.data.data);
+            const token = localStorage.getItem('token');
+            const res = await api.get(`/api/cafe/${cafes._id}/orders`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setOrders(res.data.data);
         } catch (err) {
-        console.log(err.response?.data || err.message);
+            toast.error(err.response?.data || err.message);
         }
     };
 
     fetchOrders();
-    const interval = setInterval(fetchOrders, 10000);
-    return () => clearInterval(interval);
+        const interval = setInterval(fetchOrders, 10000);
+        return () => clearInterval(interval);
 
     }, [activeTab, cafes?._id]);  // ✅ runs when cafes updates
 
@@ -84,7 +80,7 @@ export const Ownerhomepage = () => {
         };
         return count ;
     }
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <Loading/>;
   return (
     
     <div >{ user?.role == "Cafe Owner" ? (

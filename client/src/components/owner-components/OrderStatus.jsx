@@ -3,6 +3,7 @@ import axios from 'axios'
 import React from 'react'
 import { toast } from 'react-toastify';
 import api from '../../config/axios.js'
+import { Loading } from '../ui/Loading.jsx';
 
 export const OrderStatus = ({orders , position}) => {
   const {loading} = useAuth();
@@ -30,7 +31,7 @@ export const OrderStatus = ({orders , position}) => {
     }
   }
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading/>;
 
   return (
     orders?.map(order =>( 

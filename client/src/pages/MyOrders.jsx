@@ -31,11 +31,11 @@ export const MyOrders = () => {
     })
     .then(
         res => {setOrders(res.data.data)})
-    .catch(err => console.error(err));
+    .catch(
+      err => toast.error(err));
     }, []);
 
     
-// console.log("id:",orders);
     if (!orders) {
     return (
       <div className='flex flex-col h-screen bg-[#faf8f3]'>
@@ -50,9 +50,7 @@ export const MyOrders = () => {
   }
 
   const handleClick = async(id) =>{
-    console.log("id",id)
     const token = localStorage.getItem('token');
-    // console.log(token);
     const res = await axios.put(`/api/orders/${id}/status`, {} , 
         {
           headers: {

@@ -3,7 +3,6 @@ import { Foodcard } from '../components/Foodcard';
 import { Search } from '../components/Search';
 import { Footer } from '../components/Footer';
 import { useNavigate, useParams } from 'react-router-dom';
-import axios from 'axios';
 import { useCart } from '#src/context/CartContext.jsx';
 import { OrderSummary } from '#src/components/OrderSummary.jsx';
 import { Back } from '#src/components/Back.jsx';
@@ -27,9 +26,10 @@ export const Cafehome = () => {
     useEffect(() => {
         const getItem = async () => {
         try {
-            const cafeRes = await api.get(`/api/cafes/${id}`);
-            setCafe(cafeRes.data.cafe);
-            setMenu(cafeRes.data.menu);
+            const cafeRes = await api.get(`/api/cafe/${id}`);
+            console.log(cafeRes);
+            setCafe(cafeRes?.data.data);
+            setMenu(cafeRes?.data.data.menu);
             
         } catch (err) {
             toast.error(err.message);
