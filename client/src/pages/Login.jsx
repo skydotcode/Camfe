@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logo from "../images/LogoIcon.jpeg"
 import burgerImg from "../images/burger.jpg"
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import Button from '@mui/material/Button';
 import { Back } from '#src/components/Back.jsx';
 import api from '../config/axios.js'
 import { Loading } from '../components/ui/Loading';
+import { GoogleLoginButton } from '../components/GoogleLoginButton';
+
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -19,6 +21,14 @@ export const Login = () => {
             email : "" ,
             password : "" ,
     });
+    const [searchParams] = useSearchParams();
+
+    useEffect(() => {
+        const error = searchParams.get('error');
+        if (error) {
+        toast.error(error);
+        }
+    }, [searchParams]);
 
     const handleChange= (e)=>{
         setFormData({ ...formData , [e.target.name]:e.target.value})
@@ -99,17 +109,7 @@ export const Login = () => {
                 p-4 md:px-10 md:pt-4'>
             <p className='text-4xl '>Welcome Back!</p>
             <p className='opacity-75'>Sign in to order from your favorite campus cafes</p>
-            <Button
-                size="lg"
-                variant="outlined"
-                color="blue-gray"
-                className="flex items-center gap-3"
-                onClick={() => window.location.href = `${import.meta.env.VITE_API_URL}/auth/google`}
-            >
-                <img src="https://docs.material-tailwind.com/icons/google.svg" 
-                alt="metamask" className="h-6 w-6" />
-                Continue with Google
-            </Button>
+            <GoogleLoginButton/>
             <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
                 <label htmlFor="email">University Email</label>
                 <input placeholder='your.email@nsut.ac.in' name="email" type='text'
