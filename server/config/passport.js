@@ -1,6 +1,7 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/users.js');
+const { json } = require('express');
 require('dotenv').config();
 
 
@@ -25,6 +26,10 @@ passport.use(
     let role = null ;
     (/\d/.test(email)) ?
       role = "Student" : role = "Teacher" ;
+
+    if(!email.includes("nsut.ac.in")){
+      return done(null, false, { message: "Invalid NSUT email" });
+    }
     
     if (!user) {
       user = await User.create({

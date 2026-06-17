@@ -80,15 +80,35 @@ router.post('/login', wrapAsync(async (req, res) => {
 router.get('/google', passport.authenticate('google', 
   { scope: ['profile', 'email'] } ,));
 
+// router.get('/google/callback',
+//   passport.authenticate('google', 
+//     { 
+//       session: false
+//     }),
+//   (req, res , info) => {
+//     if (err) return res.redirect(`${process.env.FRONTEND_URL}/login?error=Something went wrong`);
+//     if (!user) {
+//         // ✅ This is where the "Invalid NSUT email" redirect happens
+//         return res.redirect(`${process.env.FRONTEND_URL}/login?error=${info.message}`);
+//       }
+//     const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET);
+//     res.redirect(`${process.env.FRONTEND_URL}/auth/success?token=${token}`);
+//   }
+// );
+
 router.get('/google/callback',
-  passport.authenticate('google', 
-    { failureRedirect: `${process.env.FRONTEND_URL}/login` ,
-      session: false
-    }),
-  (req, res) => {
-    const token = jwt.sign({ id: req.user._id }, process.env.JWT_SECRET);
-    console.log("auth fetch");
-    res.redirect(`${process.env.FRONTEND_URL}/auth/success?token=${token}`);
+  (req, res, next) => {
+    passport.authenticate('google', { session: false }, (err, user, info) => {
+      if (err) return res.redirect(`${process.env.FRONTEND_URL}/login?error=Something went wrong`);
+      
+      if (!user) {
+        // ✅ This is where the "Invalid NSUT email" redirect happens
+        return res.redirect(`${process.env.FRONTEND_URL}/login?error=${info.message}`);
+      }
+
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+      res.redirect(`${process.env.FRONTEND_URL}/auth/success?token=${token}`);
+    })(req, res, next);
   }
 );
 
