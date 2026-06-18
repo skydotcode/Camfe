@@ -90,7 +90,7 @@ export const Ownerhomepage = () => {
             <div className=' pt-4 pb-2'>
                 <h1 className='flex font-bold text-xl  pb-4 '>Dashboard -  <Select roles={cafe} onChangeFxn={handleCafeChange}/> </h1>
                 <div className='flex h-1/3 x h-[33.33dvh]'>
-                <img src={`${cafes?.image}?t=${new Date().getTime()}`} 
+                <img alt='Select Cafe' src={`${cafes?.image}?t=${new Date().getTime()}`} 
                 className='w-full object-cover mb-4  rounded-xl '></img>
                                 
                 </div>
