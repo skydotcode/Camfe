@@ -49,17 +49,18 @@ export const Navbar = () => {
       </div>
       <div className='flex justify-center items-center gap-4'>
 
-      {isLoggedIn ? (
-        <div className='flex items-center gap-4 lg:gap-6'>
-
-          {/* Cart icon — only for non cafe owners */}
-          {(user?.role != "Cafe Owner")  && (
+        {(user?.role != "Cafe Owner")  && (
             <IconButton onClick={() => navigate('/cart')}>
               <Badge badgeContent={totalItems} color="primary" overlap="circular">
                 <ShoppingCartIcon fontSize="small" />
               </Badge>
             </IconButton>
           )}
+
+      {isLoggedIn ? (
+        <div className='flex items-center gap-4 lg:gap-6'>
+
+          {/* Cart icon — only for non cafe owners */}
 
           {/* Account menu — MUI handles its own positioning, no absolute wrapper needed */}
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
