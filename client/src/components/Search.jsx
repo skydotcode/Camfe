@@ -22,8 +22,6 @@ export const Search = () => {
     return () => typed.destroy();
   }, []);
 
-  console.log(user);
-
   return (
     <div className='flex flex-col gap-2 pt-4 pb-4 sticky top-0 z-10 bg-[#faf8f3]'>
         <p className='text-3xl font-bold'>Good Afternoon {user?.name}</p>

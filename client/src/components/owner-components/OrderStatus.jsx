@@ -7,12 +7,9 @@ import { Loading } from '../ui/Loading.jsx';
 
 export const OrderStatus = ({orders , position}) => {
   const {loading} = useAuth();
-  console.log(position);
   const handleClick = async(orderId,status)=>{
     try{
-      console.log(orderId);
       const token = localStorage.getItem('token');
-      console.log("token" , token)
       let res = await api.put(`/api/cafe/${orders[0]?.cafeId}/orders`, 
         {status , orderId} , 
         {headers: {
@@ -20,14 +17,12 @@ export const OrderStatus = ({orders , position}) => {
         }},
         
       );
-
-      console.log("res",res.data.message);
       
       toast.success(res.data.message);
       // window.location.reload();
 
     }catch(err){
-      console.log(err);
+      toast.error(err);
     }
   }
 

@@ -34,6 +34,7 @@ export const GoogleLoginButton = () => {
         <DialogContent>
           <DialogContentText>
             Please only proceed if you are a Student or a Professor from NSUT!
+            <br></br>
             Do you want to continue?
           </DialogContentText>
         </DialogContent>
@@ -42,7 +43,7 @@ export const GoogleLoginButton = () => {
           style={{ color: 'black' }}  
           onClick={() => setOpen(false)} color="error">Cancel</Button>
           <Button 
-           style={{ backgroundColor: '#fe6a37' }} 
+           style={{ backgroundColor: '#fe6a37' , border:"none"}} 
           onClick={handleConfirm} variant="contained" autoFocus>
             Continue
           </Button>

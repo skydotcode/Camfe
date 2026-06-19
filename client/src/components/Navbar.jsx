@@ -125,7 +125,7 @@ export const Navbar = () => {
             <Divider />
             
             { user?.role === "Cafe Owner" &&
-            <MenuItem onClick={()=> {handleClose(); navigate("/cafe/register")}}>
+            <MenuItem onClick={()=> {handleClose(); navigate("/cafe/new")}}>
               <ListItemIcon><PersonAdd fontSize="small" className='text-green-500'/></ListItemIcon>
               Add another cafe
             </MenuItem>}

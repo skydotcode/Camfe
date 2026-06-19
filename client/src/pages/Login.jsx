@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import { Back } from '#src/components/Back.jsx';
 import api from '../config/axios.js'
 import { Loading } from '../components/ui/Loading';
-import { GoogleLoginButton } from '../components/GoogleLoginButton';
+import { GoogleLoginButton } from '../components/ui/GoogleLoginButton';
 
 
 export const Login = () => {
@@ -84,12 +84,13 @@ export const Login = () => {
 
             cafeRes?.data.data.length > 0
             ? navigate(`/cafe/${res?.data?.user?._id}`)
-            : navigate("/cafe/register");
+            : navigate("/cafe/new");
         }
     }
 
   return (
-    <div className='flex flex-col md:flex-row overflow-y-scroll'>
+    <div className='flex flex-col md:flex-row overflow-y-scroll
+    md:items-center md:justify-center '>
         <div className='bg-[#feefe3] flex flex-col gap-4 
                 items-center 
                 py-10 
@@ -100,7 +101,8 @@ export const Login = () => {
                 <p className='opacity-75'>Delicious food from your favorite campus cafes,</p>
                 <p className='opacity-75'> delivered straight to your location</p>
             </div>
-            <img src={burgerImg} className='rounded-xl shadow-2xl object-cover cursor-pointer h-50 w-90'></img>
+            <img src={burgerImg} className='rounded-xl shadow-2xl object-cover cursor-pointer 
+            h-50 w-90 opacity-75'></img>
             <Back/>
 
         </div>
@@ -110,7 +112,13 @@ export const Login = () => {
             <p className='text-4xl '>Welcome Back!</p>
             <p className='opacity-75'>Sign in to order from your favorite campus cafes</p>
             <GoogleLoginButton/>
-            <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+            <div className='flex items-center gap-3 w-full'>
+                <hr className='flex-1 border-gray-300' />
+                <p className='text-gray-500 text-sm whitespace-nowrap'>
+                    Or continue with University Email</p>
+                <hr className='flex-1 border-gray-300' />
+            </div>
+            <form className='flex flex-col gap-2' onSubmit={handleSubmit}>
                 <label htmlFor="email">University Email</label>
                 <input placeholder='your.email@nsut.ac.in' name="email" type='text'
                 value={formData.email}

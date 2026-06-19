@@ -5,9 +5,6 @@ import axios from 'axios';
 import api from '../../config/axios.js'
 
 export const Orderspage = ({orders }) => {
-    
-    // console.log(orders);
-    // const [order, setOrder] = useState([]);
   return (
     <div className='mx-1 lg:mx-8'>
         <p className='font-bold py-4 pb-0'>Pending Orders</p>

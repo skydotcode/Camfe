@@ -41,29 +41,44 @@ export const Ownerhomepage = () => {
             const res = await api.get(`/api/cafe/${cafeId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            setCafes(res.data.data);  
+            setCafes(res?.data?.data);  
         };
         if (cafeId) fetchCafe();
     }, [cafeId]);  
+    
+    useEffect(() => {
+    if (!cafe || cafe.length === 0) return;
+
+    const storedId = localStorage.getItem('selectedCafeId');
+    const validStoredId = cafe.some(c => c._id === storedId) ? storedId : null;
+
+    if (validStoredId) {
+        if (validStoredId !== cafeId) setCafeId(validStoredId);
+    } else {
+        const firstId = cafe[0]._id;
+        localStorage.setItem('selectedCafeId', firstId);
+        setCafeId(firstId);
+    }
+}, [cafe]);
 
 
     // 2. fetch orders when activeTab or cafes changes
     useEffect(() => {
-    if (activeTab !== 'orders' || !cafes?._id) return;
+        if (activeTab !== 'orders' || !cafes?._id) return;
 
-    const fetchOrders = async () => {
-        try {
-            const token = localStorage.getItem('token');
-            const res = await api.get(`/api/cafe/${cafes._id}/orders`, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            setOrders(res.data.data);
-        } catch (err) {
-            toast.error(err.response?.data || err.message);
-        }
-    };
+        const fetchOrders = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const res = await api.get(`/api/cafe/${cafes._id}/orders`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                setOrders(res.data.data);
+            } catch (err) {
+                toast.error(err.response?.data || err.message);
+            }
+        };
 
-    fetchOrders();
+        fetchOrders();
         const interval = setInterval(fetchOrders, 10000);
         return () => clearInterval(interval);
 
@@ -88,9 +103,9 @@ export const Ownerhomepage = () => {
         <Navbar/>
         <div className='bg-[#faf8f3] px-4 lg:pr-24 lg:pl-24  min-h-screen' id='Ownerhomepage'>
             <div className=' pt-4 pb-2'>
-                <h1 className='flex font-bold text-xl  pb-4 '>Dashboard -  <Select roles={cafe} onChangeFxn={handleCafeChange}/> </h1>
+                <h1 className='flex font-bold text-xl  pb-4 '>Dashboard -  <Select roles={cafe || []} value={cafeId} onChangeFxn={handleCafeChange}/> </h1>
                 <div className='flex h-1/3 x h-[33.33dvh]'>
-                <img alt='Select Cafe' src={`${cafes?.image}?t=${new Date().getTime()}`} 
+                <img alt='Please Select Cafe' src={`${cafes?.image}?t=${new Date().getTime()}`} 
                 className='w-full object-cover mb-4  rounded-xl '></img>
                                 
                 </div>

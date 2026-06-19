@@ -38,7 +38,6 @@ export const New = () => {
 
     const handleImageChange =(e)=>{
         const file = e.target.files[0];
-        console.log(file);
 
         const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
         if (!allowedTypes.includes(file.type)) {

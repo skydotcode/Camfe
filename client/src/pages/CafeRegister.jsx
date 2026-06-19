@@ -80,7 +80,7 @@ export const CafeRegister = () => {
             data.append("image" , image);
             data.append("upload_preset" , upload_preset);
             const token = localStorage.getItem('token');
-            let res = await toast.promise(api.post('/api/cafe/register', data,{
+            let res = await toast.promise(api.post('/api/cafe/new', data,{
                 headers: {
                     Authorization: `Bearer ${token}`
                 }

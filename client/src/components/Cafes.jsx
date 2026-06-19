@@ -3,30 +3,27 @@ import { Cafecard } from './Cafecard'
 import { useNavigate } from 'react-router-dom';
 import api from '../config/axios.js'
 import { Loading } from './ui/Loading';
+import { useAuth } from '#src/context/AuthContext.jsx';
 
 
 export const Cafes = () => {
   const navigate = useNavigate();
+  const {loading} = useAuth();
   const [cafes, setCafes] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    console.log("useEffect running");
     api.get(`/api/cafe`)
       .then(data => {
         setCafes(data);
-        setLoading(false);
       })
       .catch(err => {
         setError(err.message);
-        setLoading(false);
       });
   }, []);
 
-  if(loading) return <Loading/>
+  if(loading) return <Loading/> ;
   
-   
   return (
     <div className='flex flex-col gap-4  pt-4 mb-8 '> 
         <p className='text-2xl'>Popular Cafes</p>

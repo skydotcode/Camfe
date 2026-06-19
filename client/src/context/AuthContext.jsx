@@ -13,41 +13,77 @@ export const AuthProvider = ({ children }) => {
   const [cafe, setCafe] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (!token) {
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     if (!token) {
+  //       setLoading(false);
+  //       return;
+  //     }
+
+  //     try {
+  //       const res = await api.get(`/auth/me`, {
+  //         headers: { Authorization: `Bearer ${token}` }
+  //       });
+  //       setUser(res.data.user);
+  //       setCafe(res.data.cafe);
+  //       // store user in context
+  //     } catch (err) {
+  //       toast.error(err);
+  //       // token is invalid or expired
+  //       localStorage.removeItem('token');
+  //       setToken(null);
+  //       setUser(null);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchUser();
+  // }, [token]);
+
+  // if (loading) return <Loading/>;
+
+  // const login = (token,userData , cafeData) => {
+  //   localStorage.setItem('token', token);  // save token to browser storage
+  //   setToken(token);
+  //   setUser(userData);  
+  //   setCafe(cafeData ?? null);
+  // };
+
+  const fetchUser = async (currentToken) => {
+    if (!currentToken) {
+        setUser(null);
+        setCafe(null);
         setLoading(false);
         return;
-      }
-
-      try {
+    }
+    try {
         const res = await api.get(`/auth/me`, {
-          headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${currentToken}` }
         });
         setUser(res.data.user);
         setCafe(res.data.cafe);
-        // store user in context
-      } catch (err) {
+    } catch (err) {
         toast.error(err);
-        // token is invalid or expired
         localStorage.removeItem('token');
         setToken(null);
         setUser(null);
-      } finally {
+        setCafe(null);
+    } finally {
         setLoading(false);
-      }
-    };
+    }
+};
 
-    fetchUser();
-  }, [token]);
+useEffect(() => {
+    fetchUser(token);
+}, [token]);
 
-  if (loading) return <Loading/>;
+const refreshUser = () => fetchUser(token);
 
-  const login = (token,userData) => {
-    localStorage.setItem('token', token);  // save token to browser storage
-    setToken(token);
-    setUser(userData);  
-  };
+const login = (newToken) => {
+    localStorage.setItem('token', newToken);
+    setToken(newToken); // triggers the useEffect above, which refetches everything
+};
 
   const logout = () => {
     localStorage.removeItem('token');  // remove token
@@ -61,7 +97,7 @@ export const AuthProvider = ({ children }) => {
   const isLoggedIn = !!token;  // !! converts to boolean
 
   return (
-    <AuthContext.Provider value={{ token,user,cafe, login, logout, isLoggedIn ,loading}}>
+    <AuthContext.Provider value={{ token,user,cafe, login, logout, refreshUser, isLoggedIn ,loading}}>
       {children}
     </AuthContext.Provider>
   );

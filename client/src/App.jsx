@@ -17,12 +17,23 @@ import Checkout from './pages/Checkout'
 import { MyOrders } from './pages/MyOrders'
 import AuthSuccess from './pages/AuthSuccess';
 import api from './config/axios.js'
+import { useAuth } from './context/AuthContext'
 
 // import './App.css'
 
 function App() {
+  const {user} = useAuth();
 
-  return (
+  const ProtectedRoute = ({children}) =>{
+    if(user === undefined){
+      return <div>Loading...</div>
+    }
+    if(!user){
+      return < Navigate to='/login'/>
+    }
+    return children
+  }
+  return(
     <BrowserRouter>
     <ScrollToTop /> 
     <ToastContainer
@@ -43,14 +54,14 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
         <Route path="/auth/success" element={<AuthSuccess/>} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/orders" element={<Checkout />} />
-        <Route path="/orders/my" element={<MyOrders />} />
-        <Route path="/:id/menu" element={<New />} />
-        <Route path="/cafes/:id" element={<Cafehome/>}/>
-        <Route path="/cafe/:id" element={<Ownerhomepage/>}/>
-        <Route path="/menu/:id" element={<EditFood />} />
-        <Route path="/cafe/register" element={<CafeRegister/>}/>
+        <Route path="/:id/menu" element={<ProtectedRoute><New /></ProtectedRoute>} />
+        <Route path="/cafe/:id" element={<ProtectedRoute><Ownerhomepage /></ProtectedRoute>} />
+        <Route path="/menu/:id" element={<ProtectedRoute><EditFood /></ProtectedRoute>} />
+        <Route path="/cafe/new" element={<ProtectedRoute><CafeRegister /></ProtectedRoute>} />
+        <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+        <Route path="/orders" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
+        <Route path="/orders/my" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
+        {/* <Route path="/cafe/new" element={<ProtectedRoute><CafeRegister/></ProtectedRoute>}/> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

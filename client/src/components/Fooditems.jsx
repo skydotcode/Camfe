@@ -12,16 +12,13 @@ export const Fooditems = () => {
   const token = localStorage.getItem('token');
 
   useEffect(() => {
-    console.log("useEffect running");
     fetch(`/api/fooditems`,{
       headers: {
           Authorization: `Bearer ${token}`
       }})
       .then(res => {
-        console.log("Response received:", res.json); 
         return res.json(foodItems)})
       .then(data => {
-        console.log("Food items:", data);
         setFoodItems(data);
         setLoading(false);
       })

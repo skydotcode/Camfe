@@ -7,7 +7,7 @@ import { useAuth } from '@/context/AuthContext';
 import { Back } from '#src/components/Back.jsx';
 import api from '../config/axios.js'
 import { Loading } from '../components/ui/Loading';
-import { GoogleLoginButton } from '../components/GoogleLoginButton';
+import { GoogleLoginButton } from '../components/ui/GoogleLoginButton';
 
 const roles = [
   { id: 1, name: 'Student' },
@@ -80,7 +80,7 @@ export const Register = () => {
         login(res.data.token ,res.data.user);
         res.data.role === "Student" && navigate("/");
         res.data.role === "Teacher" && navigate("/"); 
-        res.data.role === "Cafe Owner" && navigate("/cafe/register");   
+        res.data.role === "Cafe Owner" && navigate("/cafe/new");   
 
     }
 
@@ -111,10 +111,10 @@ export const Register = () => {
             <div className='flex items-center gap-3 w-full'>
                 <hr className='flex-1 border-gray-300' />
                 <p className='text-gray-500 text-sm whitespace-nowrap'>
-                    Or continue with email</p>
+                    Or continue with University Email</p>
                 <hr className='flex-1 border-gray-300' />
             </div>
-            <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
+            <form className='flex flex-col gap-2' onSubmit={handleSubmit}>
                 <label htmlFor="name">Your Good Name</label>
                 <input placeholder='Enter Your Name'  name="name" 
                 value={formData.name} 
