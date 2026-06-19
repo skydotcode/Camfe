@@ -82,7 +82,6 @@ router.get("/:id" ,
   let {id} = req.params ; 
   console.log("id",id);
   let cafe = await cafes.findById(id).populate('menu');
-  console.log("cafe",cafe);
   res.json({data:cafe});
 }));
 

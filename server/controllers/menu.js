@@ -5,11 +5,6 @@ const {cloudinary} = require("../config/cloudinary.js");
 module.exports.index = async(req ,res)=>{
   try {
     let {id} = req.params ;
-    // let cafe = await cafes.findOne({
-    //   ownerId: id
-    // });
-    // console.log("cafe:",cafe);
-    // console.log("cafeid:",cafe._id);
     let items = await foodItems.find({
       cafeId: id
     });

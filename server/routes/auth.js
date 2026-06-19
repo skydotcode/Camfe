@@ -49,18 +49,15 @@ router.post('/login', wrapAsync(async (req, res) => {
   // find user by email
   const user = await User.findOne({ email });
   if (!user) {
-    // res.json({error:"Invalid email or password"});
     throw new ExpressError(400, 'Invalid email or password');
   }
 
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) {
-    // res.json({message:"Invalid email or password"});
     throw new ExpressError(400, 'Invalid email or password');
   }
-
-  console.log("user:",user);
   let role= user.role;
+  // if(role == "Cafe Owner"){}
 
   const token = jwt.sign(
     { id: user._id },
@@ -74,7 +71,9 @@ router.post('/login', wrapAsync(async (req, res) => {
       _id: user._id,
       username: user.name,
       email: user.email,
-    }});
+    },
+
+  });
 }));
 
 router.get('/google', passport.authenticate('google', 

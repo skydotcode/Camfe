@@ -39,8 +39,6 @@ module.exports.show = async(req ,res)=>{
     let menu = await foodItems.find({
       cafeId:id
     });
-    console.log("cafe",cafe);
-    console.log("cafe",menu);
     res.json({cafe , menu});
 
     if (!cafe) return res.status(404).json({ message: 'Item not found' });

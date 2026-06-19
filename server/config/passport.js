@@ -13,7 +13,6 @@ passport.use(
       callbackURL: `${process.env.BACKEND_URL}/auth/google/callback`
     }, async (accessToken, refreshToken, profile, done) => {
   try {
-    console.log(profile);
     let email = profile.emails[0].value ;
 
     let user = await User.findOne({ 
