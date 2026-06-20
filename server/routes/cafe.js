@@ -29,7 +29,6 @@ const validateMenu = (req ,res ,next) =>{
 };
 
 const validateImage = (req, res, next) => {
-  console.log("file",req.file)
   if (!req.file) {
     return res.status(400).json({ errors: ['Image is required'] });
   }
@@ -52,7 +51,7 @@ const validateImage = (req, res, next) => {
 
 router.get("/" , wrapAsync(cafeController.index) );
 
-router.post("/register" ,
+router.post("/new" ,
   upload.single('image'),
   authMiddleware,
   (req, res, next) => {
@@ -66,12 +65,11 @@ router.post("/register" ,
         next();
     },
   validateImage,
-   wrapAsync(cafeController.create));
+  wrapAsync(cafeController.create));
 
 router.get("/owner" ,
   authMiddleware,wrapAsync( async(req,res)=>{
   let userId = req.userId;
-  // console.log("id",id);
   let cafe = await cafes.find({ownerId:userId}).populate('menu');
   console.log("cafe",cafe);
   res.json({data:cafe});
@@ -90,8 +88,7 @@ router.get("/:id/menu" ,
   wrapAsync(menuController.index)
 );
 
-//fooditems CREATE
-router.post("/:id/menu" ,
+router.post("/:id/menu/new" ,
   upload.single('image'),
   authMiddleware,
   (req, res, next) => {
