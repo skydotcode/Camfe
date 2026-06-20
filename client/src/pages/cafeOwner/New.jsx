@@ -79,7 +79,7 @@ export const New = () => {
 
         const token = localStorage.getItem('token');
         let res =  await toast.promise( 
-                api.post(`/api/cafe/${id}/menu`, data,{
+                api.post(`/api/cafe/${id}/menu/new`, data,{
                 headers: {
                     Authorization: `Bearer ${token}`}
             }) , {    
