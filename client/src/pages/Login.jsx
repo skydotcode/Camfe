@@ -83,7 +83,7 @@ export const Login = () => {
                 });
 
             cafeRes?.data.data.length > 0
-            ? navigate(`/cafe/${res?.data?.user?._id}`)
+            ? navigate(`/${res?.data?.user?._id}/cafe`)
             : navigate("/cafe/new");
         }
     }
