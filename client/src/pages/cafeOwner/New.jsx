@@ -12,8 +12,8 @@ import { Loading } from '../../components/ui/Loading';
 
 export const New = () => {
     const navigate = useNavigate();
-    const { id  } = useParams();
-    const { isLoggedIn, loading } = useAuth();
+    const { id } = useParams();
+    const { isLoggedIn, loading , user} = useAuth();
 
     const [image , setImage] = useState(null);
     const [preview , setPreview] = useState(null);
@@ -93,7 +93,7 @@ export const New = () => {
                 }
             }
         });
-        navigate(`/cafe/${res?.data?.data?._id}`);  
+        navigate(`/${user?._id}/cafe`);  
     };
 
     if(loading) return <Loading/>
@@ -106,7 +106,7 @@ export const New = () => {
                 p-4 md:px-10 md:pt-4 bg-[#faf8f3] '>
         
         <p className='text-3xl font-bold'>Add a new Food Item:</p>
-        <form className='flex flex-col gap-4 px-8' onSubmit={handleSubmit}>
+        <form className='flex flex-col gap-2 px-8' onSubmit={handleSubmit}>
             <label htmlFor="name">Item Name:</label>
             <input placeholder='Enter Item Name...'  name="name" value={formData.name}
             onChange={handleChange} type='text'

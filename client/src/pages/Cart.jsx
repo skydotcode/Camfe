@@ -13,10 +13,11 @@ const Cart = () => {
   const navigate = useNavigate();
 
   if(loading) return <Loading/>
+  
   if (cart?.length === 0) {
     return (
       <div className='flex flex-col h-screen bg-[#faf8f3]'>
-        <CartFooter/>
+        <CartFooter text={"Cart"}/>
         <div className='flex flex-col justify-center items-center h-screen gap-4'>
           <h1 className=''>Your cart is empty!</h1>
           <button onClick={() => navigate('/')} className='bg-[#fe6a36] text-white p-4 
@@ -28,7 +29,7 @@ const Cart = () => {
 
   return (
     <div className='flex flex-col bg-[#faf8f3] gap-8 min-h-screen '>
-      <CartFooter/>
+      <CartFooter text={"Cart"}/>
       <div className='flex flex-col gap-8  lg:px-24 px-4'>
       {cart.map(item => (
         <div key={item._id} className='flex flex-col bg-[#faf8f3]     gap-4 '>

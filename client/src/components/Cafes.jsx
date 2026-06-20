@@ -30,7 +30,7 @@ export const Cafes = () => {
         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4
           overflow-x-scroll'>
             {cafes?.data?.map(item => (
-            <div key={item._id} onClick={()=> navigate(`/cafes/${item._id}`) }>
+            <div key={item._id} onClick={()=> navigate(`/cafe/${item._id}`) }>
               <Cafecard
               
               image={item.image}

@@ -49,13 +49,11 @@ export const Navbar = () => {
       </div>
       <div className='flex justify-center items-center gap-4'>
 
-        {(user?.role != "Cafe Owner")  && (
-            <IconButton onClick={() => navigate('/cart')}>
-              <Badge badgeContent={totalItems} color="primary" overlap="circular">
-                <ShoppingCartIcon fontSize="small" />
-              </Badge>
-            </IconButton>
-          )}
+      <IconButton onClick={() => navigate('/cart')}>
+        <Badge badgeContent={totalItems} color="primary" overlap="circular">
+          <ShoppingCartIcon fontSize="small" />
+        </Badge>
+      </IconButton>
 
       {isLoggedIn ? (
         <div className='flex items-center gap-4 lg:gap-6'>
@@ -118,7 +116,7 @@ export const Navbar = () => {
               <Avatar /> My Orders
             </MenuItem>
             { user?.role === "Cafe Owner" &&
-            <MenuItem onClick={()=> {handleClose(); navigate(`/cafe/${user?._id}`)}}>
+            <MenuItem onClick={()=> {handleClose(); navigate(`/${user?._id}/cafe`)}}>
               <ListItemIcon><i className="fa-solid fa-shop"></i></ListItemIcon>
               My Cafes
             </MenuItem>}

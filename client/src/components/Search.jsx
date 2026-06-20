@@ -23,7 +23,7 @@ export const Search = () => {
   }, []);
 
   return (
-    <div className='flex flex-col gap-2 pt-4 pb-4 sticky top-0 z-10 bg-[#faf8f3]'>
+    <div className='flex flex-col gap-2 pt-4 pb-4 sticky top-0 z-10 bg-[#faf8f3] '>
         <p className='text-3xl font-bold'>Good Afternoon {user?.name}</p>
         <p>What would you like to eat today?</p>
         <form className='border border-gray-500/25 p-2 
@@ -33,6 +33,7 @@ export const Search = () => {
             <i className="fa-solid fa-magnifying-glass"></i>
             <input ref={el} className='w-full outline-none'  />
         </form>
+        
     </div>
   )
 }

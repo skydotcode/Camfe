@@ -17,22 +17,21 @@ const steps = [
 ];
 
 export const MyOrders = () => {
-  const {isLoggedIn , user} = useAuth();
+  const {isLoggedIn , user , refreshUser} = useAuth();
     const navigate = useNavigate();
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        
-    const token = localStorage.getItem('token');
-     api.get('/api/orders/my' , {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-    .then(
-        res => {setOrders(res.data.data)})
-    .catch(
-      err => toast.error(err));
+      const token = localStorage.getItem('token');
+      api.get('/api/orders/my' , {
+          headers: {
+              Authorization: `Bearer ${token}`
+          }
+      })
+      .then(
+          res => {setOrders(res.data.data)})
+      .catch(
+        err => toast.error(err));
     }, []);
 
     
@@ -51,21 +50,29 @@ export const MyOrders = () => {
 
   const handleClick = async(id) =>{
     const token = localStorage.getItem('token');
-    const res = await axios.put(`/api/orders/${id}/status`, {} , 
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-            }}      
-    );
+    const res = await toast.promise(api.put(`/api/orders/${id}/status`, {} , 
+        {headers: {
+          Authorization: `Bearer ${token}`
+          }}      
+    ) ,{
+        pending: ' Checking you in...',
+        success: 'Order Cancelled successfully :(',
+        error: {
+            render({ data }) {
+                // shows actual error from backend
+                return data?.response?.data?.error?.[0] 
+                    || data?.response?.data?.err
+                    || 'Something went wrong?';
+            }
+        }
+        });
     toast(res.data.message);
-    // navigate("/orders/my");
-    // orders();
-    window.location.reload();
+    refreshUser();
   }
     if (orders?.length === 0) {
     return (
       <div className='flex flex-col h-screen bg-[#faf8f3]'>
-        <CartFooter/>
+        <CartFooter text={"Orders"}/>
         <div className='flex flex-col justify-center items-center h-screen gap-4'>
           <h1 className=''>Your don't have any orders!</h1>
           <button onClick={() => navigate('/')} className='bg-[#fe6a36] text-white p-4 
@@ -77,7 +84,7 @@ export const MyOrders = () => {
   return (
     <> {(isLoggedIn && user?.role != "CafeOwner" ) ?
     <div className='gap-8'>
-        <CartFooter/>
+        <CartFooter text={"Orders"}/>
         { [...orders]
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         .map(order => (

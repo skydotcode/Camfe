@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import axios from 'axios';
 import { useAuth } from '#src/context/AuthContext.jsx';
 import { CartFooter } from '#src/components/CartFooter.jsx';
 import api from '../config/axios.js'

@@ -10,15 +10,25 @@ export const OrderStatus = ({orders , position}) => {
   const handleClick = async(orderId,status)=>{
     try{
       const token = localStorage.getItem('token');
-      let res = await api.put(`/api/cafe/${orders[0]?.cafeId}/orders`, 
+      let res = await toast.promise(api.put(`/api/cafe/${orders[0]?.cafeId}/orders`, 
         {status , orderId} , 
         {headers: {
           Authorization: `Bearer ${token}` 
-        }},
+        }}
         
-      );
+      ),  {    
+            pending: '🍔 Updating the status...',
+            success: 'Status updated, Please Wait...!',
+            error: {
+                render({ data }) {
+                    return data?.response?.data?.errors?.[0] 
+                        || data?.response?.data?.error 
+                        || 'Something went wrong?';
+                }
+            }
+        });
       
-      toast.success(res.data.message);
+      // toast.success(res.data.message);
       // window.location.reload();
 
     }catch(err){

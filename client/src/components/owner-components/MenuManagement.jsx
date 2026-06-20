@@ -10,7 +10,6 @@ import { Loading } from '../ui/Loading';
 export const MenuManagement = ({cafe }) => {     
   const navigate = useNavigate();
   const {loading} = useAuth();
-  const [foodItems, setFoodItems] = useState([]);
   const [error, setError] = useState(null);
 
   if(loading) return <Loading/>

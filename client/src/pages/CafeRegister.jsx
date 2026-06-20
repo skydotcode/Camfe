@@ -10,9 +10,8 @@ import { Footer } from '../components/Footer';
 import api from '../config/axios.js'
 
 export const CafeRegister = () => {
-    const {login , user , isLoggedIn , cafe} = useAuth();
+    const {refreshUser , user , isLoggedIn , cafe} = useAuth();
     const navigate = useNavigate();
-    // const [cafe , setCafe] = useState('');
     const [image , setImage] = useState(null);
     const [preview , setPreview] = useState(null);
     const [error , setError ] = useState({});
@@ -31,8 +30,7 @@ export const CafeRegister = () => {
     const handleChange =(e)=>{ 
         setFormData({ ...formData , [e.target.name] : e.target.value})
         setError({ ...error, [e.target.name]: '' });
-    }
-
+    };
 
     const handleImageChange =(e)=>{
         const file = e.target.files[0];
@@ -95,7 +93,8 @@ export const CafeRegister = () => {
                     }
                 }
             });
-            navigate(`/cafe/${res?.data?.newCafe?._id}`);
+            navigate(`/${user?._id}/cafe`);
+            await refreshUser();
 
         }catch(e){
             const message = e?.response?.data?.error ;

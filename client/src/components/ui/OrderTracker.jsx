@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Clock, Utensils, Bike, MapPin } from "lucide-react";
 import api from '../../config/axios.js'
+import { useAuth } from "#src/context/AuthContext.jsx";
 
 const STEPS = [
   { key: "placed",      label: "Accepted by Cafe", icon: Clock },
@@ -19,7 +20,8 @@ const STATUS_INDEX = {
 };
 
 export const OrderTracker = ({orderId}) => {
-    const [status, setStatus] = useState(null);
+  const {refreshUser} = useAuth();
+  const [status, setStatus] = useState(null);
 
   const fetchStatus = async () => {
     try {
@@ -27,7 +29,8 @@ export const OrderTracker = ({orderId}) => {
       const res = await api.get(`/api/orders/${orderId}/status`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      setStatus(res.data.data.status);   // adjust to your response shape
+      setStatus(res.data.data.status);
+      if(res.data.data.status== "delivered") refreshUser() ;   // adjust to your response shape
     } catch (err) {
       console.error(err);
     }

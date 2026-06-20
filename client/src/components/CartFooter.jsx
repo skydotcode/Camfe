@@ -2,8 +2,9 @@ import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import api from '../config/axios.js'
 
-export const CartFooter = () => {
+export const CartFooter = ({text}) => {
     const navigate = useNavigate();
+    console.log(text);
   return (
     <div className='flex flex-row items-center px-4 shadow-md bg-white py-2
         sticky top-0 z-10'>
@@ -13,7 +14,7 @@ export const CartFooter = () => {
                 >
                     <i className='fa-solid fa-arrow-left text-sm'></i>
                 </button>
-                <h1 className='text-xl font-bold py-4 px-4 '>Your Cart</h1>
+                <h1 className='text-xl font-bold py-4 px-4 '>Your {text}</h1>
       
     </div>
   )

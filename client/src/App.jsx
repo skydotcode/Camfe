@@ -22,16 +22,16 @@ import { useAuth } from './context/AuthContext'
 // import './App.css'
 
 function App() {
-  const {user} = useAuth();
+  const {user , loading , isLoggedIn} = useAuth();
 
   const ProtectedRoute = ({children}) =>{
     if(user === undefined){
       return <div>Loading...</div>
     }
-    if(!user){
+    if(!loading && !isLoggedIn ){
       return < Navigate to='/login'/>
     }
-    return children
+    return children;
   }
   return(
     <BrowserRouter>
@@ -55,13 +55,13 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/auth/success" element={<AuthSuccess/>} />
         <Route path="/:id/menu" element={<ProtectedRoute><New /></ProtectedRoute>} />
-        <Route path="/cafe/:id" element={<ProtectedRoute><Ownerhomepage /></ProtectedRoute>} />
+        <Route path="/:id/cafe" element={<ProtectedRoute><Ownerhomepage /></ProtectedRoute>} />
         <Route path="/menu/:id" element={<ProtectedRoute><EditFood /></ProtectedRoute>} />
         <Route path="/cafe/new" element={<ProtectedRoute><CafeRegister /></ProtectedRoute>} />
-        <Route path="/cart" element={<ProtectedRoute><Cart /></ProtectedRoute>} />
+        <Route path="/cart" element={<Cart />} />
         <Route path="/orders" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
         <Route path="/orders/my" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
-        {/* <Route path="/cafe/new" element={<ProtectedRoute><CafeRegister/></ProtectedRoute>}/> */}
+        <Route path="/cafe/:id" element={<Cafehome/>}/>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
