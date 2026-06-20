@@ -13,8 +13,10 @@ const storage = new CloudinaryStorage({
   cloudinary : cloudinary,
   params: {
     folder: 'campus-eats',        // folder name in your Cloudinary account
-    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],  // only allow images
+    allowed_formats: ['jpg', 'jpeg', 'png', 'webp'],
+    transformation: [{ quality: 'auto:low', fetch_format: 'auto' }]
   },
+  
 });
 
 // multer handles the file from the request and passes it to cloudinary
