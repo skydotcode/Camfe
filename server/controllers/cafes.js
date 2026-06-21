@@ -22,8 +22,6 @@ module.exports.create = async(req ,res)=>{
     });
     await newCafe.save();
     res.json({message:"Cafe has been Listed Successfully!" , newCafe});
-    // const allCafes = await cafes.find();r
-    // res.json(allCafes);
   } catch(err){
     console.log(err.message);
   }

@@ -47,6 +47,15 @@ const validateImage = (req, res, next) => {
   next(); 
 };
 
+router.get("/" , async(req , res) =>{
+  let {category} = req.query;
+  const menu = await Menu.find({
+    category: category
+  });
+
+  res.json({data:menu});
+});
+
 //fooditems SHOW
 router.get('/:id',
   authMiddleware,

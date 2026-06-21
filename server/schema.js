@@ -28,14 +28,15 @@ module.exports.menuSchema = Joi.object({
       'string.min': 'Description must be at least 10 characters',
       'any.required': 'Description is required',
     }),
-
+  image: Joi.string().required(),
+  
+  }).required() ,
   category: Joi.string()
-    // .required()
+    .required()
     .messages({
       'any.required': 'Category is required',
     }),
-  image: Joi.string().required()
-  }).required()
+    
 });
 
 

@@ -34,6 +34,11 @@ let cafesSchema = new Schema({
         type:String ,
         // required:true
     },
+    category: {
+        type:String ,
+        enum: ["Drinks" , "Snacks" , "Meals" , "Desserts"],
+        required:true
+    },
     isOpen: {
         type: Boolean,
         default: true

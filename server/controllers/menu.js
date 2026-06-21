@@ -18,22 +18,23 @@ module.exports.index = async(req ,res)=>{
 module.exports.create = async(req,res)=>{
   console.log("create function reached ✅");
   let {id} = req.params ;
-  // let cafe = await cafes.findById(id);
-  console.log("cafe",id);
-  let newFoodItem = new foodItems({
+  if (!req.file) {
+    return res.status(400).json({ message: "Image is required" });
+  }
+  let newMenu = new foodItems({
     cafeId: id,
     name: req.body.foodItems.name ,
     price: req.body.foodItems.price ,
+    category : req.body.category,
     image: req.file.path ,
   });
-  console.log("req.file:", req.file);
-  console.log("req.body.foodItems:", req.body.foodItems);
-  await newFoodItem.save();
+
+  await newMenu.save();
   await cafes.findByIdAndUpdate(id, {
-    $push: { menu: newFoodItem._id }
+    $push: { menu: newMenu._id }
   });
 
-  res.json({message:"Food Item Added" , data:newFoodItem});
+  res.json({message:"Food Item Added" , data:newMenu});
 };
 
 module.exports.show = async (req, res) => {
