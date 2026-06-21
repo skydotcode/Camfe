@@ -8,6 +8,12 @@ import { useParams } from 'react-router-dom';
 import api from '../../config/axios.js'
 import { useAuth } from '../../context/AuthContext';
 import { Loading } from '../../components/ui/Loading';
+import {RadioSelect} from  '../../components/ui/RadioSelect';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 
 export const New = () => {
@@ -15,6 +21,7 @@ export const New = () => {
     const { id } = useParams();
     const { isLoggedIn, loading , user} = useAuth();
 
+    const [category, setCategory] = useState();
     const [image , setImage] = useState(null);
     const [preview , setPreview] = useState(null);
     const [error , setError ] = useState({});
@@ -52,17 +59,17 @@ export const New = () => {
     const validate = () =>{
         let newErrors = {};
         if(!formData.name.trim()) newErrors.name = "name is required" 
-        // else if(!name) newErrors.name = "enter valid name"
         
         if(!formData.price.trim()) newErrors.price = "Price is required" 
         else if(!(formData.price >= 0)) newErrors.price = "enter valid price"
 
+        if(!category) newErrors.category = "category is required"
+
         if(!image) newErrors.password = "Image is required"
-        // else if(!file.length < 6) newErrors.password = "minimum 6 characters required"
 
         return newErrors;
 
-    }
+    };
 
     const handleSubmit=async (e)=>{
         e.preventDefault();
@@ -75,6 +82,7 @@ export const New = () => {
         const data = new FormData();
         data.append('foodItems[name]', formData.name);
         data.append('foodItems[price]', formData.price);
+        data.append("category" , category);
         data.append("image" , image);
 
         const token = localStorage.getItem('token');
@@ -104,6 +112,7 @@ export const New = () => {
     <div className='flex content-center items-center w-full  flex-grow  flex flex-col gap-4 
                 justify-center 
                 p-4 md:px-10 md:pt-4 bg-[#faf8f3] '>
+                    
         
         <p className='text-3xl font-bold'>Add a new Food Item:</p>
         <form className='flex flex-col gap-2 px-8' onSubmit={handleSubmit}>
@@ -120,6 +129,10 @@ export const New = () => {
             onChange={handleChange} 
             className='px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#fe6a36]'></input>
             {error.price && <p className='text-red-500 text-xs'>{error.price}</p>}
+
+            <RadioSelect options={["Drinks" , "Snacks" ,"Meals" , "Desserts"]} 
+            value={category} onChange={setCategory} label={"Select the Category:"}/>
+            {error.category && <p className='text-red-500 text-xs'>{error.category}</p>}
 
             <label htmlFor="image-input" name='image' className='m-2 cursor-pointer flex flex-col md:flex-row items-start md:items-center gap-2r'>
                 <img src={Add} className='h-8 mr-2' name='image'></img> 

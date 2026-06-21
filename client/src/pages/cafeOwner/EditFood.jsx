@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import api from '../../config/axios.js' ;
 import { useAuth } from '../../context/AuthContext';
 import { Loading } from '../../components/ui/Loading';
+import { Navbar } from '#src/components/Navbar.jsx';
+import { Footer } from '#src/components/Footer.jsx';
 
 const EditFood = () => {
   const navigate = useNavigate();
@@ -158,7 +160,9 @@ const EditFood = () => {
   if(loading) return <Loading/> ;
 
   return (
+    <div><Navbar/>
     <div className='flex flex-col justify-center items-center w-full h-screen gap-4 bg-[#faf8f3]'>
+      
       <h1 className='text-4xl font-bold'>Edit Food Item</h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
 
@@ -211,6 +215,8 @@ const EditFood = () => {
         <button type="button" onClick={() => navigate(-1)}>Cancel</button>
 
       </form>
+    </div>
+    <Footer/>
     </div>
   );
 };

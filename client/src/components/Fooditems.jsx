@@ -1,6 +1,6 @@
 import React from 'react'
 import { useEffect, useState } from 'react'
-import { Foodcard } from './Foodcard'
+import { MenuCard } from './MenuCard'
 // import { useNavigate } from 'react-router-dom';
 import api from '../config/axios.js'
 
@@ -34,7 +34,7 @@ export const Fooditems = () => {
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 '>
             {foodItems.map(item => (
               <div>
-              <Foodcard
+              <MenuCard
             key={item._id}
             image={item.image}
             name={item.name}

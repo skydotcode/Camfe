@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Foodcard } from '../Foodcard';
+import { MenuCard } from '../MenuCard';
 import api from '../../config/axios.js'
 import { useAuth } from '#src/context/AuthContext.jsx';
 import { Loading } from '../ui/Loading';
@@ -28,7 +28,7 @@ export const MenuManagement = ({cafe }) => {
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 '>
                 {cafe?.menu.map(item => (
-                  <div key={item._id}> <Foodcard
+                  <div key={item._id}> <MenuCard
                   key={item._id}
                 image={item.image}
                 name={item.name}

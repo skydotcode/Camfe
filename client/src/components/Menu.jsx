@@ -6,7 +6,7 @@ export const Menu = ({ image, name, category, rating, deliveryTime }) => {
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 '>
       {/* {foodItems.map(item => (
         <div>
-        <Foodcard
+        <MenuCard
           key={item._id}
           image={item.image}
           name={item.name}

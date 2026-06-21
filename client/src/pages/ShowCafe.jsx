@@ -1,5 +1,5 @@
 import React,{ useEffect, useState }  from 'react'
-import { Foodcard } from '../components/Foodcard';
+import { MenuCard } from '../components/MenuCard';
 import { Search } from '../components/Search';
 import { Footer } from '../components/Footer';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -47,7 +47,7 @@ export const Cafehome = () => {
             className='w-full object-cover '></img>
             <div className="absolute h-1/3 inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.8)] rounded" />
             <Back/>
-            <div className='absolute lg:top-45 top-40 lg:top-55  left-5 text-white '>
+            <div className='absolute lg:top-45 top-40   left-5 text-white '>
                 <h1 className=' text-3xl font-bold'>{cafe?.name}</h1>
                 <div className=''>
                     <i className='fa-solid fa-star text-yellow-400 text-sm'></i>
@@ -91,7 +91,7 @@ export const Cafehome = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 '>
                 {(menu?.length !== 0 ) ? menu?.map(item => (
                     <div key={item._id}>
-                        <Foodcard
+                        <MenuCard
                         
                         image={item.image}
                         name={item.name}
