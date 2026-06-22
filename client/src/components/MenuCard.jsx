@@ -11,9 +11,9 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
     const { addToCart } = useCart();
     const navigate = useNavigate();
 
-    const handleAddToCart = () => {
+    const handleAddToCart = (item) => {
         addToCart(item);
-        toast.success(`${name} added to cart!`);
+        toast.success(`${item.name} added to cart!`);
     };
   return (
     <div className=''>
@@ -25,7 +25,7 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
                 <img src={item.image} className='w-full h-52 object-cover' />
                 <div className='absolute top-3 right-3 bg-white rounded-full px-3 py-1 flex items-center gap-1 shadow-sm'>
                     <i className='fa-solid fa-star text-yellow-400 text-sm'></i>
-                    <span className='font-semibold text-sm'>{rating}</span>
+                    <span className='font-semibold text-sm'>{rating} 5</span>
                 </div>
             </div>
 
@@ -36,7 +36,7 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
                     <p className='text-gray-400 text-sm'>₹{item?.price?.toLocaleString("en-IN")}</p>
                     <div className='flex items-center gap-2 text-gray-400 text-sm'>
                         <i className='fa-regular fa-clock'></i>
-                        <span>{deliveryTime} min</span>
+                        <span>{deliveryTime}5 min</span>
                     </div>
                 </div>
                 <div className='flex flex-col'>
@@ -46,7 +46,7 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
                         >{text1} </button>
                         <button
                         className='text-white cursor-pointer'
-                        onClick={handleAddToCart}
+                        onClick={()=>handleAddToCart(item)}
                         >{text2} </button>
                         
                     </div>
@@ -55,6 +55,6 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
 
         </div>
         )) : <p className='flex justify-center font-bold
-                    text-2xl text-[#fe6a36]'>No Menu :( </p>} </div>
+                    text-xsm text-[#fe6a36]'>No Menu :( </p>} </div>
   )
 }
