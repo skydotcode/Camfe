@@ -113,7 +113,8 @@ export const Navbar = () => {
               <Avatar /> Profile
             </MenuItem>
             <MenuItem onClick={()=> {handleClose(); navigate("orders/my")}}>
-              <Avatar /> My Orders
+              <ListItemIcon><i class="fa-solid fa-box-open"></i></ListItemIcon>
+               My Orders
             </MenuItem>
             { user?.role === "Cafe Owner" &&
             <MenuItem onClick={()=> {handleClose(); navigate(`/${user?._id}/cafe`)}}>
