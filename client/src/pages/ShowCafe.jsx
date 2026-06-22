@@ -28,7 +28,8 @@ export const Cafehome = () => {
         try {
             const cafeRes = await api.get(`/api/cafe/${id}`);
             setCafe(cafeRes?.data.data);
-            setMenu(cafeRes?.data.data.menu);
+            setMenu(cafeRes?.data.data.menu)
+            console.log(cafeRes?.data.data.menu);
             
         } catch (err) {
             toast.error(err.message);
@@ -91,15 +92,8 @@ export const Cafehome = () => {
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 '>
                 {(menu?.length !== 0 ) ? menu?.map(item => (
                     <div key={item._id}>
-                        <MenuCard
-                        
-                        image={item.image}
-                        name={item.name}
-                        price={item.price}
-                        rating='4.7'
-                        deliveryTime='20-25'
-                        
-                        text2 = "+ Add to Cart"
+                        <MenuCard menu={menu}
+                        text2 = {"+ Add to Cart"}
                         item = {item}
                         />
                     </div>)) : <p className='flex justify-center font-bold
