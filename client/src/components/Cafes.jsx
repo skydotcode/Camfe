@@ -4,46 +4,43 @@ import { useNavigate } from 'react-router-dom';
 import api from '../config/axios.js'
 import { Loading } from './ui/Loading';
 import { useAuth } from '#src/context/AuthContext.jsx';
+import { toast } from 'react-toastify';
 
 
-export const Cafes = () => {
+export const Cafes = ({cafeListing}) => {
   const navigate = useNavigate();
   const {loading} = useAuth();
   const [cafes, setCafes] = useState([]);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
-    api.get(`/api/cafe`)
-      .then(data => {
-        setCafes(data);
-      })
-      .catch(err => {
-        setError(err.message);
-      });
+    const fetchCafe = async () =>{
+      try{
+        let res = await api.get(`/api/cafe`);
+        setCafes(res?.data);
+        console.log(res?.data);
+      }catch(err){
+        toast.error(err);
+      }
+    };
+    fetchCafe();
   }, []);
+
+  console.log(cafes);
+
 
   if(loading) return <Loading/> ;
   
   return (
-    <div className='flex flex-col gap-4  pt-4 mb-8 '> 
-        <p className='text-2xl'>Popular Cafes</p>
-        <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 gap-4
-          overflow-x-scroll'>
-            {cafes?.data?.map(item => (
-            <div key={item._id} onClick={()=> navigate(`/cafe/${item._id}`) }>
-              <Cafecard
-              
-              image={item.image}
-              name={item.name}
-              // price={item.price}
-              rating='4.7'
-              deliveryTime='20-25'
-              
-              text2 = "+ Add to Cart"
-              
-              />
-            </div>))}
+    <div>
+      <p className='text-2xl'>Popular Cafes</p>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 mb-8'>
+          {(cafes?.length !==0) && (cafeListing!= 0) ? (cafeListing || cafes)?.map((cafe) => (
+            <Cafecard key={cafe._id} cafe={cafe} />
+          )) : <p className='flex justify-center font-bold
+                    text-xsm text-[#fe6a36]'>No Results :( </p>
+        }
         </div>
     </div>
+    
   )
 }

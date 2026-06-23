@@ -18,19 +18,20 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
   return (
     <div className=''>
     {(menu?.length !== 0 ) ? menu?.map(item => (
-    <div className={`bg-white rounded-2xl shadow-md hover:shadow-lg 
-        transition-shadow cursor-pointer overflow-hidden w-full my-4 ${className} 
+    <div key={item._id} className={`bg-white rounded-2xl shadow-md hover:shadow-lg 
+        transition-shadow cursor-pointer overflow-hidden w-full my-4 
+        flex flex-row${className} 
         `}>
             <div className='relative'>
-                <img src={item.image} className='w-full h-52 object-cover' />
-                <div className='absolute top-3 right-3 bg-white rounded-full px-3 py-1 flex items-center gap-1 shadow-sm'>
+                <img src={item.image} className='w-45 h-45 object-cover' />
+                <div className='absolute top-3 left-3 bg-white rounded-full px-3 py-1 flex items-center gap-1 shadow-sm'>
                     <i className='fa-solid fa-star text-yellow-400 text-sm'></i>
                     <span className='font-semibold text-sm'>{rating} 5</span>
                 </div>
             </div>
 
             {/* Info */}
-            <div className='flex flex-row justify-between'>
+            <div className=' justify-between'>
                 <div className='p-4 flex flex-col gap-2'>
                     <h3 className='font-bold text-xl'>{item.name}</h3>
                     <p className='text-gray-400 text-sm'>₹{item?.price?.toLocaleString("en-IN")}</p>
@@ -40,7 +41,7 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
                     </div>
                 </div>
                 <div className='flex flex-col'>
-                    <div className='flex  bg-[#fe6a37] pr-4 pl-4 h-8 hover:bg-[#ff6f3f] cursor-pointer m-4 rounded-2xl font-white'>
+                    <div className='flex  bg-[#fe6a37] px-4 w-32 h-8 hover:bg-[#ff6f3f] cursor-pointer m-4 rounded-2xl font-white'>
                         <button onClick={() => onClick(id)}
                         className='text-white cursor-pointer'
                         >{text1} </button>

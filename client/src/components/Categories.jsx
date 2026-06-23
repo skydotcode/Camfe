@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import api from '../config/axios.js'
 import { MenuCard } from './MenuCard.jsx';
 import { Fooditems } from './Fooditems.jsx';
+import { useAuth } from '#src/context/AuthContext.jsx';
+import { Loading } from './ui/Loading.jsx';
 
 export const Categories = () => {
+    const {loading} = useAuth();
     const [menu , setMenu] = useState();
     const [category , setCategory] = useState();
 
@@ -12,8 +15,10 @@ export const Categories = () => {
         setCategory(e.target.value);
         const res = await api.get(`/api/menu?category=${e.target.value}`);
         setMenu(res.data.data);
-        
-    }
+    };
+
+    if(loading) return <Loading/>;
+
   return (
     <div >
         <div className='flex flex-col  gap-4 '>

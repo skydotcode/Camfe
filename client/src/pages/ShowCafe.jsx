@@ -93,7 +93,7 @@ export const Cafehome = () => {
                 {(menu?.length !== 0 ) ? menu?.map(item => (
                     <div key={item._id}>
                         <MenuCard menu={menu}
-                        text2 = {"+ Add to Cart"}
+                        text2 = {"+Add to Cart"}
                         item = {item}
                         />
                     </div>)) : <p className='flex justify-center font-bold
