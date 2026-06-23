@@ -11,7 +11,9 @@ const app = express();
 const mongoose = require("mongoose");
 const User = require("./models/users.js");
 const foodItems = require("./models/menu.js");
-const cafes = require("./models/cafes.js");
+const Cafes = require("./models/cafes.js");
+const Menus = require("./models/menu.js");
+
 const data = require("./init/data.js");
 
 const wrapAsync = require ("./utilis/wrapAsync.js");
@@ -74,6 +76,34 @@ app.get('/health', (req, res) => {
 app.get("/", (req, res) => {
   res.send("API is running ");
 });
+
+app.get("/api/search" ,async(req , res)=>{
+  try {
+    const { q } = req.query; // Search term
+    console.log(q);
+    if (!q) {
+      return res.json({ success: true, results: { cafes: [], menus: [] } });
+    };
+
+    const escapeRegex = (str) => str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    const searchRegex = new RegExp(q, 'i'); // Case-insensitive partial match
+
+    // Execute queries in parallel across different models
+    const [cafes , menus] = await Promise.all([
+      Cafes.find({ name: searchRegex }).limit(5).lean(),
+      Menus.find({ name: searchRegex }).limit(5).lean(),
+      // Article.find({ content: searchRegex }).limit(5).lean()
+    ]);
+
+    // Format the unified response payload
+    res.json({
+      success: true,
+      data: { cafes, menus }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+})
 
 app.use("/api/menu" , menuRouter);
 app.use("/api/cafe" , cafeRouter);
