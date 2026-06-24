@@ -36,7 +36,6 @@ export const Search = () => {
       e.preventDefault();
       setQuery(e.target.value);
       const res = await api.get(`/api/search?q=${e.target.value}`);
-      console.log(res);
       setCafe(res.data.data.cafes);
       setMenu(res.data.data.menus);
     }catch(e){
@@ -139,17 +138,25 @@ export const Search = () => {
 {query && (
   <div className="my-2 max-h-[60vh] 
   overflow-y-auto ">
-    <p className="text-sm font-semibold text-gray-500 mb-2 sticky top-0 bg-[#faf8f3]">
+    <p className="text-sm font-semibold text-gray-500 mb-2 sticky top-0 z-10 bg-[#faf8f3]">
       Search results for "{query}"
     </p>
 
     {(cafe || menu) ? (
       <div className="flex flex-col gap-4">
         {menu && (
-          <div>
-            <p className="text-xs font-bold uppercase tracking-wide text-gray-400 mb-2">Dishes</p>
-            <MenuCard menu={menu} text2={"+Add to Cart"} />
-          </div>
+          <div  
+            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 '>
+              {(menu?.length !== 0 ) ? menu.map((item) => (
+              <MenuCard
+              key={item._id}
+              item = {item}
+              text1={"Edit"}
+              />  
+              )) : <p className='flex justify-center font-bold
+                    text-xsm text-[#fe6a36]'>No Menu :( </p>} 
+          </div>   
+            
         )}
 
         {cafe && (

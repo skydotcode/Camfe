@@ -20,31 +20,23 @@ export const MenuManagement = ({cafe }) => {
             <div className='flex justify-between items-center'>
               <p className='text-2xl'>Your Listed Items</p>
               <form>
-              <button onClick={()=>navigate(`/${cafe?._id}/menu`)}
-              className='flex  bg-[#fe6a37] pr-4 pl-4 h-8 hover:bg-[#ff6f3f] cursor-pointer 
-              m-4 rounded-2xl text-white items-center '
-              >+ Add Item</button>
+                <button onClick={()=>navigate(`/${cafe?._id}/menu`)}
+                className='flex  bg-[#fe6a37] pr-4 pl-4 h-8 hover:bg-[#ff6f3f] cursor-pointer 
+                m-4 rounded-2xl text-white items-center '
+                >+ Add Item</button>
               </form>
             </div>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 '>
-                {cafe?.menu.map(item => (
-                  <div key={item._id}> <MenuCard
-                  key={item._id}
-                image={item.image}
-                name={item.name}
-                price={item.price}
-                rating='4.7'
-
-                deliveryTime='20-25'
-                text1 = {"Edit"}
-                id={item._id}
-                onClick={() => navigate(`/menu/${item._id}`)}
-                />
-                </div>))}
-                    
-                </div>
+            <div  
+            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+              {(cafe?.length !== 0 ) ? cafe?.menu.map((item) => (
+              <MenuCard
+              key={item._id}
+              item = {item}
+              text1={"Edit"}
+              />  
+              )) : <p className='flex justify-center font-bold
+                    text-xsm text-[#fe6a36]'>No Menu :( </p>} </div>   
             </div>
-
-    </div>
+        </div>
   )
 }

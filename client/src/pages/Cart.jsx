@@ -5,6 +5,9 @@ import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
 import api from '../config/axios.js'
 import { Loading } from '../components/ui/Loading.jsx';
+import { Badge, IconButton } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCartOutlined';
+
 
 
 const Cart = () => {
@@ -13,12 +16,17 @@ const Cart = () => {
   const navigate = useNavigate();
 
   if(loading) return <Loading/>
-  
+
   if (cart?.length === 0) {
     return (
       <div className='flex flex-col h-screen bg-[#faf8f3]'>
         <CartFooter text={"Cart"}/>
         <div className='flex flex-col justify-center items-center h-screen gap-4'>
+          <IconButton >
+            <Badge color="primary" overlap="circular">
+              <ShoppingCartIcon fontSize="large" />
+            </Badge>
+          </IconButton>
           <h1 className=''>Your cart is empty!</h1>
           <button onClick={() => navigate('/')} className='bg-[#fe6a36] text-white p-4 
           w-60 rounded-lg font-bold '>Browse Menu</button>

@@ -163,7 +163,7 @@ const EditFood = () => {
     <div><Navbar/>
     <div className='flex flex-col justify-center items-center w-full h-screen gap-4 bg-[#faf8f3]'>
       
-      <h1 className='text-4xl font-bold'>Edit Food Item</h1>
+      <h1 className='text-4xl font-bold'>Edit Menu Item</h1>
       <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
 
         <div>

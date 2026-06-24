@@ -11,7 +11,6 @@ export const Categories = () => {
     const [category , setCategory] = useState();
 
     const handleClick =async (e)=>{
-        console.log(e.target.value);
         setCategory(e.target.value);
         const res = await api.get(`/api/menu?category=${e.target.value}`);
         setMenu(res.data.data);
@@ -61,26 +60,20 @@ export const Categories = () => {
                     Desserts</button>
             </div>
         </div>
-        {/* <MenuCard menu = {category}/> */}
-        {/* {(menu?.length !== 0 ) ? menu?.map(item => (
-        <div key={item._id}>
-            <MenuCard
-            
-            image={item.image}
-            name={item.name}
-            price={item.price}
-            rating='4.7'
-            deliveryTime='20-25'
-            
-            text2 = "+ Add to Cart"
-            item = {item}
-            />
-        </div>)) : <p className='flex justify-center font-bold
-        text-2xl text-[#fe6a36]'>Nothingg to show !</p>} */}
         {category && 
         <div className='my-2'>
             <p className='text-2xl'>Delecious {category} for you!</p>
-            <MenuCard menu={menu} text2={"Add to Cart"} />
+            <div  
+            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+                {(menu?.length !== 0 ) ? menu?.map((item) => (
+                <MenuCard
+                key={item._id}
+                item = {item}
+                text1={"Edit"}
+                />  
+                )) : <p className='flex justify-center font-bold
+                    text-xsm text-[#fe6a36]'>No Menu :( </p>} 
+            </div>   
         </div>}
     </div>
   )

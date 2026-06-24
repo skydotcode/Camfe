@@ -17,7 +17,6 @@ export const Cafes = ({cafeListing}) => {
       try{
         let res = await api.get(`/api/cafe`);
         setCafes(res?.data);
-        console.log(res?.data);
       }catch(err){
         toast.error(err);
       }
@@ -25,14 +24,12 @@ export const Cafes = ({cafeListing}) => {
     fetchCafe();
   }, []);
 
-  console.log(cafes);
-
 
   if(loading) return <Loading/> ;
   
   return (
     <div>
-      <p className='text-2xl'>Popular Cafes</p>
+      <p className='text-2xl mt-2'>Popular Cafes</p>
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pt-4 mb-8'>
           {(cafes?.length !==0) && (cafeListing!= 0) ? (cafeListing || cafes)?.map((cafe) => (
             <Cafecard key={cafe._id} cafe={cafe} />

@@ -16,11 +16,10 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
         toast.success(`${item.name} added to cart!`);
     };
   return (
-    <div className=''>
-    {(menu?.length !== 0 ) ? menu?.map(item => (
+    <div >
     <div key={item._id} className={`bg-white rounded-2xl shadow-md hover:shadow-lg 
-        transition-shadow cursor-pointer overflow-hidden w-full my-4 
-        flex flex-row${className} 
+        transition-shadow cursor-pointer overflow-hidden w-full
+        flex flex-row
         `}>
             <div className='relative'>
                 <img src={item.image} className='w-45 h-45 object-cover' />
@@ -41,7 +40,9 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
                     </div>
                 </div>
                 <div className='flex flex-col'>
-                    <div className='flex  bg-[#fe6a37] px-4 w-32 h-8 hover:bg-[#ff6f3f] cursor-pointer m-4 rounded-2xl font-white'>
+                    <div className='flex justify-center items-center
+                    bg-[#fe6a37] px-4 w-auto h-8 hover:bg-[#ff6f3f] 
+                    cursor-pointer m-4 rounded-2xl font-white'>
                         <button onClick={() => onClick(id)}
                         className='text-white cursor-pointer'
                         >{text1} </button>
@@ -55,7 +56,6 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
             </div>
 
         </div>
-        )) : <p className='flex justify-center font-bold
-                    text-xsm text-[#fe6a36]'>No Menu :( </p>} </div>
+         </div>
   )
 }

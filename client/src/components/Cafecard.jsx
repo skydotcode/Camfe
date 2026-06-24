@@ -10,11 +10,10 @@ export const Cafecard = ({cafe, image, name, category, rating, deliveryTime }) =
     const navigate = useNavigate();
     const {loading} = useAuth();
     if(loading) return <Loading/>;
-    console.log(cafe);
     return (
         <div>
        <div key={cafe._id} className='bg-white rounded-2xl shadow-md hover:shadow-lg 
-        transition-shadow cursor-pointer overflow-hidden w-full my-4'
+        transition-shadow cursor-pointer overflow-hidden w-full'
         onClick={()=> navigate(`/cafe/${cafe?._id}`)}
         >
             {/* Image with rating badge */}

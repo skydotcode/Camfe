@@ -74,6 +74,7 @@ export const MyOrders = () => {
       <div className='flex flex-col h-screen bg-[#faf8f3]'>
         <CartFooter text={"Orders"}/>
         <div className='flex flex-col justify-center items-center h-screen gap-4'>
+          <i className="fa-solid fa-box-open text-6xl opacity-50"></i>
           <h1 className=''>Your don't have any orders!</h1>
           <button onClick={() => navigate('/')} className='bg-[#fe6a36] text-white p-4 
           w-60 rounded-lg font-bold '>Browse Menu</button>

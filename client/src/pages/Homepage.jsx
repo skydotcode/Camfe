@@ -10,7 +10,7 @@ export const Homepage = () => {
   return (
     <div className='bg-[#faf8f3] '>
       <Navbar/>
-      <div className='lg:pr-24 lg:pl-24 pl-4 pr-4 min-h-screen'>
+      <div className='lg:px-30 pl-4 pr-4 min-h-screen'>
         <Search/>
         <Categories/>
         <Cafes />

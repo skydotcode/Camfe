@@ -20,7 +20,7 @@ import Logout from '@mui/icons-material/Logout';
 import api from '../config/axios.js'
 
 
-export const Navbar = () => {
+export const Navbar = ({className}) => {
   const { user, isLoggedIn, logout, loading } = useAuth();
   const { totalItems } = useCart();
   const navigate = useNavigate();
@@ -39,8 +39,9 @@ export const Navbar = () => {
   };
 
   return (
-    <div className='flex flex-row justify-between w-full py-4  items-center px-4 lg:px-24 
-    border-b border-gray-500/50 bg-white'>
+    <div className ={`flex flex-row justify-between w-full py-4  items-center px-4 lg:px-30 
+    border-b border-gray-500/50 bg-white ${className} `}
+    >
       
       {/* Logo */}
       <div className='flex flex-row items-center gap-4 cursor-pointer' onClick={() => navigate("/")}>
@@ -113,7 +114,7 @@ export const Navbar = () => {
               <Avatar /> Profile
             </MenuItem>
             <MenuItem onClick={()=> {handleClose(); navigate("orders/my")}}>
-              <ListItemIcon><i class="fa-solid fa-box-open"></i></ListItemIcon>
+              <ListItemIcon><i className="fa-solid fa-box-open"></i></ListItemIcon>
                My Orders
             </MenuItem>
             { user?.role === "Cafe Owner" &&

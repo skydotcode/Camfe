@@ -100,7 +100,7 @@ export const Ownerhomepage = () => {
     
     <div >{ user?.role == "Cafe Owner" ? (
         <div className='min-h-screen'>
-        <Navbar/>
+        <Navbar className={"sticky top-0 z-10"}/>
         <div className='bg-[#faf8f3] px-4 lg:pr-24 lg:pl-24  min-h-screen' id='Ownerhomepage'>
             <div className=' pt-4 pb-2'>
                 <h1 className='flex font-bold text-xl  pb-4 '>Dashboard -  <Select roles={cafe || []} value={cafeId} onChangeFxn={handleCafeChange}/> </h1>
