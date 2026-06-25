@@ -4,6 +4,7 @@ import { useCart } from '../context/CartContext';
 import { toast } from 'react-toastify';
 // import foodItems from '../../../server/models/foodItems';
 import api from '../config/axios.js'
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCartOutlined';
 
 export const MenuCard = ({menu, image, name, price, rating, deliveryTime, className ,text1,text2 , onClick,id
     , item
@@ -49,7 +50,7 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
                         <button
                         className='text-white cursor-pointer'
                         onClick={()=>handleAddToCart(item)}
-                        >{text2} </button>
+                        >{text2} <ShoppingCartIcon fontSize="small" /> </button>
                         
                     </div>
                 </div>

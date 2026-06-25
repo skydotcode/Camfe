@@ -151,7 +151,7 @@ export const Search = () => {
               <MenuCard
               key={item._id}
               item = {item}
-              text1={"Edit"}
+              text2={"+"}
               />  
               )) : <p className='flex justify-center font-bold
                     text-xsm text-[#fe6a36]'>No Menu :( </p>} 
