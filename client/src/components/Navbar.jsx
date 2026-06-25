@@ -51,7 +51,14 @@ export const Navbar = ({className}) => {
       <div className='flex justify-center items-center gap-4'>
 
       <IconButton onClick={() => navigate('/cart')}>
-        <Badge badgeContent={totalItems} color="primary" overlap="circular">
+        <Badge badgeContent={totalItems} 
+        sx={{
+          '& .MuiBadge-badge': {
+            backgroundColor: '#fe6a37',
+            color: 'white', // text color inside the badge
+          },
+        }}
+         overlap="circular">
           <ShoppingCartIcon fontSize="small" />
         </Badge>
       </IconButton>
