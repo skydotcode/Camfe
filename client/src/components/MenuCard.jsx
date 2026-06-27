@@ -14,7 +14,6 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
 
     const handleAddToCart = (item) => {
         addToCart(item);
-        toast.success(`${item.name} added to cart!`);
     };
   return (
     <div >
