@@ -20,12 +20,12 @@ export const Categories = () => {
 
   return (
     <div >
-        <div className='flex flex-col  gap-4 '>
+        <div className='flex flex-col  gap-2 '>
             <p className='text-2xl  opacity-75'>Categories</p>
             <div className='grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4
             overflow-x-scroll '>
                 <button className='flex flex-col justify-center gap-2 items-center 
-                bg-white  h-22 border border-gray-500/50 cursor-pointer 
+                bg-white  h-20 border border-gray-500/50 cursor-pointer 
                 hover:border-[#fe6a37] rounded-xl focus:border-[#fe6a37]'
                 name = "Drinks"
                 value= "Drinks"
@@ -34,7 +34,7 @@ export const Categories = () => {
                     Drinks</button>
 
                 <button className='flex flex-col justify-center gap-2 items-center 
-                bg-white  h-22 border border-gray-500/50 cursor-pointer
+                bg-white  h-20 border border-gray-500/50 cursor-pointer
                 hover:border-[#fe6a37] rounded-xl focus:border-[#fe6a37]'
                 name = "Snacks"
                 value= "Snacks"
@@ -43,7 +43,7 @@ export const Categories = () => {
                     Snacks</button>
 
                 <button className='flex flex-col justify-center gap-2  items-center 
-                bg-white h-22 border border-gray-500/50 cursor-pointer
+                bg-white h-20 border border-gray-500/50 cursor-pointer
                 hover:border-[#fe6a37] rounded-xl focus:border-[#fe6a37]'
                 name = "Meals"
                 value= "Meals"
@@ -51,7 +51,7 @@ export const Categories = () => {
                     <i className="fa-solid fa-pizza-slice text-3xl opacity-75"></i>
                     Meals</button>
                 <button className='flex flex-col justify-center gap-2  items-center 
-                bg-white  h-22 border border-gray-500/50 cursor-pointer
+                bg-white  h-20 border border-gray-500/50 cursor-pointer
                 hover:border-[#fe6a37] rounded-xl focus:border-[#fe6a37]'
                 name = "Desserts"
                 value= "Desserts"
