@@ -82,7 +82,7 @@ export const Ownerhomepage = () => {
         const interval = setInterval(fetchOrders, 10000);
         return () => clearInterval(interval);
 
-    }, [activeTab, cafes?._id]);  // ✅ runs when cafes updates
+    }, [activeTab, cafes?._id]);  
 
 
 
@@ -108,35 +108,39 @@ export const Ownerhomepage = () => {
                 <img alt='Please Select Cafe' src={`${cafes?.image}?t=${new Date().getTime()}`} 
                 className='w-full object-cover mb-4  rounded-xl '></img>
                                 
+            </div>
+            <div className='grid grid-cols-1 grid-cols-3 gap-1 lg:gap-8'>
+                <div className='flex flex-col bg-white hover:shadow p-2
+                lg:p-8 gap-2  cursor-pointer'>
+                    <div className='flex flex-row justify-between items-center'>
+                        <p>Todays's Revenue</p>
+                        <i className="fa-solid fa-indian-rupee-sign
+                        text-[#29c244]"></i>
+                    </div>
+                    <p className='text-2xl text-[#29c244] '
+                    >500/-</p>
                 </div>
-                <div className='grid grid-cols-1 grid-cols-3 gap-4 lg:gap-8'>
-                    <div className='flex flex-col bg-white hover:shadow p-2
-                    lg:p-8  gap-4 cursor-pointer'>
-                        <div className='flex flex-row justify-between items-center'>
-                            <p>Todays's Revenue</p>
-                            <i className="fa-solid fa-indian-rupee-sign text-[]"></i>
-                        </div>
-                        <p><i className="fa-solid fa-indian-rupee-sign"></i>500 /-</p>
+                <div className='flex flex-col bg-white hover:shadow 
+                p-2
+                lg:p-8  gap-2 cursor-pointer'>
+                    <div className='flex flex-row justify-between items-center'>
+                        <p>Total Orders</p>
+                        <i className="fa-solid fa-arrow-trend-up text-[#29c244]"></i>
                     </div>
-                    <div className='flex flex-col bg-white hover:shadow 
-                    p-2
-                    lg:p-8  gap-4 cursor-pointer'>
-                        <div className='flex flex-row justify-between items-center'>
-                            <p>Total Orders</p>
-                            <i className="fa-solid fa-arrow-trend-up"></i>
-                        </div>
-                        <p><i className="fa-solid fa-arrow-trend-up"></i> {orders.length} </p>
-                        
+                    <p className='text-2xl text-[#29c244]'
+                    >{orders.length} </p>
+                    
+                </div>
+                <div className='flex flex-col bg-white hover:shadow 
+                p-2
+                lg:p-8  gap-4 cursor-pointer'>
+                    <div className='flex flex-row justify-between items-center'>
+                        <p>Pending Orders</p>
+                        <i className="fa-regular fa-clock text-[#ef4743]"></i>
                     </div>
-                    <div className='flex flex-col bg-white hover:shadow 
-                    p-2
-                    lg:p-8  gap-4 cursor-pointer'>
-                        <div className='flex flex-row justify-between items-center'>
-                            <p>Pending Orders</p>
-                            <i className="fa-regular fa-clock"></i>
-                        </div>
-                        <p className='gap-8'><i className="fa-regular fa-clock"></i> {pendingOrders()} </p>
-                    </div>
+                    <p className='text-2xl text-[#ef4743]'
+                    > {pendingOrders()} </p>
+                </div>
                 </div>
             </div>
             <div className='bg-[#f5f0e8] pt-2 pb-2 px-2 rounded-full p-1 flex items-center gap-1 lg:my-4'>

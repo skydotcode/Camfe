@@ -137,7 +137,7 @@ export const Search = () => {
 
 {query && (
   <div className="my-2 max-h-[60vh] 
-  overflow-y-auto ">
+  overflow-y-auto backdrop-blur-lg">
     <p className="text-sm font-semibold text-gray-500 mb-2 sticky top-0 z-10 bg-[#faf8f3]">
       Search results for "{query}"
     </p>

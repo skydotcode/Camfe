@@ -16,6 +16,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   if(loading) return <Loading/>
+  console.log(cart)
 
   if (cart?.length === 0) {
     return (
@@ -46,7 +47,12 @@ const Cart = () => {
                     <img src={item.image} alt={item.name} width="300" className='rounded-xl'/>
                 </div>
                 <div className='flex flex-col gap-2 w-full  items-start'>
-                    <h2 className='font-bold text-2xl'>{item.name}</h2>
+                    <div className='flex flex-row gap-2'>
+                      <h2 className='font-bold text-2xl'>{item.name}</h2>
+                      <button ><i className="fa-solid fa-trash-can text-red-500 text-xl"
+                      onClick={() => removeFromCart(item._id)}></i></button>
+                    </div>
+                    
                     <div className='w-full  flex justify-between items-center'>
                         <p className='text-xl'>₹{item.price}</p>
                         <div className='bg-[#f6f1e8] px-6 py-2  flex rounded-3xl gap-2 items-center justify-between'>
@@ -56,9 +62,9 @@ const Cart = () => {
                         </div>
                         
                     </div>
+                    <p></p>
                     <p className='text-'>Subtotal: ₹{item.price * item.quantity}</p>
-                    <button >Remove <i className="fa-solid fa-trash-can text-red-500"
-                    onClick={() => removeFromCart(item._id)}></i></button>
+                    
                 </div>
             </div>
 

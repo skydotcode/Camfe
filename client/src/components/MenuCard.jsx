@@ -44,13 +44,14 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
                     <div className='flex justify-center items-center
                     bg-[#fe6a37] px-4 w-auto h-8 hover:bg-[#ff6f3f] 
                     cursor-pointer m-4 rounded-2xl font-white'>
-                        <button onClick={() => onClick(id)}
+                        
+                        <button onClick={() => navigate(`/menu/${item?._id}`)}
                         className='text-white cursor-pointer'
                         >{text1} </button>
                         <button
                         className='text-white cursor-pointer'
                         onClick={()=>handleAddToCart(item)}
-                        >{text2} <ShoppingCartIcon fontSize="small" /> </button>
+                        >{text2}  </button>
                         
                     </div>
                 </div>

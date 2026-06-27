@@ -27,15 +27,16 @@ export const MenuManagement = ({cafe }) => {
               </form>
             </div>
             <div  
-            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
-              {(cafe?.length !== 0 ) ? cafe?.menu.map((item) => (
-              <MenuCard
-              key={item._id}
-              item = {item}
-              text1={"Edit"}
-              />  
-              )) : <p className='flex justify-center font-bold
-                    text-xsm text-[#fe6a36]'>No Menu :( </p>} </div>   
+              className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+                {(cafe?.length !== 0 ) ? cafe?.menu.map((item) => (
+                  <MenuCard
+                  key={item._id}
+                  item = {item}
+                  text1={"Edit"}
+                  />  
+                  )) : <p className='flex justify-center font-bold
+                        text-xsm text-[#fe6a36]'>No Menu :( </p>}
+            </div>   
             </div>
         </div>
   )

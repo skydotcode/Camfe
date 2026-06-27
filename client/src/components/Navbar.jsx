@@ -120,7 +120,7 @@ export const Navbar = ({className}) => {
             <MenuItem onClick={handleClose}>
               <Avatar /> Profile
             </MenuItem>
-            <MenuItem onClick={()=> {handleClose(); navigate("orders/my")}}>
+            <MenuItem onClick={()=> {handleClose(); navigate("/orders/my")}}>
               <ListItemIcon><i className="fa-solid fa-box-open"></i></ListItemIcon>
                My Orders
             </MenuItem>
