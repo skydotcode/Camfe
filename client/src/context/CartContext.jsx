@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import api from '../config/axios.js'
+import { toast } from 'react-toastify';
 
 const CartContext = createContext();
 
@@ -18,13 +19,21 @@ export const CartProvider = ({ children }) => {
     localStorage.setItem('cart', JSON.stringify(cart));
   }, [cart]);  // ← runs every time cart state changes
 
+  const getCafeId = (item) => item.cafeId || item.cafe;
+
   // ADD TO CART
   const addToCart = (item) => {
     setCart(prev => {
+      if (prev.length > 0 && getCafeId(prev[0]) !== getCafeId(item)) {
+        toast.error('You can only order from one cafe at a time. Clear your cart to order from a different cafe.');
+        return prev; // unchanged
+      }
       // check if item already exists in cart
       const exists = prev.find(cartItem => cartItem._id === item._id);
 
       if (exists) {
+        toast.success(`${item.name} added to cart!`);
+
         // item already in cart — just increase quantity
         return prev.map(cartItem =>
           cartItem._id === item._id
@@ -32,6 +41,8 @@ export const CartProvider = ({ children }) => {
             : cartItem
         );
       }
+
+      toast.success(`${item.name} added to cart!`);
 
       // item not in cart — add it with quantity 1
       return [...prev, { ...item, quantity: 1 }];
