@@ -1,8 +1,8 @@
 # Camfe
-  • Built a campus-wide food ordering system for university students
+  • Built a campus-wide food ordering system for university students and staff
   • Designed separate dashboards for customers and cafe owners
   • Implemented order tracking and menu management
-  • Owners can list multiple cafes
+  • One Owner can list multiple cafes
   • Realtime delivery updates
 
 ## Features
@@ -10,13 +10,26 @@
 - Add travel listings
 - Upload images
 - Reviews and ratings
+- Online Payment
 
-## Tech Stack
-- Node.js
-- Express.js
-- MongoDB
-- EJS
-- Cloudinary
+## Tech Stack Used:
+1. Frontend:
+   React
+   TailwindCSS
+   React Router
+   Axios
+
+2. Backend:
+   Node.js
+   Express.js
+   Razorpay Integration
+
+3. Database:
+   MongoDB Atlas
+   Cloudinary
+   Authentication:
+      JWT authentication
+      Optional Google login
 
 ## Installation
 1. Clone the repo
@@ -28,17 +41,5 @@ npm install
 3. Run the server
 npm run dev
 
-# Tech Stack Used:
-1. Frontend:
-  React
-  TailwindCSS
-  React Router
-  Axios
-2. Backend:
-  Node.js
-  Express.js
-3. Database:
-  MongoDB (or Firebase if easier)
-  Authentication:
-  JWT authentication
-  Optional Google login
+
+   
