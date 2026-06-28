@@ -21,7 +21,7 @@ const orderController = require("../controllers/orders.js");
 router.post("/" ,
   authMiddleware ,
   wrapAsync(async(req,res) => {
-  let {cart , deliveryLocation, customer } = req.body ;
+  let {cart , deliveryLocation, customer,paymentMethod ,paymentId } = req.body ;
   
   let total = 0;
   const populatedItems = [];
@@ -39,13 +39,15 @@ router.post("/" ,
   }
     // 2. Create order
     console.log("user",req.userId);
-    console.log("cart",cart);
+    console.log("cart",paymentId);
   const order = await orders.create({
     userId: req.userId,
     customer:customer,
     cafeId: cart[0].cafeId,
     items: populatedItems,
     totalPrice: total,
+    paymentMethod,
+    paymentId,
     deliveryLocation,
     status: "placed"
   });

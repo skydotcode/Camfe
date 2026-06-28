@@ -5,6 +5,9 @@ require('dotenv').config();
 const express = require("express");
 const session = require('express-session');
 
+const razorpayInstance = require('./config/razorpay');
+const crypto = require('crypto');
+
 const cors = require("cors");
 
 const app = express();
@@ -108,6 +111,57 @@ app.get("/api/search" ,async(req , res)=>{
 app.use("/api/menu" , menuRouter);
 app.use("/api/cafe" , cafeRouter);
 app.use("/api/orders" , orderRouter);
+
+// STEP 1 — create a Razorpay order
+app.post('/api/payment/create-order', wrapAsync(async (req, res) => {
+  const { amount } = req.body;  // amount in rupees, e.g. 250
+
+  const options = {
+    amount: amount * 100,   // Razorpay needs amount in paise (smallest unit)
+                             // ₹250 → 25000 paise
+    currency: 'INR',
+    receipt: `receipt_${Date.now()}`,  // a unique order reference
+  };
+
+  const order = await razorpayInstance.orders.create(options);
+
+  res.json({
+    orderId: order.id,
+    amount: order.amount,
+    currency: order.currency,
+    keyId: process.env.RAZORPAY_KEY_ID,  // sent to client to open checkout
+  });
+}));
+
+// STEP 2 — verify payment after user completes payment
+app.post('/api/payment/verify', wrapAsync(async (req, res) => {
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+  console.log("body",req.body);
+
+  // Razorpay sends back a signature — we recreate it using our secret key
+  // and compare. If they match, payment is genuine and not tampered with.
+  const body = razorpay_order_id + '|' + razorpay_payment_id;
+
+  const expectedSignature = crypto
+    .createHmac('sha256', process.env.RAZORPAY_KEY_SECRET)
+    .update(body.toString())
+    .digest('hex');
+
+  const isAuthentic = expectedSignature === razorpay_signature;
+
+  console.log("expectedSignature" , expectedSignature);
+  console.log("razorpay_signature" , razorpay_signature);
+
+  if (!isAuthentic) {
+    throw new ExpressError(400, 'Payment verification failed');
+  }
+
+  // ✅ payment is genuine — save order to MongoDB here
+  // e.g. create a new Order document with status "paid"
+
+  res.json({ message: 'Payment verified successfully!' });
+}));
 
 
 app.use("/*splat" ,(req ,res,next)=>{

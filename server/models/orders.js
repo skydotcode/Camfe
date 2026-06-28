@@ -1,4 +1,4 @@
-const { required } = require("joi");
+const { required, string } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema ;
 
@@ -62,6 +62,14 @@ let ordersSchema = new Schema({
     deliveryLocation: {
       type: [String],
       required: true,
+    },
+    paymentMethod : {
+      type : String ,
+      required: true
+    },
+    paymentId : {
+      type : String ,
+      required: true
     },
     status: {
       type: String,
