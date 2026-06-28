@@ -9,6 +9,8 @@ import { MenuCard } from './MenuCard.jsx';
 import { Cafecard } from './Cafecard.jsx';
 import { useCart } from '#src/context/CartContext.jsx';
 import { Cafes } from './Cafes.jsx';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCartOutlined';
+
 
 export const Search = () => {
   const { user, isLoggedIn, logout ,loading} = useAuth();
@@ -151,7 +153,7 @@ export const Search = () => {
               <MenuCard
               key={item._id}
               item = {item}
-              text2={"+"}
+              text2={<ShoppingCartIcon fontSize="small" />}
               />  
               )) : <p className='flex justify-center font-bold
                     text-xsm text-[#fe6a36]'>No Menu :( </p>} 

@@ -7,10 +7,16 @@ import FormLabel from '@mui/material/FormLabel';
 
 export const RadioSelect = ({ value, onChange, options, label, name }) => {
   const id = React.useId();
+  const [error , setError ] = React.useState({});
 
   const handleChange = (event) => {
     onChange(event.target.value);
   };
+
+  // const validate = () =>{
+  //   let newErrors = {};
+  //   if()
+  // }
 
   return (
     <FormControl>
@@ -36,11 +42,10 @@ export const RadioSelect = ({ value, onChange, options, label, name }) => {
           sx={{ ml: 0, '& .MuiFormControlLabel-label': { ml: '-4px' } }}
           value={option} control={<Radio 
           sx={{
-                //   color: 'orange',
-                  '&.Mui-checked': { color: '#fe6a37'},
-                  padding: '4px',
-                }}
-                />} label={option} />
+            '&.Mui-checked': { color: '#fe6a37'},
+            padding: '4px',
+          }}
+          />} label={option} />
         ))}
       </RadioGroup>
     </FormControl>

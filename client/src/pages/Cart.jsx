@@ -16,7 +16,6 @@ const Cart = () => {
   const navigate = useNavigate();
 
   if(loading) return <Loading/>
-  console.log(cart)
 
   if (cart?.length === 0) {
     return (

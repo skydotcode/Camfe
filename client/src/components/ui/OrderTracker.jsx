@@ -64,7 +64,7 @@ export const OrderTracker = ({orderId}) => {
           <div key={step.key} className="flex gap-4">
             <div className="flex flex-col items-center">
               <div
-                className={`w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-500
+                className={`w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-500
                   ${stepStatus === "pending"
                     ? "bg-gray-200"
                     : "bg-orange-500"
@@ -79,14 +79,14 @@ export const OrderTracker = ({orderId}) => {
               </div>
               {!isLast && (
                 <div
-                  className={`w-0.5 h-12 my-1 transition-all duration-500
+                  className={`w-0.5 h-4 my-1 transition-all duration-500
                     ${i < currentIndex ? "bg-orange-500" : "bg-gray-200"}
                   `}
                 />
               )}
             </div>
 
-            <div className="pt-3">
+            <div className="">
               <p className={`font-semibold text-base ${stepStatus === "pending" ? "text-gray-400" : "text-gray-800"}`}>
                 {step.label}
               </p>

@@ -6,6 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { Loading } from '../../components/ui/Loading';
 import { Navbar } from '#src/components/Navbar.jsx';
 import { Footer } from '#src/components/Footer.jsx';
+import { RadioSelect } from '#src/components/ui/RadioSelect.jsx';
 
 const EditFood = () => {
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ const EditFood = () => {
   });
 
   const [image, setImage] = useState(null);
+  const [category, setCategory] = useState();
   const [preview, setPreview] = useState(null); // shows existing image
   const [errors, setErrors] = useState({});
 
@@ -40,14 +42,17 @@ const EditFood = () => {
                     Authorization: `Bearer ${token}`
                 }});
         const item = res.data;
+        console.log(item)
 
         // pre-fill form with existing values
         setFormData({
           name: item.name,
           price: item.price,
           description: item.description,
-          category: item.category,
+          // category: item.category,
         });
+
+        setCategory(item.category)
 
         // show existing image as preview
         setPreview(item.image);
@@ -88,8 +93,8 @@ const EditFood = () => {
     if (!formData.name.trim()) newErrors.name = 'Name is required';
     if (!formData.price) newErrors.price = 'Price is required';
     else if (formData.price <= 0) newErrors.price = 'Price must be greater than 0';
-    // if (!formData.description.trim()) newErrors.description = 'Description is required';
-    // if (!formData.category.trim()) newErrors.category = 'Category is required';
+
+    if(!category) newErrors.category = "category is required";
     return newErrors;
   };
 
@@ -128,7 +133,7 @@ const EditFood = () => {
       data.append('name', formData.name);
       data.append('price', formData.price);
       data.append('description', formData.description);
-      data.append('category', formData.category);
+      data.append('category', category);
 
       // only append image if user selected a new one
       if (image) data.append('image', image);
@@ -183,7 +188,7 @@ const EditFood = () => {
         </div>
 
         <div>
-            <label htmlFor="description">Item Description:</label>
+          <label htmlFor="description">Item Description:</label>
           <input type="text" name="description" placeholder="Description"
           className='px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#fe6a36]'
             value={formData.description} onChange={handleChange} />
@@ -191,11 +196,9 @@ const EditFood = () => {
         </div>
 
         <div>
-            <label htmlFor="category">Item Category:</label>
-          <input type="text" name="category" placeholder="Category"
-          className='px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#fe6a36]'
-            value={formData.category} onChange={handleChange} />
-          {errors.category && <p style={{ color: 'red' }}>{errors.category}</p>}
+          <RadioSelect options={["Drinks" , "Snacks" ,"Meals" , "Desserts"]} 
+          value={category} onChange={setCategory} label={"Select the Category:"}/>
+          {errors.category && <p className='text-red-500 text-xs'>{errors.category}</p>}
         </div>
 
         <div>

@@ -84,7 +84,7 @@ export const MyOrders = () => {
   }
   return (
     <> {(isLoggedIn && user?.role != "CafeOwner" ) ?
-    <div className='gap-8'>
+    <div className=''>
         <CartFooter text={"Orders"}/>
         { [...orders]
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
@@ -92,12 +92,12 @@ export const MyOrders = () => {
         <div className='flex gap-8 flex-col p-4 lg:mx-24 ' key={order?._id}>
             <div className='rounded-xl shadow-md bg-[#faf8f3] p-2  lg:px-24 '>
                 <div className=" rounded-2xl border border-gray-100 flex justify-left items-left  flex-col w-full">
-                    <div className="flex justify-between mb-8 text-sm">
-                        <div className="text-gray-400 space-y-1">
+                    <div className="flex justify-between  text-sm">
+                        <div className="text-gray-400 ">
                             <p>Order ID</p>
                             <p>Delivery to</p>
                         </div>
-                        <div className="text-right font-medium space-y-1">
+                        <div className="text-right font-medium">
                             <p>{order?._id}</p>
                             <p>{order?.deliveryLocation[0]} ,{order?.deliveryLocation[1]} </p>
                         </div>
@@ -107,13 +107,15 @@ export const MyOrders = () => {
             
       { order?.items?.map((item , index) => (
         <div key={index} className='flex flex-col  '>
-            <div className='flex flex-col  gap-4 
+            <div className='flex flex-col   
             '>
                 {/* <div>
                     <img src={item.image} alt={item.name} width="300" className='rounded-xl'/>
                 </div> */}
-                <div className='flex flex-col gap-2 w-full  items-start'>
-                    <h2 className='font-bold text-2xl'>{item?.name}</h2>
+                <div className='flex w-full  items-start'>
+                    <h2 className='font-bold text-xl'>{item?.name}</h2>
+                    <p className='text-sm'>: ₹{item?.price * item?.quantity}</p>
+                    
                     {/* <div className='w-full  flex justify-between items-center'>
                         <p className='text-xl'>₹{item.price}</p>
                         <div className='bg-[#f6f1e8] px-6 py-2  flex rounded-3xl gap-2 items-center justify-between'>
@@ -123,7 +125,7 @@ export const MyOrders = () => {
                         </div>
                         
                     </div> */}
-                    <p className='text-'>Subtotal: ₹{item?.price * item?.quantity}</p>
+                    
                 </div>
 
             </div>
@@ -140,10 +142,11 @@ export const MyOrders = () => {
 
       {order?.status !== "cancelled" && order?.status !== "rejected" && order?.status !== "delivered" && 
       <>
-      <OrderTracker orderId={order?._id}/> <button  onClick={()=>handleClick(order?._id)}
-              className='p-4 bg-[#fe6a37] text-white w-full border-rounded my-4 
-              cursor-pointer'>Cancel Order <i className="fa-solid fa-trash-can text-white"
-              ></i></button></>
+      <OrderTracker orderId={order?._id}/> 
+      <button  onClick={()=>handleClick(order?._id)}
+        className='p-2 bg-[#fe6a37] text-white w-full border-rounded 
+        cursor-pointer'>Cancel Order <i className="fa-solid fa-trash-can text-white"
+        ></i></button></>
       }
                             
         </div>
