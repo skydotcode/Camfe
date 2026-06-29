@@ -39,7 +39,7 @@ router.post("/" ,
   }
     // 2. Create order
     console.log("user",req.userId);
-    console.log("cart",paymentId);
+    console.log("cart",paymentMethod);
   const order = await orders.create({
     userId: req.userId,
     customer:customer,

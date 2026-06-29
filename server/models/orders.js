@@ -69,7 +69,7 @@ let ordersSchema = new Schema({
     },
     paymentId : {
       type : String ,
-      required: true
+      // required: true
     },
     status: {
       type: String,
