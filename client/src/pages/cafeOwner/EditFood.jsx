@@ -51,7 +51,7 @@ const EditFood = () => {
           description: item.description,
           // category: item.category,
         });
-
+        console.log(item.category)
         setCategory(item.category)
 
         // show existing image as preview
@@ -63,6 +63,8 @@ const EditFood = () => {
 
     getItem();
   }, [id]); // runs when id changes
+
+  console.log(category);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -196,8 +198,9 @@ const EditFood = () => {
         </div>
 
         <div>
+          <label>Select the Category:</label>
           <RadioSelect options={["Drinks" , "Snacks" ,"Meals" , "Desserts"]} 
-          value={category} onChange={setCategory} label={"Select the Category:"}/>
+          value={category} onChange={setCategory} />
           {errors.category && <p className='text-red-500 text-xs'>{errors.category}</p>}
         </div>
 
