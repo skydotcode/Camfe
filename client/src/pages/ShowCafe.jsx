@@ -46,18 +46,17 @@ export const Cafehome = () => {
             className='w-full object-cover '></img>
             <div className="absolute h-1/3 inset-0 shadow-[inset_0_0_80px_rgba(0,0,0,0.8)] rounded" />
             <Back/>
-            <div className='absolute lg:top-45 top-40   left-5 text-white '>
-                <h1 className=' text-3xl font-bold'>{cafe?.name}</h1>
+            <div className='absolute lg:top-40 top-40 left-5 lg:left-30 text-white'>
+                <h1 className='text-4xl lg:text-5xl font-bold'>{cafe?.name}</h1>
                 <div className=''>
                     <i className='fa-solid fa-star text-yellow-400 text-sm'></i>
                     <span className='font-semibold text-sm mr-2'>5</span>
                     <i className="fa-regular fa-clock"></i>
                     <span>34-45</span>
-                    
                 </div>
             </div>
         </div>
-        <div className='lg:pr-24 lg:pl-24 px-4 my-4 min-h-screen' >
+        <div className='lg:px-30 px-4 my-4 min-h-screen' >
             <Search/>
             <div className=''>
                 <div className='bg-[#f5f0e8] pt-4 pb-4 rounded-full p-1 flex items-center gap-1 mb-4'>
