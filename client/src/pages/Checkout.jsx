@@ -58,42 +58,42 @@ const Checkout = () => {
     }
 
         const handleSubmit= async( paymentInfo = null)=>{
-        let newErrors = validate();
-        if(Object.keys(newErrors).length > 0){
-            setError(newErrors);
-            console.log("print");
-            return;
+            let newErrors = validate();
+            if(Object.keys(newErrors).length > 0){
+                setError(newErrors);
+                console.log("print");
+                return;
+            }
+
+            let customer ={
+                name:user?.name ,
+                phone:formData.phone,
+            };
+            
+            try{
+                const token = localStorage.getItem('token');
+                const res = await api.post('/api/orders', {
+                    phone: formData.phone,
+                    customer:customer,
+                    paymentMethod: method,
+                    deliveryLocation: [formData.address , location],
+                    cart:cart ,
+                    paymentId: paymentInfo?.razorpay_payment_id || null,
+
+                } , {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                toast.success(res.data.message);
+                clearCart();
+                navigate("/orders/my");            
+
+            }catch(e){
+                const message = e.response?.data?.error || 'Something went wrong';
+                toast.error(message);
+            }
         }
-
-        let customer ={
-            name:user?.name ,
-            phone:formData.phone,
-        };
-        
-        try{
-            const token = localStorage.getItem('token');
-            const res = await api.post('/api/orders', {
-                phone: formData.phone,
-                customer:customer,
-                paymentMethod: method,
-                deliveryLocation: [formData.address , location],
-                cart:cart ,
-                paymentId: paymentInfo?.razorpay_payment_id || null,
-
-            } , {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            toast.success(res.data.message);
-            clearCart();
-            navigate("/orders/my");            
-
-        }catch(e){
-            const message = e.response?.data?.error || 'Something went wrong';
-            toast.error(message);
-        }
-    }
 
     const handlePayment = async () => {
         try {
@@ -159,10 +159,11 @@ const Checkout = () => {
     }
     const handlePlaceOrder = (e) => {
         e.preventDefault();
-        if (method === 'Cash On Delivery') {
-            handleSubmit();       // ← COD — create order directly, no payment popup
+        console.log(method);
+        if (method === "Pay Now") {
+            handlePayment();      // ← COD — create order directly, no payment popup
         } else {
-            handlePayment();      // ← Online — open Razorpay, order created after verify
+            handleSubmit();       // ← Online — open Razorpay, order created after verify
         }
     };
 
@@ -259,7 +260,7 @@ const Checkout = () => {
         <h2 className=' font-bold text-2xl'> Payment Method</h2>
         <RadioSelect 
         value={method} onChange={setMethod}
-         options={["Cash On Delivery " , "Pay Now"]}/>
+         options={["Cash On Delivery" , "Pay Now"]}/>
     </div>
     <div className='flex flex-col  shadow-xl  rounded-xl bg-white p-4 gap-4 '>
         <h2 className='px-4 font-bold text-2xl'> Order Summary</h2>
