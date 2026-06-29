@@ -13,13 +13,13 @@
 - Online Payment
 
 ## Tech Stack Used:
-1. Frontend:
+1. Frontend: Deployed on Vercel
    React
    TailwindCSS
    React Router
    Axios
 
-2. Backend:
+2. Backend: Deployed on Render
    Node.js
    Express.js
    Razorpay Integration
