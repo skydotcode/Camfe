@@ -42,12 +42,12 @@ const Checkout = () => {
 
     const validate = () =>{
         let newErrors = {};
-        if(!formData.phone) newErrors.phone = "phone number is required" 
-        // else if(!(formData.phone.length >10)) newErrors.address = "enter valid email"
+        if(!formData.phone) newErrors.phone = "Contact Number is required" 
+        if(!(location.length)) newErrors.location = "Please select the Location"
         
         // else if(!name) newErrors.email = "enter valid name"
         
-        if(!formData.address) newErrors.address = "address is required" 
+        if(!formData.address) newErrors.address = "Delivery address is required" 
         // else if(!(formData.address.trim(" ").length<0)) newErrors.address = "enter valid email"
 
         // if(!formData.password) newErrors.password = "Password is required"
@@ -57,43 +57,43 @@ const Checkout = () => {
 
     }
 
-        const handleSubmit= async( paymentInfo = null)=>{
-            let newErrors = validate();
-            if(Object.keys(newErrors).length > 0){
-                setError(newErrors);
-                console.log("print");
-                return;
-            }
-
-            let customer ={
-                name:user?.name ,
-                phone:formData.phone,
-            };
-            
-            try{
-                const token = localStorage.getItem('token');
-                const res = await api.post('/api/orders', {
-                    phone: formData.phone,
-                    customer:customer,
-                    paymentMethod: method,
-                    deliveryLocation: [formData.address , location],
-                    cart:cart ,
-                    paymentId: paymentInfo?.razorpay_payment_id || null,
-
-                } , {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                toast.success(res.data.message);
-                clearCart();
-                navigate("/orders/my");            
-
-            }catch(e){
-                const message = e.response?.data?.error || 'Something went wrong';
-                toast.error(message);
-            }
+    const handleSubmit= async( paymentInfo = null)=>{
+        let newErrors = validate();
+        if(Object.keys(newErrors).length > 0){
+            setError(newErrors);
+            console.log("print");
+            return;
         }
+
+        let customer ={
+            name:user?.name ,
+            phone:formData.phone,
+        };
+        
+        try{
+            const token = localStorage.getItem('token');
+            const res = await api.post('/api/orders', {
+                phone: formData.phone,
+                customer:customer,
+                paymentMethod: method,
+                deliveryLocation: [formData.address , location],
+                cart:cart ,
+                paymentId: paymentInfo?.razorpay_payment_id || null,
+
+            } , {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            toast.success(res.data.message);
+            clearCart();
+            navigate("/orders/my");            
+
+        }catch(e){
+            const message = e.response?.data?.error || 'Something went wrong';
+            toast.error(message);
+        }
+    }
 
     const handlePayment = async () => {
         try {
@@ -159,7 +159,12 @@ const Checkout = () => {
     }
     const handlePlaceOrder = (e) => {
         e.preventDefault();
-        console.log(method);
+        let newErrors = validate();
+        if(Object.keys(newErrors).length > 0){
+            setError(newErrors);
+            console.log("print");
+            return;
+        }
         if (method === "Pay Now") {
             handlePayment();      // ← COD — create order directly, no payment popup
         } else {
@@ -206,7 +211,7 @@ const Checkout = () => {
                             onChange={handleLocationChange}
                             className="
                             w-full
-                            px-4 py-2
+                            p-2
                             bg-white
                             border-2 border-[#fe6a36]
                             rounded-lg
@@ -214,11 +219,9 @@ const Checkout = () => {
                             font-medium
                             cursor-pointer
                             outline-none
-                            appearance-none
                             focus:border-orange-600
                             focus:ring-2 focus:ring-orange-300
                             transition-all duration-200
-                            
                             "
                         >
                             <option value="" disabled>Select the Location</option>
@@ -233,12 +236,10 @@ const Checkout = () => {
                             <option  >Mother Dairy</option> */}
                         </select>
 
-                    {/* custom dropdown arrow */}
-                        <div className="absolute right-3 top-3 pointer-events-none text-orange-500">
-                            ▼
-                        </div>
                         
-                    </div>{error.location && <p style={{ color: 'red' }}>{error.location}</p>}
+                        
+                    </div>
+                    {error.location && <p className='text-red-500 text-sm'>{error.location}</p>}
 
                     <div className='flex flex-col gap-1'>
                         <label htmlFor="phone">Enter Your Address</label>
@@ -262,7 +263,7 @@ const Checkout = () => {
         value={method} onChange={setMethod}
          options={["Cash On Delivery" , "Pay Now"]}/>
     </div>
-    <div className='flex flex-col  shadow-xl  rounded-xl bg-white p-4 gap-4 '>
+    <div className='flex flex-col  shadow-xl  rounded-xl bg-white p-4 gap-4'>
         <h2 className='px-4 font-bold text-2xl'> Order Summary</h2>
         <div className='flex justify-between px-4 '>
             <span>Subtotal</span>
