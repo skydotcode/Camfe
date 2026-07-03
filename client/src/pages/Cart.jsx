@@ -36,9 +36,9 @@ const Cart = () => {
   }
 
   return (
-    <div className='flex flex-col bg-[#faf8f3] gap-8 min-h-screen '>
+    <div className='flex flex-col bg-[#faf8f3] gap-8 min-h-screen'>
       <CartFooter text={"Cart"}/>
-      <div className='flex flex-col gap-8  lg:px-24 px-4'>
+      <div className='flex flex-col gap-8 lg:px-30   px-4'>
       {cart.map(item => (
         <div key={item._id} className='flex flex-col bg-[#faf8f3]     gap-4 '>
             <div className='flex bg-white rounded-xl p-4 shadow-md gap-4 justify-center items-center'>

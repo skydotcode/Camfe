@@ -103,11 +103,11 @@ export const Search = () => {
     //       </div>
     //     }
     // </div>
-    <div className="flex flex-col gap-3 pt-4 pb-4 sticky 
+    <div className="flex flex-col gap-2 py-2 sticky 
     top-0 z-10  bg-[#faf8f3]">
       <div>
         <p className="text-3xl font-bold text-gray-900">Good Afternoon {user?.name}</p>
-        <p className="text-gray-500 mt-1">What would you like to eat today?</p>
+        <p className="text-gray-500">What would you like to eat today?</p>
       </div>
 
       <form

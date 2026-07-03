@@ -9,6 +9,7 @@ import { Back } from '#src/components/Back.jsx';
 import api from '../config/axios.js'
 import { toast } from 'react-toastify';
 import { Loading } from '../components/ui/Loading';
+import { ReviewsPage } from '#src/components/ReviewsPage.jsx';
 
 
 
@@ -98,8 +99,7 @@ export const Cafehome = () => {
                 {/* {menu ===null && <p>Nothingg to show !</p>} */}
                     
                 </div>}
-                {activeTab === 'reviews' && reviews===null && <p className='flex justify-center font-bold
-                    text-2xl text-[#fe6a36]'>Nothingg to show !</p>}
+                {activeTab === 'reviews' && <ReviewsPage cafe={cafe}/>}
                 {activeTab === 'about' && about===null && <p className='flex justify-center font-bold
                     text-2xl text-[#fe6a36]'>Nothingg to show !</p> }
 

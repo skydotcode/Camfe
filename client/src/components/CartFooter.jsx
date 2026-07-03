@@ -6,7 +6,7 @@ export const CartFooter = ({text}) => {
     const navigate = useNavigate();
     console.log(text);
   return (
-    <div className='flex flex-row items-center px-4 shadow-md bg-white py-2
+    <div className='flex px-4 lg:px-30 flex-row items-center  shadow-md bg-white py-2
         sticky top-0 z-10'>
             <button className=' top-3 left-3 bg-white rounded-full w-9 h-9 
                 flex items-center justify-center shadow-md cursor-pointer'

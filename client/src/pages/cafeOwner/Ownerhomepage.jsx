@@ -104,14 +104,15 @@ export const Ownerhomepage = () => {
         <div className='bg-[#faf8f3] px-4 lg:pr-24 lg:pl-24  min-h-screen' id='Ownerhomepage'>
             <div className=' pt-4 pb-2'>
                 <h1 className='flex font-bold text-xl  pb-4 '>Dashboard -  <Select roles={cafe || []} value={cafeId} onChangeFxn={handleCafeChange}/> </h1>
-                <div className='flex h-1/3 x h-[33.33dvh]'>
+                <div className='flex h-1/3 x h-[25dvh]'>
                 <img alt='Please Select Cafe' src={`${cafes?.image}?t=${new Date().getTime()}`} 
                 className='w-full object-cover mb-4  rounded-xl '></img>
                                 
             </div>
-            <div className='grid grid-cols-1 grid-cols-3 gap-1 lg:gap-8'>
+            <div className='grid grid-cols-1 grid-cols-3 gap-1 lg:gap-8 '>
                 <div className='flex flex-col bg-white hover:shadow p-2
-                lg:p-8 gap-2  cursor-pointer'>
+                lg:p-8 gap-2  cursor-pointer sticky 
+    top-0 z-10'>
                     <div className='flex flex-row justify-between items-center'>
                         <p>Todays's Revenue</p>
                         <i className="fa-solid fa-indian-rupee-sign

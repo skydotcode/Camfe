@@ -27,9 +27,6 @@ export const OrderStatus = ({orders , position}) => {
                 }
             }
         });
-      
-      // toast.success(res.data.message);
-      // window.location.reload();
 
     }catch(err){
       toast.error(err);
@@ -53,6 +50,7 @@ export const OrderStatus = ({orders , position}) => {
             {order?.items?.map((item)=>(
             <p key={item._id}>Items : {item.name}</p>))}
             <p>Location :{order.deliveryLocation}</p>
+            <p>Payment :{order.paymentMethod}</p>
             <p><i className="fa-solid fa-indian-rupee-sign"></i>{order.totalPrice}/-</p>
         </div>
         {position === "placed" &&
@@ -74,12 +72,6 @@ export const OrderStatus = ({orders , position}) => {
             text-white p-2' onClick={()=>handleClick(order?._id ,"out_for_delivery")}
             >Out for Delivery</button>
         </div>}
-        {/* {position === "ready" &&
-        <div className='flex justify-between gap-4 p-4'>
-            <button className='w-full bg-[#fe6a37] rounded-4xl 
-            text-white p-2' onClick={()=>handleClick(order?._id ,"out_for_delivery")}
-            >Out for Delivery</button>
-        </div>} */}
         {position === "out_for_delivery" &&
         <div className='flex justify-between gap-4 p-4'>
             <button className='w-full bg-[#fe6a37] rounded-4xl 
