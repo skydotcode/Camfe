@@ -33,6 +33,7 @@ app.use(express.json());
 const menuRouter = require("./routes/menu.js");
 const cafeRouter = require("./routes/cafe.js");
 const orderRouter = require("./routes/order.js");
+const reviewRouter = require("./routes/reviews.js");
 
 const passport = require('passport');
 require('./config/passport'); 
@@ -111,6 +112,8 @@ app.get("/api/search" ,async(req , res)=>{
 app.use("/api/menu" , menuRouter);
 app.use("/api/cafe" , cafeRouter);
 app.use("/api/orders" , orderRouter);
+app.use("/api/reviews" , reviewRouter);
+
 
 // STEP 1 — create a Razorpay order
 app.post('/api/payment/create-order', wrapAsync(async (req, res) => {

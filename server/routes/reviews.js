@@ -7,6 +7,7 @@ const {menuSchema } = require("../schema.js");
 const Menu = require("../models/menu.js");
 const cafes = require("../models/cafes.js");
 const orders = require("../models/orders.js");
+const reviews = require("../models/reviews.js");
 const authMiddleware = require("../middleware/authMiddleware.js");
 
 
@@ -18,39 +19,27 @@ const cafeController = require("../controllers/cafes.js");
 const menuController = require("../controllers/menu.js");
 const orderController = require("../controllers/orders.js");
 
-router.post("/" ,
+
+// router.get("/" , async(req , res) =>{
+//   const {cafeId} = req.params ;
+//   console.log(cafeId); 
+// })
+router.post("/new" ,
   authMiddleware ,
   wrapAsync(async(req,res) => {
-  let {cart , deliveryLocation, customer,paymentMethod ,paymentId } = req.body ;
-  
-  let total = 0;
-  const populatedItems = [];
+  let {rating , review , cafeId , user } = req.body ;
 
-  for (let item of cart) {
-    const menuItem = await Menu.findById(item._id);
-    total += menuItem.price * item.quantity;
+  console.log("user",user)
 
-    populatedItems.push({
-      menuItemId: menuItem._id,
-      name: menuItem.name,
-      price: menuItem.price,
-      quantity: item.quantity
-    });
-  }
-  if(paymentMethod === "Pay Now") paymentMethod = "Online" ;
-  const order = await orders.create({
-    userId: req.userId,
-    customer:customer,
-    cafeId: cart[0].cafeId,
-    items: populatedItems,
-    totalPrice: total,
-    paymentMethod,
-    paymentId,
-    deliveryLocation,
-    status: "placed"
+
+  await reviews.create({
+    user: user,
+    rating: rating,
+    review:review,
+    cafeId: cafeId,
   });
 
-  res.json({message:"order placed successfully"});
+  res.json({message:"Review Posted successfully"});
 
 }));
 

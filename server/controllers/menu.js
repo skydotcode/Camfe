@@ -44,6 +44,7 @@ module.exports.show = async (req, res) => {
 };
 
 module.exports.update = async(req,res)=>{
+  console.log(req.body.category);
     const updatedData = {
       name: req.body.name,
       price: req.body.price,

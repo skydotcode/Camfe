@@ -15,6 +15,7 @@ const upload = multer({ storage });
 
 const cafeController = require("../controllers/cafes.js");
 const menuController = require("../controllers/menu.js");
+const reviews = require("../models/reviews.js");
 
 
 const validateMenu = (req ,res ,next) =>{
@@ -82,6 +83,16 @@ router.get("/:id" ,
   let cafe = await cafes.findById(id).populate('menu');
   res.json({data:cafe});
 }));
+
+router.get("/:id/reviews" , async(req , res) =>{
+  const {id} = req.params ;
+  let rev = await reviews.find({
+    cafeId : id
+  }).populate("user") ;
+  res.json({data:rev});
+})
+
+
 
 router.get("/:id/menu" ,
   authMiddleware,
