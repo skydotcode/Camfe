@@ -20,17 +20,12 @@ const menuController = require("../controllers/menu.js");
 const orderController = require("../controllers/orders.js");
 
 
-// router.get("/" , async(req , res) =>{
-//   const {cafeId} = req.params ;
-//   console.log(cafeId); 
-// })
 router.post("/new" ,
   authMiddleware ,
   wrapAsync(async(req,res) => {
   let {rating , review , cafeId , user } = req.body ;
 
   console.log("user",user)
-
 
   await reviews.create({
     user: user,
@@ -50,6 +45,27 @@ router.get("/my" ,
     res.json({data:order});
 }));
 
+router.put("/:id" , async(req , res) =>{
+  let {rating , review , cafeId , user } = req.body ;
+
+  const updatedData = {
+    user: user,
+    rating: rating,
+    review:review,
+    cafeId: cafeId,
+  };
+
+  const updatedItem = await reviews.findByIdAndUpdate(
+    req.params.id,     // find item by id
+    updatedData,       // apply these changes
+    { new: true }      // return the updated document, not the old one
+  );
+  console.log(updatedItem);
+  if (!updatedItem) {
+    return res.status(404).json({ error: 'Food item not found' });
+  }
+  res.json({ message: 'Review updated!', data: updatedItem });
+});
 
 router.get("/:id/status" ,
   authMiddleware, wrapAsync( async(req ,res)=>{
