@@ -19,6 +19,7 @@ import AuthSuccess from './pages/AuthSuccess';
 import api from './config/axios.js'
 import { useAuth } from './context/AuthContext'
 
+
 // import './App.css'
 
 function App() {
@@ -47,12 +48,13 @@ function App() {
       draggable
       pauseOnHover
       theme="light"
-      // transition={Bounce}
+      // transition={Bounce}generateFibSimulation
       />
       <Routes>
         <Route path="/" element={<Homepage/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+
         <Route path="/auth/success" element={<AuthSuccess/>} />
         <Route path="/:id/menu" element={<ProtectedRoute><New /></ProtectedRoute>} />
         <Route path="/:id/cafe" element={<ProtectedRoute><Ownerhomepage /></ProtectedRoute>} />

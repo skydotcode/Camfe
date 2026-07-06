@@ -21,6 +21,7 @@ export const ReviewsPage = ({cafe}) => {
     const { user , refreshUser} = useAuth();
     const [rating, setRating] = useState(null);
     const [review, setReview] = useState("");
+    const [isEdit , setIsEdit] = useState(null);
     const [reviews , setReviews] = useState();
     const [hover, setHover] = useState(-1);
     const [error, setError] = useState({});
@@ -38,8 +39,16 @@ export const ReviewsPage = ({cafe}) => {
         setRating(newValue);
     };
 
-    const handleReviewChange = (e) => {
-        setReview(e.target.value);
+    const handleChildData = (review) =>{
+        setRating(review?.rating);
+        setReview(review?.review);
+        setIsEdit(review);
+    };
+
+    console.log(isEdit);
+
+    const handleReviewChange = (e ) => {
+        setReview(e.target.value );
     };
 
     const getReviews = async () => {
@@ -58,6 +67,9 @@ export const ReviewsPage = ({cafe}) => {
     }, [cafe?._id]);
 
 
+    
+
+
     const handleSubmit=async (e)=>{
         e.preventDefault();
         let newErrors = validate();
@@ -66,30 +78,62 @@ export const ReviewsPage = ({cafe}) => {
             return;
         }
 
-        const token = localStorage.getItem('token');
-        let res =  await toast.promise( 
-            api.post(`/api/reviews/new`, 
-                { 
-                    rating, review , 
-                    cafeId:cafe._id,
-                    user : user,
-                },{
-                headers: {
-                    Authorization: `Bearer ${token}`}
-            }) , {    
-            pending: ' Validating your review...',
-            success: '✅ Review added!',
-            error: {
-                render({ data }) {
-                    return data?.response?.data?.errors?.[0] 
-                        || data?.response?.data?.error 
-                        || 'Something went wrong?';
+        if(isEdit != null){
+            const token = localStorage.getItem('token');
+            let res =  await toast.promise( 
+                api.put(`/api/reviews/${isEdit?._id}`, 
+                    { 
+                        rating, review , 
+                        cafeId:cafe._id,
+                        user : user,
+                    },
+                    {
+                    headers: {
+                        Authorization: `Bearer ${token}`}
+                }) , {    
+                pending: ' Validating your review...',
+                success: '✅ Review Updated!',
+                error: {
+                    render({ data }) {
+                        return data?.response?.data?.errors?.[0] 
+                            || data?.response?.data?.error 
+                            || 'Something went wrong?';
+                    }
                 }
+                });
+                await getReviews(); 
+                setRating(0);
+                setReview('');
+                setIsEdit(null);
+                // handleChildData(res?.data?.data);
+            
+        }else{
+            const token = localStorage.getItem('token');
+            let res =  await toast.promise( 
+                api.post(`/api/reviews/new`, 
+                    { 
+                        rating, review , 
+                        cafeId:cafe._id,
+                        user : user,
+                    },{
+                    headers: {
+                        Authorization: `Bearer ${token}`}
+                }) , {    
+                pending: ' Validating your review...',
+                success: '✅ Review added!',
+                error: {
+                    render({ data }) {
+                        return data?.response?.data?.errors?.[0] 
+                            || data?.response?.data?.error 
+                            || 'Something went wrong?';
+                    }
+                }
+                });
+                await getReviews(); 
+                setRating(0);
+                setIsEdit(null);
+                setReview('');
             }
-            });
-            await getReviews(); 
-            setRating(0);
-            setReview('');
         };
 
     // if(loading) return <Loading/>
@@ -144,6 +188,7 @@ export const ReviewsPage = ({cafe}) => {
             {(reviews?.length !== 0 ) ? reviews?.map(item => (
                 <div key={item._id}>
                     <Reviews review={item}
+                    onSendData={handleChildData}
                     />
                 </div>)) : <p className='flex justify-center font-bold my-4
                 text-2xl text-[#fe6a36]'>No Reviews !</p>}
