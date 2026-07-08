@@ -22,7 +22,7 @@ const EditFood = () => {
   });
 
   const [image, setImage] = useState(null);
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("");
   const [preview, setPreview] = useState(null); // shows existing image
   const [errors, setErrors] = useState({});
 
@@ -41,7 +41,7 @@ const EditFood = () => {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }});
-        const item = res.data;
+        const item = res?.data;
         console.log(item)
 
         // pre-fill form with existing values
@@ -52,7 +52,7 @@ const EditFood = () => {
           // category: item.category,
         });
         console.log(item.category)
-        setCategory(item.category)
+        setCategory(item?.category)
 
         // show existing image as preview
         setPreview(item.image);
