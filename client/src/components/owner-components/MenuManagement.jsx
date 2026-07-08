@@ -27,7 +27,7 @@ export const MenuManagement = ({cafe }) => {
               </form>
             </div>
             <div  
-              className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+              className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {(cafe?.length !== 0 ) ? cafe?.menu.map((item) => (
                   <MenuCard
                   key={item._id}
