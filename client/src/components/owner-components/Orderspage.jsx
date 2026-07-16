@@ -3,36 +3,42 @@ import React from 'react'
 import { OrderStatus } from '../../components/owner-components/OrderStatus'
 import axios from 'axios';
 import api from '../../config/axios.js'
+import KitchenIcon from '@mui/icons-material/Kitchen';
+import RestaurantIcon from '@mui/icons-material/Restaurant';
+import SoupKitchenIcon from '@mui/icons-material/SoupKitchen';
 
 export const Orderspage = ({orders }) => {
   return (
-    <div className='mx-1 lg:mx-8'>
-        <p className='font-bold py-4 pb-0'>Pending Orders</p>
-        <div className='hover:shadow-md bg-white pb-8'>
+    <div >
+        <p className='font-bold mt-2 text-2xl'><i className="fa-solid fa-clock text-[#fe6a37]"></i>Pending Orders:</p>
+        <div className=''>
             {!orders || orders?.length === 0 ? <p className='text-sm'>No Pending orders...</p>:
-            <OrderStatus orders = {orders} position={"placed"} />}
+            <OrderStatus ordersArray={orders} position={"placed"} />}
         </div>
-        <p className='font-bold py-4 pb-0'>Preparing</p>
-        <div className='hover:shadow-md bg-white pb-8'>
+        <p className='font-bold text-2xl'><i className="fa-solid fa-utensils text-[#fe6a37]"></i>Preparing:</p>
+        {/* <KitchenIcon />
+      <RestaurantIcon color="primary" /> */}
+        
+        <div className=''>
         {!orders || orders?.length === 0 ? <p className='text-sm'>No orders...</p>:
-            <OrderStatus orders = {orders} position={"accepted"}/>}
+            <OrderStatus ordersArray={orders} position={"accepted"}/>}
         </div>
-        <p className='font-bold py-4 pb-0'>Ready for Pickup</p>
-        <div className='hover:shadow-md bg-white pb-8 '>
+        <p className='font-bold mt-2 text-2xl'><i class="fa-solid fa-boxes-packing text-[#fe6a37]"></i>Ready for Pickup:</p>
+        <div className=''>
         {!orders || orders?.length === 0 ? <p className='text-sm'>No orders...</p>:
-            <OrderStatus orders = {orders} position={"ready"}/>}
-        </div>
-
-        <p className='font-bold py-4 pb-0'>Out for Delivery</p>
-        <div className='hover:shadow-md bg-white pb-8 '>
-        {!orders || orders?.length === 0 ? <p className='text-sm'>No orders...</p>:
-            <OrderStatus orders = {orders} position={"out_for_delivery"}/>}
+            <OrderStatus ordersArray={orders} position={"ready"}/>}
         </div>
 
-        <p className='font-bold py-4 pb-0'>Delivered</p>
-        <div className='hover:shadow-md bg-white pb-8 '>
+        <p className='font-bold my-2 text-2xl'><i class="fa-solid fa-person-biking text-[#fe6a37]"></i>Out for Delivery:</p>
+        <div className=''>
         {!orders || orders?.length === 0 ? <p className='text-sm'>No orders...</p>:
-            <OrderStatus orders = {orders} position={"delivered"}/>}
+            <OrderStatus ordersArray={orders} position={"out_for_delivery"}/>}
+        </div>
+
+        <p className='font-bold my-2 text-2xl'><i class="fa-solid fa-circle-check text-[#fe6a37]"></i>Delivered</p>
+        <div className=''>
+        {!orders || orders?.length === 0 ? <p className='text-sm'>No orders...</p>:
+            <OrderStatus ordersArray={orders} position={"delivered"}/>}
         </div>
     </div>
   )

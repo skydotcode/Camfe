@@ -1,12 +1,34 @@
 import { useAuth } from '#src/context/AuthContext.jsx';
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify';
 import api from '../../config/axios.js'
 import { Loading } from '../ui/Loading.jsx';
 
-export const OrderStatus = ({orders , position}) => {
+export const OrderStatus = ({ordersArray , position}) => {
   const {loading} = useAuth();
+  const [orders , setOrders] = useState(ordersArray );
+
+  useEffect(() => {
+    setOrders(ordersArray);  // ✅ syncs state whenever prop updates
+  }, [ordersArray]);
+
+    
+  const fetchOrders = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const res = await api.get(`/api/cafe/${orders[0]?.cafeId}/orders`, {
+          headers: { Authorization: `Bearer ${token}` }
+      });
+      console.log(res.data.data);
+      setOrders(res.data.data);
+    } catch (err) {
+        toast.error(err.response?.data || err.message);
+    }
+  };
+
+    
+  
   const handleClick = async(orderId,status)=>{
     try{
       const token = localStorage.getItem('token');
@@ -27,6 +49,8 @@ export const OrderStatus = ({orders , position}) => {
                 }
             }
         });
+      await fetchOrders();
+      
 
     }catch(err){
       toast.error(err);
@@ -34,24 +58,33 @@ export const OrderStatus = ({orders , position}) => {
   }
 
   if (loading) return <Loading/>;
+  console.log(orders);
 
   return (
-    orders?.map(order =>( 
+    <div className="flex gap-2 overflow-x-auto p-4 scrollbar-thin">
+      {
+    orders?.map((order) =>( 
 
       order.status === position &&
-    <div key={order._id} className='flex flex-col bg-white p-2 rounded-xl 
-     cursor-pointer gap-4'>
-        <div>
-            <p>{order._id} id</p>
-            <p>{order.customer.name}</p>
-            <p>{order.customer.phone}</p>
+    <div key={order._id} className='flex flex-col bg-white p-4 shadow-sm rounded-2xl 
+     cursor-pointer gap-2 flex-shrink-0 w-80'>
+        {/* {position === "cancelled" && <p className='text-red-500'>Cancelled by the User</p>} */}
+        <div className='border-b pb-2'>
+            <span className='text-xs'>Order Id: {order._id}</span>
+            <p className='text-xl font-bold'>Name: {order.customer.name}</p>
+            <p>Phone No.:{order.customer.phone}</p>
         </div>
         <div>
+            <p>Items : </p>
             {order?.items?.map((item)=>(
-            <p key={item._id}>Items : {item.name}</p>))}
+            <p className='text-sm text-gray-700 truncate' key={item._id}> {item.name}</p>
+            ))}
             <p>Location :{order.deliveryLocation}</p>
-            <p>Payment :{order.paymentMethod}</p>
-            <p><i className="fa-solid fa-indian-rupee-sign"></i>{order.totalPrice}/-</p>
+            <div className='flex flex-row'>
+              <p>Payment :{order.paymentMethod}</p>
+              <p className='font-bold text-orange-500'>
+                <i className="fa-solid fa-indian-rupee-sign text-sm"></i>{order.totalPrice}/-</p>
+            </div>
         </div>
         {position === "placed" &&
         <div className='flex justify-between gap-4 '>
@@ -78,8 +111,8 @@ export const OrderStatus = ({orders , position}) => {
             text-white p-2' onClick={()=>handleClick(order?._id ,"delivered")}
             >Delivered</button>
         </div>}
-        <hr></hr>
     </div>
     ))
-  )
+    }
+  </div>)
 }

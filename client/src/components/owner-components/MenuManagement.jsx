@@ -4,6 +4,9 @@ import { MenuCard } from '../MenuCard';
 import api from '../../config/axios.js'
 import { useAuth } from '#src/context/AuthContext.jsx';
 import { Loading } from '../ui/Loading';
+import CustomizedSwitches from "../ui/ToggleSwitch.jsx";
+import FormControlLabel from '@mui/material/FormControlLabel';
+
 
 
 
@@ -28,6 +31,7 @@ export const MenuManagement = ({cafe }) => {
             </div>
             <div  
               className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
+                
                 {(cafe?.length !== 0 ) ? cafe?.menu.map((item) => (
                   <MenuCard
                   key={item._id}

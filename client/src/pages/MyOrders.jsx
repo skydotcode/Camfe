@@ -66,7 +66,7 @@ export const MyOrders = () => {
             }
         }
         });
-    toast(res.data.message);
+    // toast(res.data.message);
     refreshUser();
   }
     if (orders?.length === 0) {

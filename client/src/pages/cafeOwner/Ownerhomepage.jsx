@@ -72,17 +72,17 @@ export const Ownerhomepage = () => {
                 const res = await api.get(`/api/cafe/${cafes._id}/orders`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
-                setOrders(res.data.data);
+                setOrders(res?.data?.data);
             } catch (err) {
                 toast.error(err.response?.data || err.message);
             }
         };
 
         fetchOrders();
-        const interval = setInterval(fetchOrders, 10000);
+        const interval = setInterval(fetchOrders, 5000);
         return () => clearInterval(interval);
 
-    }, [activeTab, cafes?._id]);  
+    }, [activeTab, cafes?._id ]);  
 
 
 
@@ -101,50 +101,49 @@ export const Ownerhomepage = () => {
     <div >{ user?.role == "Cafe Owner" ? (
         <div className='min-h-screen'>
         <Navbar className={"sticky top-0 z-10"}/>
-        <div className='bg-[#faf8f3] px-4 lg:pr-24 lg:pl-24  min-h-screen' id='Ownerhomepage'>
+        <div className='bg-[#faf8f3] px-4 lg:px-30  min-h-screen' id='Ownerhomepage'>
             <div className=' pt-4 pb-2'>
                 <h1 className='flex font-bold text-xl  pb-4 '>Dashboard -  <Select roles={cafe || []} value={cafeId} onChangeFxn={handleCafeChange}/> </h1>
                 <div className='flex h-1/3 x h-[25dvh]'>
                 <img alt='Please Select Cafe' src={`${cafes?.image}?t=${new Date().getTime()}`} 
-                className='w-full object-cover mb-4  rounded-xl '></img>
+                className='w-full object-cover mb-4  rounded-2xl shadow-md'></img>
                                 
             </div>
             <div className='grid grid-cols-1 grid-cols-3 gap-1 lg:gap-8 '>
-                <div className='flex flex-col bg-white hover:shadow p-2
-                lg:p-8 gap-2  cursor-pointer sticky 
-    top-0 z-10'>
+                <div className='flex flex-col bg-white p-4
+                lg:p-8 gap-2 shadow-sm rounded-2xl'>
                     <div className='flex flex-row justify-between items-center'>
                         <p>Todays's Revenue</p>
                         <i className="fa-solid fa-indian-rupee-sign
                         text-[#29c244]"></i>
                     </div>
-                    <p className='text-2xl text-[#29c244] '
+                    <p className='text-2xl text-[#29c244] font-bold'
                     >500/-</p>
                 </div>
                 <div className='flex flex-col bg-white hover:shadow 
-                p-2
+                p-4 shadow-sm rounded-2xl
                 lg:p-8  gap-2 cursor-pointer'>
                     <div className='flex flex-row justify-between items-center'>
                         <p>Total Orders</p>
                         <i className="fa-solid fa-arrow-trend-up text-[#29c244]"></i>
                     </div>
-                    <p className='text-2xl text-[#29c244]'
+                    <p className='text-2xl text-[#29c244] font-bold'
                     >{orders.length} </p>
                     
                 </div>
                 <div className='flex flex-col bg-white hover:shadow 
-                p-2
+                p-4 shadow-sm rounded-2xl
                 lg:p-8  gap-4 cursor-pointer'>
                     <div className='flex flex-row justify-between items-center'>
                         <p>Pending Orders</p>
                         <i className="fa-regular fa-clock text-[#ef4743]"></i>
                     </div>
-                    <p className='text-2xl text-[#ef4743]'
+                    <p className='text-2xl text-[#ef4743] font-bold'
                     > {pendingOrders()} </p>
                 </div>
                 </div>
             </div>
-            <div className='bg-[#f5f0e8] pt-2 pb-2 px-2 rounded-full p-1 flex items-center gap-1 lg:my-4'>
+            <div className='bg-[#f5f0e8] pt-2 pb-2 rounded-full p-1 flex items-center gap-1 lg:my-4'>
                 <button
                     onClick={() => setActiveTab('orders')} 
                     className={`px-4 py-2 rounded-full text-sm font-medium transition ${
