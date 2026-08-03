@@ -85,13 +85,14 @@ const login = (newToken) => {
     setToken(newToken); // triggers the useEffect above, which refetches everything
 };
 
-  const logout = () => {
-    localStorage.removeItem('token');  // remove token
-    setToken(null);
-    setUser(null);
-    localStorage.setItem('selectedCafeId', null);
-    toast.success("Logged Out Successfully");
-  };
+const logout = () => {
+  localStorage.removeItem('token');  // remove token
+  setToken(null);
+  setUser(null);
+  setCafe(null);
+  localStorage.setItem('selectedCafeId', null);
+  toast.success("Logged Out Successfully");
+};
 
   // isLoggedIn is true if token exists
   const isLoggedIn = !!token;  // !! converts to boolean
