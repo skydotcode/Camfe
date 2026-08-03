@@ -10,6 +10,7 @@ import api from '../config/axios.js'
 import { toast } from 'react-toastify';
 import { Loading } from '../components/ui/Loading';
 import { ReviewsPage } from '#src/components/ReviewsPage.jsx';
+import { AboutPage } from '#src/components/AboutPage.jsx';
 
 
 
@@ -100,8 +101,7 @@ export const Cafehome = () => {
                     
                 </div>}
                 {activeTab === 'reviews' && <ReviewsPage cafe={cafe}/>}
-                {activeTab === 'about' && about===null && <p className='flex justify-center font-bold
-                    text-2xl text-[#fe6a36]'>Nothingg to show !</p> }
+                {activeTab === 'about' && <AboutPage/> }
 
             </div>
         </div>
