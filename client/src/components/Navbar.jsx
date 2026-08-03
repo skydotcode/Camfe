@@ -50,7 +50,7 @@ export const Navbar = ({className}) => {
       </div>
       <div className='flex justify-center items-center gap-4'>
 
-      <IconButton onClick={() => navigate('/cart')}>
+      <IconButton onClick={() => navigate('/cart')} >
         <Badge badgeContent={totalItems} 
         sx={{
           '& .MuiBadge-badge': {
@@ -59,7 +59,7 @@ export const Navbar = ({className}) => {
           },
         }}
          overlap="circular">
-          <ShoppingCartIcon fontSize="small" />
+          <ShoppingCartIcon fontSize="medium" />
         </Badge>
       </IconButton>
 
