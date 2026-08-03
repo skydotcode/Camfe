@@ -11,7 +11,7 @@ export const Reviews = ({review , handleReviewChange , handleRatingChange , onSe
   }
 
   return (
-    <div className='flex justify-between bg-white my-4 rounded-2xl shadow-sm p-4 max-w-md '>
+    <div className='flex justify-between bg-white my-1 rounded-2xl shadow-sm p-4 max-w-md '>
       <div className='flex flex-row gap-2' >
           <Avatar />
           <div>
