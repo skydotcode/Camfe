@@ -7,6 +7,8 @@ import api from '../config/axios.js'
 import { Loading } from '../components/ui/Loading.jsx';
 import { Badge, IconButton } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCartOutlined';
+import toast, { Toaster } from 'react-hot-toast';
+import { Footer } from '#src/components/Footer.jsx';
 
 
 
@@ -14,6 +16,7 @@ const Cart = () => {
   const { cart, removeFromCart, increaseQuantity, decreaseQuantity, totalPrice, clearCart } = useCart();
   const {isLoggedIn , loading} = useAuth() ;
   const navigate = useNavigate();
+
 
   if(loading) return <Loading/>
 
@@ -36,9 +39,9 @@ const Cart = () => {
   }
 
   return (
-    <div className='flex flex-col bg-[#faf8f3] gap-8 min-h-screen'>
+    <div className='flex flex-col bg-[#faf8f3] gap-4 min-h-screen'>
       <CartFooter text={"Cart"}/>
-      <div className='flex flex-col gap-8 lg:px-30   px-4'>
+      <div className='flex flex-col gap-4 lg:px-30 px-4'>
       {cart.map(item => (
         <div key={item._id} className='flex flex-col bg-[#faf8f3]     gap-4 '>
             <div className='flex bg-white rounded-xl p-4 shadow-md gap-4 justify-center items-center'>
@@ -94,7 +97,18 @@ const Cart = () => {
       </div>
 
       {/* <h2>Total: ₹{totalPrice}</h2> */}
-      <OrderSummary onclick={()=> isLoggedIn? navigate("/orders"):navigate("/login")}/>
+      <OrderSummary onclick={()=> isLoggedIn ? navigate("/orders"): 
+      toast("Ohh you didn't login!",{
+          icon: '🙂',
+          style: {
+            borderRadius: '10px',
+            background: '#333',
+            color: '#fff',
+          },
+        }) && navigate("/login")}/>
+
+      <Footer/>
+      
     </div>
   );
 };

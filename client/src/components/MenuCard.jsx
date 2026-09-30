@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
-import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 // import foodItems from '../../../server/models/foodItems';
 import api from '../config/axios.js'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCartOutlined';
@@ -17,7 +17,7 @@ export const MenuCard = ({menu, image, name, price, rating, deliveryTime, classN
     };
   return (
     <div >
-    <div key={item._id} className={`bg-white rounded-2xl shadow-md hover:shadow-lg 
+    <div key={item._id} className={`bg-white rounded-3xl shadow-md hover:shadow-lg 
         transition-shadow cursor-pointer overflow-hidden w-full
         flex flex-row
         `}>

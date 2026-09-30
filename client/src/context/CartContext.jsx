@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import api from '../config/axios.js'
-import { toast } from 'react-toastify';
+import toast, { Toaster } from 'react-hot-toast';
 
 const CartContext = createContext();
 
@@ -25,7 +25,11 @@ export const CartProvider = ({ children }) => {
   const addToCart = (item) => {
     setCart(prev => {
       if (prev.length > 0 && getCafeId(prev[0]) !== getCafeId(item)) {
-        toast.error('You can only order from one cafe at a time. Clear your cart to order from a different cafe.');
+        toast.error('You can only order from one cafe at a time. Clear your cart to order from a different cafe.',
+          {
+            duration: 6000,
+          }
+        );
         return prev; // unchanged
       }
       // check if item already exists in cart

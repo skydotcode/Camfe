@@ -26,7 +26,7 @@ export const Categories = () => {
             overflow-x-scroll '>
                 <button className='flex flex-col justify-center gap-2 items-center 
                 bg-white  h-20 border border-gray-500/50 cursor-pointer 
-                hover:border-[#fe6a37] rounded-xl focus:border-[#fe6a37]'
+                hover:border-[#fe6a37] rounded-3xl focus:border-[#fe6a37]'
                 name = "Drinks"
                 value= "Drinks"
                 onClick={handleClick}>
@@ -35,7 +35,7 @@ export const Categories = () => {
 
                 <button className='flex flex-col justify-center gap-2 items-center 
                 bg-white  h-20 border border-gray-500/50 cursor-pointer
-                hover:border-[#fe6a37] rounded-xl focus:border-[#fe6a37]'
+                hover:border-[#fe6a37] rounded-3xl focus:border-[#fe6a37]'
                 name = "Snacks"
                 value= "Snacks"
                 onClick={handleClick}>
@@ -44,7 +44,7 @@ export const Categories = () => {
 
                 <button className='flex flex-col justify-center gap-2  items-center 
                 bg-white h-20 border border-gray-500/50 cursor-pointer
-                hover:border-[#fe6a37] rounded-xl focus:border-[#fe6a37]'
+                hover:border-[#fe6a37] rounded-3xl focus:border-[#fe6a37]'
                 name = "Meals"
                 value= "Meals"
                 onClick={handleClick}>
@@ -52,7 +52,7 @@ export const Categories = () => {
                     Meals</button>
                 <button className='flex flex-col justify-center gap-2  items-center 
                 bg-white  h-20 border border-gray-500/50 cursor-pointer
-                hover:border-[#fe6a37] rounded-xl focus:border-[#fe6a37]'
+                hover:border-[#fe6a37] rounded-3xl focus:border-[#fe6a37]'
                 name = "Desserts"
                 value= "Desserts"
                 onClick={handleClick}>
@@ -64,7 +64,7 @@ export const Categories = () => {
         <div className='my-2'>
             <p className='text-2xl'>Delecious {category} for you!</p>
             <div  
-            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
+            className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4'>
                 {(menu?.length !== 0 ) ? menu?.map((item) => (
                 <MenuCard
                 key={item._id}

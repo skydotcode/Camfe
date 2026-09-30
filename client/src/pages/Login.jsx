@@ -102,7 +102,7 @@ export const Login = () => {
                 <p className='opacity-75'> delivered straight to your location</p>
             </div>
             <img src={burgerImg} className='rounded-xl shadow-2xl object-cover cursor-pointer 
-            h-50 w-90 opacity-75'></img>
+            h-50 w-90 '></img>
             <Back/>
 
         </div>

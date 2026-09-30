@@ -18,6 +18,8 @@ import { MyOrders } from './pages/MyOrders'
 import AuthSuccess from './pages/AuthSuccess';
 import api from './config/axios.js'
 import { useAuth } from './context/AuthContext'
+import toast, { Toaster } from 'react-hot-toast';
+import { Category } from './pages/Category'
 
 
 // import './App.css'
@@ -37,6 +39,7 @@ function App() {
   return(
     <BrowserRouter>
     <ScrollToTop /> 
+    <Toaster /> 
     <ToastContainer
       position="top-center"
       autoClose={5000}
@@ -61,6 +64,7 @@ function App() {
         <Route path="/menu/:id" element={<ProtectedRoute><EditFood /></ProtectedRoute>} />
         <Route path="/cafe/new" element={<ProtectedRoute><CafeRegister /></ProtectedRoute>} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/menu/categories" element={<Category />} />
         <Route path="/orders" element={<ProtectedRoute><Checkout /></ProtectedRoute>} />
         <Route path="/orders/my" element={<ProtectedRoute><MyOrders /></ProtectedRoute>} />
         <Route path="/cafe/:id" element={<Cafehome/>}/>
