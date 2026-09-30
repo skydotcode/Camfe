@@ -44,8 +44,6 @@ export const ReviewsPage = ({cafe}) => {
         setIsEdit(review);
     };
 
-    console.log(isEdit);
-
     const handleReviewChange = (e ) => {
         setReview(e.target.value );
     };
@@ -144,7 +142,7 @@ export const ReviewsPage = ({cafe}) => {
 
 
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 pt-4'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2'>
         <div className='bg-white rounded-2xl shadow-sm p-4 ' >
             <p className='text-2xl font-semibold'>Leave a Review for </p>
             <p className='text-2xl font-light mb-1'>{cafe?.name}</p>
