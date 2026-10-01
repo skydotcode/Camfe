@@ -4,7 +4,7 @@ import { TypeAnimation } from 'react-type-animation'
 import Typed from 'typed.js';
 import api from '../config/axios.js'
 import { Loading } from './ui/Loading.jsx';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { MenuCard } from './MenuCard.jsx';
 import { Cafecard } from './Cafecard.jsx';
 import { useCart } from '#src/context/CartContext.jsx';

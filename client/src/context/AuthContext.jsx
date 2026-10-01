@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { createContext, useContext, useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import api from '../config/axios.js'
 import { Loading } from '#src/components/ui/Loading.jsx';
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../config/axios.js'
 import { Loading } from './ui/Loading';
 import { useAuth } from '#src/context/AuthContext.jsx';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 
 export const Cafes = ({cafeListing}) => {

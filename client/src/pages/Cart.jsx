@@ -32,7 +32,7 @@ const Cart = () => {
           </IconButton>
           <h1 className=''>Your cart is empty!</h1>
           <button onClick={() => navigate('/')} className='bg-[#fe6a36] text-white p-4 
-          w-60 rounded-lg font-bold '>Browse Menu</button>
+          w-60 rounded-3xl font-bold '>Browse Menu</button>
         </div>
       </div>
     );

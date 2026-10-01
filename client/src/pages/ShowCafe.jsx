@@ -7,7 +7,7 @@ import { useCart } from '#src/context/CartContext.jsx';
 import { OrderSummary } from '#src/components/OrderSummary.jsx';
 import { Back } from '#src/components/Back.jsx';
 import api from '../config/axios.js'
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { Loading } from '../components/ui/Loading';
 import { ReviewsPage } from '#src/components/ReviewsPage.jsx';
 import { AboutPage } from '#src/components/AboutPage.jsx';

@@ -8,11 +8,11 @@ export const OrderSummary = ({onclick}) => {
   const navigate = useNavigate();
   return (
     <div className=' bg-white/30 backdrop-blur-md 
-    flex flex-row justify-between px-8 py-4 fixed bottom-0 left-0 
+    flex flex-row justify-between px-8 py-4  fixed bottom-0 left-0 
     w-full lg:px-44 shadow-md '>
         <div onClick={clearCart} className=' flex justify-center items-center cursor-pointer'>
-            <button ><i className="fa-solid fa-trash-can text-red-500"></i></button>
-             <p>Clear Cart</p>
+            <button ><i className="fa-solid fa-trash-can text-red-500 text-2xl"></i><p>Clear Cart</p></button>
+             
         </div>
         <button onClick={onclick} className='bg-[#fe6a36] p-4 text-white cursor-pointer
         rounded-2xl font-bold' >Proceed to Checkout</button>

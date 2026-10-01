@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import { useAuth } from '#src/context/AuthContext.jsx';
 import { CartFooter } from '#src/components/CartFooter.jsx';
 import api from '../config/axios.js'
@@ -187,11 +187,11 @@ const Checkout = () => {
   }
 
   return (
-    <div className='flex flex-col bg-[#faf8f3] gap-8 h-screen '>
+    <div className='flex flex-col bg-[#faf8f3] gap-4 h-screen '>
         <CartFooter text={"CheckOut"}/>
         <div className='flex flex-col gap-2  lg:px-24 min-h-screen mx-4 '>
             <div className='flex flex-col gap-4 bg-white p-4  gap-4 shadow-xl  rounded-xl'>
-                <p className='font-bold text-2xl'>Enter Delivery Location Details</p>
+                <p className='font-bold text-2xl'>Enter Delivery Details</p>
            {/* {cart.map(item => ( */}
                 <form className='flex flex-col gap-2 bg-white gap-4' 
                 onSubmit={handlePlaceOrder} id="myForm">

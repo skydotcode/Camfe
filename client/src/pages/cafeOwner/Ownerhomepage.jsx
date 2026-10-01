@@ -10,6 +10,12 @@ import { NotFound } from '../NotFound'
 import api from '../../config/axios.js'
 import { Loading } from '../../components/ui/Loading';
 import { toast } from 'react-toastify'
+// import { ToggleButton } from '@mui/material'
+// import ToggleSwitch from '#src/components/ui/ToggleSwitch.jsx'
+// import { Switch } from "@material-tailwind/react";
+// import { Toggle , HStack} from 'rsuite';
+// import 'rsuite/dist/rsuite.css';
+import Switch from '@mui/material/Switch';
 
 
 export const Ownerhomepage = () => {
@@ -18,6 +24,7 @@ export const Ownerhomepage = () => {
     const [activeTab, setActiveTab] = useState('');
     const { id } = useParams();
     const [cafes, setCafes] = useState( null);
+    const [checked, setChecked] = useState(true);
 
     const [orders, setOrders] = useState([]);
     const [cafeId, setCafeId] = useState(() => localStorage.getItem('selectedCafeId'));
@@ -41,25 +48,27 @@ export const Ownerhomepage = () => {
             const res = await api.get(`/api/cafe/${cafeId}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-            setCafes(res?.data?.data);  
+            setCafes(res?.data?.data); 
+            console.log(res) 
+            setChecked(res?.data.data.isOpen)
         };
         if (cafeId) fetchCafe();
     }, [cafeId]);  
     
     useEffect(() => {
-    if (!cafe || cafe.length === 0) return;
+        if (!cafe || cafe.length === 0) return;
 
-    const storedId = localStorage.getItem('selectedCafeId');
-    const validStoredId = cafe.some(c => c._id === storedId) ? storedId : null;
+        const storedId = localStorage.getItem('selectedCafeId');
+        const validStoredId = cafe.some(c => c._id === storedId) ? storedId : null;
 
-    if (validStoredId) {
-        if (validStoredId !== cafeId) setCafeId(validStoredId);
-    } else {
-        const firstId = cafe[0]._id;
-        localStorage.setItem('selectedCafeId', firstId);
-        setCafeId(firstId);
-    }
-}, [cafe]);
+        if (validStoredId) {
+            if (validStoredId !== cafeId) setCafeId(validStoredId);
+        } else {
+            const firstId = cafe[0]._id;
+            localStorage.setItem('selectedCafeId', firstId);
+            setCafeId(firstId);
+        }
+    }, [cafe]);
 
 
     // 2. fetch orders when activeTab or cafes changes
@@ -82,7 +91,39 @@ export const Ownerhomepage = () => {
         const interval = setInterval(fetchOrders, 5000);
         return () => clearInterval(interval);
 
-    }, [activeTab, cafes?._id ]);  
+    }, [activeTab, cafes?._id ]); 
+    
+    const handleChange = async(event)=>{
+        console.log(event.target.checked)
+        setChecked(event.target.checked);
+        const storedId = localStorage.getItem('selectedCafeId');
+        
+        if(storedId){
+            const token = localStorage.getItem('token');
+            let res =  await toast.promise( 
+                api.put(`/api/cafe/${storedId}`, 
+                    { 
+                        isOpen:event?.target?.checked
+                    },
+                    {
+                    headers: {
+                        Authorization: `Bearer ${token}`}
+                }) , {    
+                pending: ' Validating your review...',
+                success: ' Cafe Status Updated!',
+                error: {
+                    render({ data }) {
+                        return data?.response?.data?.errors?.[0] 
+                            || data?.response?.data?.error 
+                            || 'Something went wrong?';
+                    }
+                }
+                });
+        }
+
+        
+
+    }
 
 
 
@@ -96,17 +137,35 @@ export const Ownerhomepage = () => {
         return count ;
     }
     if (loading) return <Loading/>;
+    const label = { slotProps: { input: { 'aria-label': 'Color switch demo' } } };
   return (
     
     <div >{ user?.role == "Cafe Owner" ? (
         <div className='min-h-screen'>
+            
         <Navbar className={"sticky top-0 z-10"}/>
+        
         <div className='bg-[#faf8f3] px-4 lg:px-30  min-h-screen' id='Ownerhomepage'>
-            <div className=' pt-4 pb-2'>
-                <h1 className='flex font-bold text-xl  pb-4 '>Dashboard -  <Select roles={cafe || []} value={cafeId} onChangeFxn={handleCafeChange}/> </h1>
+            <div className=' pt-4 pb-2 relative'>
+                <h1 className='flex font-bold text-xl  pb-4 '>
+                    Dashboard -  <Select roles={cafe || []} value={cafeId} onChangeFxn={handleCafeChange}/> 
+                </h1>
+                
                 <div className='flex h-1/3 x h-[25dvh]'>
                 <img alt='Please Select Cafe' src={`${cafes?.image}?t=${new Date().getTime()}`} 
-                className='w-full object-cover mb-4  rounded-2xl shadow-md'></img>
+                className='w-full object-cover mb-4  rounded-2xl shadow-md'>
+                    
+                </img>
+                <div className='flex absolute mt-2 right-5 bg-black/30 backdrop-blur-md rounded-3xl items-center p-2 '>
+                    <p className='text-white'>Closed</p>
+                    <Switch checked={checked}
+                    onChange={handleChange} color='warning'
+                    slotProps={{ input: { 'aria-label': 'controlled' } }} />
+                    <p className='text-white'>Open</p>
+                </div>
+                
+                
+                
                                 
             </div>
             <div className='grid grid-cols-1 grid-cols-3 gap-1 lg:gap-8 '>

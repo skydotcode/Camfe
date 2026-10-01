@@ -84,6 +84,7 @@ export const CartProvider = ({ children }) => {
   // CLEAR CART
   const clearCart = () => {
     setCart([]);
+    toast.success("Cart cleared succesfully")
   };
 
   // TOTAL PRICE

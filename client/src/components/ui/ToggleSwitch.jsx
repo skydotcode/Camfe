@@ -12,6 +12,7 @@ const IOSSwitch = styled((props) => (
 ))(({ theme }) => ({
   width: 42,
   height: 26,
+  // position:'absolute',
   padding: 0,
   '& .MuiSwitch-switchBase': {
     padding: 0,
@@ -68,7 +69,7 @@ const IOSSwitch = styled((props) => (
 }));
 
 
-export default function CustomizedSwitches() {
+export default function ToggleSwitch() {
   return (
     <FormGroup>
       <FormControlLabel

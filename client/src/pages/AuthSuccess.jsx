@@ -1,7 +1,7 @@
 import { Loading } from '../components/ui/Loading.jsx';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import api from '../config/axios.js'
 import { useAuth } from '../context/AuthContext.jsx';
 

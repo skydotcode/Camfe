@@ -1,5 +1,5 @@
 import React from 'react'
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 import { Navbar } from '../components/Navbar';
 export const Error = () => {
     toast('🦄 Wow so easy!', {
