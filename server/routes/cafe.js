@@ -84,6 +84,10 @@ router.get("/:id" ,
   res.json({data:cafe});
 }));
 
+router.put("/:id" ,
+  authMiddleware,
+  wrapAsync( cafeController.update));
+
 router.get("/:id/reviews" , async(req , res) =>{
   const {id} = req.params ;
   let rev = await reviews.find({

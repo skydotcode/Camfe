@@ -3,7 +3,7 @@ const foodItems = require("../models/menu.js");
 
 module.exports.index = async(req ,res)=>{
   try {
-    const allCafes = await cafes.find();
+    const allCafes = await cafes.find({isOpen:true});
     res.json(allCafes);
   } catch(err){
     console.log(err.message);
@@ -44,3 +44,28 @@ module.exports.show = async(req ,res)=>{
     console.log(err.message);
   }
 };
+
+module.exports.update = async(req,res)=>{
+  let {id} = req.params ; 
+  console.log("id..",id);
+  let cafe = await cafes.findById(id);
+  res.json({data:cafe});
+  console.log(req.body.isOpen);
+  const updatedData = {
+    isOpen: req.body.isOpen,
+    // price: req.body.price,
+    // description: req.body.description,
+    // category: req.body.category,
+  };
+  const updatedItem = await cafes.findByIdAndUpdate(
+    req.params.id,     // find item by id
+    updatedData,       // apply these changes
+    { new: true }      // return the updated document, not the old one
+  );
+  console.log(updatedItem);
+  if (!updatedItem) {
+    return res.status(404).json({ error: 'Cafe not found' });
+  }
+  res.json({ message: 'Cafe status updated!', data: updatedItem });
+
+}
