@@ -12,6 +12,11 @@ const cors = require("cors");
 
 const app = express();
 const mongoose = require("mongoose");
+const http = require('http');
+const { Server } = require('socket.io');
+
+const server = http.createServer(app);
+
 const User = require("./models/users.js");
 const foodItems = require("./models/menu.js");
 const Cafes = require("./models/cafes.js");
@@ -51,12 +56,25 @@ async function main(params) {
   await mongoose.connect(MONGO_URL);
 }
 
+const io = new Server(server, {
+  cors: { origin: process.env.FRONTEND_URL, credentials: true }, // your client URL
+});
 
+app.set('io', io); // so any route can access it via req.app.get('io')
+
+io.on('connection', (socket) => {
+  socket.on('join-cafe', (cafeId) => {
+    socket.join(`cafe:${cafeId}`);
+  });
+  socket.on("join-order", (orderId) => {
+    socket.join(`order:${orderId}`);
+  });
+});
 
 app.use(cors({
   origin: [
-    'http://localhost:8080' ,
-    'https://camfe-g4u5.onrender.com'] ,
+    // 'http://localhost:8080' ,
+    process.env.BACKEND_URL] ,
   credentials: true  ,
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -180,6 +198,8 @@ app.use((err ,req,res ,next)=>{
 
 // server start
 const PORT = 8080;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
+
+server.listen(PORT, () => console.log(`Server on ${PORT}`));

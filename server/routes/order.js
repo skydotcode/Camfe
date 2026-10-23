@@ -38,6 +38,7 @@ router.post("/" ,
     });
   }
   if(paymentMethod === "Pay Now") paymentMethod = "Online" ;
+  
   const order = await orders.create({
     userId: req.userId,
     customer:customer,
@@ -50,6 +51,10 @@ router.post("/" ,
     status: "placed"
   });
 
+  const io = req.app.get('io');
+  console.log("order" , order)
+  io.to(`cafe:${order?.cafeId}`).emit('order-placed', order);
+
   res.json({message:"order placed successfully"});
 
 }));
@@ -57,7 +62,7 @@ router.post("/" ,
 router.get("/my" ,
   authMiddleware, wrapAsync(async(req,res)=>{
     // let userId = req.userId;
-    let order = await orders.find({userId:req.userId});
+    let order = await orders.find({userId:req.userId}).populate("cafeId");
     res.json({data:order});
 }));
 
@@ -66,6 +71,7 @@ router.get("/:id/status" ,
   authMiddleware, wrapAsync( async(req ,res)=>{
   let {id} = req.params;
   console.log(id);
+  
   // await orders.findByIdAndUpdate(id ,
   //   {status : "cancelled"} ,
   // )
@@ -79,11 +85,19 @@ router.put("/:id/status" ,
   authMiddleware, wrapAsync( async(req ,res)=>{
   let {id} = req.params;
   console.log(id);
+  // if (!['placed', 'accepted'].includes(order.status)) {
+  //   return res.status(400).json({ error: [`Order can't be cancelled, it is already ${order.status}`] });
+  // }
   await orders.findByIdAndUpdate(id ,
     {status : "cancelled"} ,
   )
   let order = await orders.findById(id);
   console.log("order");
+
+  const io = req.app.get('io');
+  io.to(`cafe:${order.cafeId}`).emit('order-cancelled', order);
+  // console.log('emitting to:', `cafe:${order.cafeId}`);
+
   res.json({message:"order cancelled successfully"});
 }));
 

@@ -125,9 +125,9 @@ router.post("/:id/menu/new" ,
 router.get("/:id/orders" ,
   authMiddleware,wrapAsync( async(req,res)=>{
   let {id} = req.params ; 
-  console.log("id",id);
+  // console.log("id",id);
   let order = await orders.find({cafeId:id});
-  console.log("order",order);
+  // console.log("order",order);
   res.json({data:order});
 }));
 
@@ -136,14 +136,22 @@ router.put("/:id/orders",
   wrapAsync(async(req,res)=>{
   let {id } = req.params ; 
   let {status , orderId } = req.body ; 
-  console.log("order",orderId);
-  console.log("id",id);
-  let respon = await orders.findById(orderId);
-  console.log("res",respon);
-  await orders.findByIdAndUpdate(orderId ,
-    {status : status} 
+  
+
+  // let respond = await orders.findById(orderId);
+
+  let order = await orders.findByIdAndUpdate(orderId ,
+    {status : status} ,
+    { new: true }
   );
-  console.log("doen");
+
+  console.log("done")
+
+  const io = req.app.get('io');
+  // io.to(`order:${orderId}`).emit('order-status-updated', order);
+  io.to(`cafe:${order.cafeId}`)
+    .to(`order:${order._id}`)      // customer's room, whatever name you use
+    .emit('order-status-updated', order);
   res.json({ message: "order updated successfully" });
 }));
 

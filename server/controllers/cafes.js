@@ -62,7 +62,6 @@ module.exports.update = async(req,res)=>{
     updatedData,       // apply these changes
     { new: true }      // return the updated document, not the old one
   );
-  console.log(updatedItem);
   if (!updatedItem) {
     return res.status(404).json({ error: 'Cafe not found' });
   }
