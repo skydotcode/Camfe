@@ -43,7 +43,7 @@ export const MyOrders = () => {
     useEffect(() => {
       if (!orders?.length) return;
 
-      orders.forEach((o) => socket.emit('join-order', o._id));
+      orders?.forEach((o) => socket.emit('join-order', o._id));
 
       const onUpdate = (updated) => {
         setOrders((prev) =>
@@ -53,10 +53,10 @@ export const MyOrders = () => {
 
       socket.on('order-status-updated', onUpdate);
       return () => socket.off('order-status-updated', onUpdate);
-    }, [orders.length]);
+    }, [orders?.length]);
 
     if(loading) return <Loading/>;
-    if (orders.length == 0) {
+    if (orders?.length == 0) {
     return (
       <div className='flex flex-col h-screen bg-[#faf8f3]'>
         <CartFooter/>
@@ -95,7 +95,7 @@ export const MyOrders = () => {
     // <Ownerhomepage cancelled={order}/>
     refreshUser();
   }
-    if (orders?.length === 0) {
+    if (!orders) {
     return (
       <div className='flex flex-col h-screen bg-[#faf8f3]'>
         <CartFooter text={"Orders"}/>
@@ -131,7 +131,7 @@ export const MyOrders = () => {
                         </div>
                         <div className="text-right font-medium">
                             <p>#{order?._id.slice(-5)}</p>
-                            <p>{order?.cafeId.name}</p>
+                            <p>{order?.cafeId?.name}</p>
                             <p>{order?.deliveryLocation[0]} ,{order?.deliveryLocation[1]} </p>
                             <p>{new Date(order.createdAt).toLocaleString()}</p>
                             
