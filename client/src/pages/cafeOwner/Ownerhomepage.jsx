@@ -9,13 +9,14 @@ import { Select } from '../../components/ui/Select.jsx'
 import { NotFound } from '../NotFound'
 import api from '../../config/axios.js'
 import { Loading } from '../../components/ui/Loading';
-import { toast } from 'react-toastify'
+import { toast } from 'react-hot-toast'
 // import { ToggleButton } from '@mui/material'
 // import ToggleSwitch from '#src/components/ui/ToggleSwitch.jsx'
 // import { Switch } from "@material-tailwind/react";
 // import { Toggle , HStack} from 'rsuite';
 // import 'rsuite/dist/rsuite.css';
 import Switch from '@mui/material/Switch';
+import { socket } from '#src/socket.js'
 
 
 export const Ownerhomepage = () => {
@@ -34,7 +35,85 @@ export const Ownerhomepage = () => {
         if (!isLoggedIn) {
             navigate("/login");
         }
-    }, [isLoggedIn , navigate]);
+        socket.emit('join-cafe', cafeId);
+
+        // const onCancelled = (order) => {
+        //     toast.error(`Order #${order._id.slice(-5)} was cancelled`);
+        //     setOrders((prev) => prev.map((o) => (o._id === order._id ? order : o)));
+        // };
+
+        // socket.on('order-cancelled', onCancelled);
+
+        // return () => socket.off('order-cancelled', onCancelled); // cleanup
+
+        const onCancelled = (order) => {
+            toast((t) => (
+                <p>
+                    Order <b>{`#${order._id.slice(-5)}`}</b> was cancelled
+                    <button onClick={() => toast.dismiss(t.id)}>
+                    Dismiss
+                    </button>
+                </p>
+                
+            ) , {icon: '❌' , duration: 7000,});
+            setOrders((prev) => prev.map((o) => (o._id === order._id ? order : o)));
+        };
+
+        const onPlaced = (order) => {
+            console.log('NEW onPlaced running', order);
+            toast(`Order Received from ${order?.deliveryLocation} !`, {
+                icon: '👏',
+            });
+            console.log(order)
+            setOrders((prev) =>
+                prev.some((o) => o._id === order._id)
+                ? prev.map((o) => (o._id === order._id ? order : o))
+                : [order, ...prev]
+            );
+            // setOrders.append((prev) => [order, ...prev])
+            socket.emit("join-order" , order?._id)
+        }
+        const onStatusUpdated = (order) => {
+            // console.log('NEW onPlaced running', order);
+            // toast(`Order Updated from ${order?.deliveryLocation} !`, {
+            //     icon: '👏',
+            // });
+            // console.log(order)
+            // setOrders((prev) =>
+            //     prev.some((o) => o._id === order._id)
+            //     ? prev.map((o) => (o._id === order._id ? order : o))
+            //     : [order, ...prev]
+            // );
+            
+            setOrders((prev) =>
+                prev.some((o) => o._id === order._id)
+                    ? prev.map((o) => (o._id === order._id ? order : o))
+                    : [order, ...prev]
+            );
+            toast('Order updated!', { icon: '👏' });   // the one toast, since only the parent listens
+
+            // setOrders.append((prev) => [order, ...prev])
+            // socket.emit("join-order" , order?._id)
+        }
+
+        socket.on('order-cancelled', onCancelled);
+        socket.on('order-placed', onPlaced);
+        socket.on('order-status-updated', onStatusUpdated);
+
+        // return () => {
+        //     socket.off('order-cancelled', onCancelled);
+        //     socket.off('order-placed', onPlaced);
+        // } // cleanup
+
+        return () => {
+            socket.off('order-cancelled', onCancelled);
+            socket.off('order-placed', onPlaced);
+            socket.off('order-status-updated', onStatusUpdated);   // ← add this
+        };
+
+
+
+    }, [isLoggedIn , navigate ,cafeId]);
 
     const handleCafeChange = (newId) => {
         localStorage.setItem('selectedCafeId', newId); // optional, Select already does this
@@ -88,8 +167,8 @@ export const Ownerhomepage = () => {
         };
 
         fetchOrders();
-        const interval = setInterval(fetchOrders, 5000);
-        return () => clearInterval(interval);
+        // const interval = setInterval(fetchOrders, 5000);
+        // return () => clearInterval(interval);
 
     }, [activeTab, cafes?._id ]); 
     
@@ -202,7 +281,7 @@ export const Ownerhomepage = () => {
                 </div>
                 </div>
             </div>
-            <div className='bg-[#f5f0e8] pt-2 pb-2 rounded-full p-1 flex items-center gap-1 lg:my-4'>
+            <div className='bg-[#f5f0e8] pt-2 pb-2 rounded-full p-1 flex items-center gap-1'>
                 <button
                     onClick={() => setActiveTab('orders')} 
                     className={`px-4 py-2 rounded-full text-sm font-medium transition ${

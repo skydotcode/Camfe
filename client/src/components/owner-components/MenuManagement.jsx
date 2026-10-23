@@ -19,7 +19,7 @@ export const MenuManagement = ({cafe }) => {
 
   return (
     <div className=''>
-        <div className='flex flex-col  gap-4  pt-2 pb-8 '>
+        <div className='flex flex-col   '>
             <div className='flex justify-between items-center'>
               <p className='text-2xl'>Your Listed Items</p>
               <form>

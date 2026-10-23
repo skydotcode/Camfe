@@ -1,55 +1,68 @@
 import { useAuth } from '#src/context/AuthContext.jsx';
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 import api from '../../config/axios.js'
 import { Loading } from '../ui/Loading.jsx';
+import { socket } from '#src/socket.js';
+import { useParams } from 'react-router-dom';
 
 export const OrderStatus = ({ordersArray , position}) => {
   const {loading} = useAuth();
-  const [orders , setOrders] = useState(ordersArray );
+  // const { cafeId , loading} = useParams();
+  // const [orders , setOrders] = useState(ordersArray );
 
-  useEffect(() => {
-    setOrders(ordersArray);  // ✅ syncs state whenever prop updates
-  }, [ordersArray]);
-
-    
-  const fetchOrders = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const res = await api.get(`/api/cafe/${orders[0]?.cafeId}/orders`, {
-          headers: { Authorization: `Bearer ${token}` }
-      });
-      console.log(res.data.data);
-      setOrders(res.data.data);
-    } catch (err) {
-        toast.error(err.response?.data || err.message);
-    }
-  };
+  // useEffect(() => {
+  //   setOrders(ordersArray);  // ✅ syncs state whenever prop updates
+  // }, [ordersArray]);
 
     
-  
+  // const fetchOrders = async () => {
+  //   try {
+  //     const token = localStorage.getItem('token');
+  //     const res = await api.get(`/api/cafe/${ordersArray[0]?.cafeId}/orders`, {
+  //         headers: { Authorization: `Bearer ${token}` }
+  //     });
+  //     console.log(res.data.data);
+
+  //     // setOrders(res.data.data);
+  //   } catch (err) {
+  //       toast.error(err.response?.data || err.message);
+  //   }
+  // };
+
+    
+  // useEffect(() => {
+  //   const onUpdate = (order) => {
+  //     setOrders((prev) =>
+  //       prev.map((o) => (o._id === order._id ? order : o))
+  //     );
+  //     toast('Order updated!', { icon: '👏' });
+  //   };
+
+  //   socket.on('order-status-updated', onUpdate);
+  //   return () => socket.off('order-status-updated', onUpdate);
+  // }, []);
+
   const handleClick = async(orderId,status)=>{
     try{
       const token = localStorage.getItem('token');
-      let res = await toast.promise(api.put(`/api/cafe/${orders[0]?.cafeId}/orders`, 
-        {status , orderId} , 
-        {headers: {
-          Authorization: `Bearer ${token}` 
-        }}
-        
-      ),  {    
-            pending: '🍔 Updating the status...',
-            success: 'Status updated, Please Wait...!',
-            error: {
-                render({ data }) {
-                    return data?.response?.data?.errors?.[0] 
-                        || data?.response?.data?.error 
-                        || 'Something went wrong?';
-                }
-            }
-        });
-      await fetchOrders();
+      const res = await toast.promise(
+        api.put(
+          `/api/cafe/${ordersArray[0]?.cafeId}/orders`,
+          { status, orderId },
+          { headers: { Authorization: `Bearer ${token}` } }
+        ),
+        {
+          loading: '🍔 Updating the status...',
+          success: 'Status updated!',
+          error: (err) =>
+            err?.response?.data?.errors?.[0] ||
+            err?.response?.data?.error ||
+            'Something went wrong?',
+        }
+      );
+      console.log(res)
       
 
     }catch(err){
@@ -57,13 +70,12 @@ export const OrderStatus = ({ordersArray , position}) => {
     }
   }
 
-  if (loading) return <Loading/>;
-  console.log(orders);
+  if (loading) return <Loading/>
 
   return (
     <div className="flex gap-2 overflow-x-auto p-4 scrollbar-thin">
       {
-    orders?.map((order) =>( 
+    ordersArray?.map((order) =>( 
 
       order.status === position &&
     <div key={order._id} className='flex flex-col bg-white p-4 shadow-sm rounded-2xl 
