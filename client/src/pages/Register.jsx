@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import logo from "../images/LogoIcon.jpeg"
+import logo from "../images/doge - Edited.jpg"
 import burgerImg from "../images/burger.jpg"
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -87,24 +87,24 @@ export const Register = () => {
     if(loading) return <Loading/>
 
     return (
-    <div className='flex flex-col md:flex-row overflow-y-scroll'>
+    <div className='flex flex-col md:flex-row min-h-screen'>
         <div className='bg-[#feefe3] flex flex-col gap-4 
                 items-center 
                 py-10 
-                w-full md:w-1/2 lg:h-screen'>
+                w-full md:w-1/2 '>
             <img src={logo} className='rounded-full object-cover cursor-pointer h-30 '></img>
             <h1 className='text-4xl font-bold'>Camfè </h1>
             <div className='flex flex-col items-center'>
                 <p className='opacity-75'>Delicious food from your favorite campus cafes,</p>
                 <p className='opacity-75'> delivered straight to your location</p>
             </div>
-            <img src={burgerImg} className='rounded-xl shadow-2xl object-cover cursor-pointer h-50 w-90'></img>
+            {/* <img src={burgerImg} className='rounded-xl shadow-2xl object-cover cursor-pointer h-50 w-90'></img> */}
             <Back/>
 
         </div>
         <div className='w-full md:w-1/2 flex flex-col gap-4 
                 justify-center 
-                p-4 md:px-10 md:pt-4'>
+                p-4 md:px-10 md:py-10'>
             <p className='text-4xl '>Welcome!</p>
             <p className='opacity-75'>Register Now to order from your favorite campus cafes</p>
             <GoogleLoginButton/>

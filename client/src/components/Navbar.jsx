@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import logo from "../images/LogoIcon.jpeg"
+import logo from "../images/doge - Edited.jpg"
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';

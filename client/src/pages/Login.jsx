@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import logo from "../images/LogoIcon.jpeg"
+import logo from "../images/doge - Edited.jpg"
 import burgerImg from "../images/burger.jpg"
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
@@ -101,8 +101,8 @@ export const Login = () => {
                 <p className='opacity-75'>Delicious food from your favorite campus cafes,</p>
                 <p className='opacity-75'> delivered straight to your location</p>
             </div>
-            <img src={burgerImg} className='rounded-xl shadow-2xl object-cover cursor-pointer 
-            h-50 w-90 '></img>
+            {/* <img src={burgerImg} className='rounded-xl shadow-2xl object-cover cursor-pointer 
+            h-50 w-90 '></img> */}
             <Back/>
 
         </div>
